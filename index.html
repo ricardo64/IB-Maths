@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IB DP Maths AI SL - Interactive Lessons</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #0284c7;
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+      box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
+    }
+
+    .card-topic {
+      font-size: 0.85rem;
+      color: #fbbf24;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      align-self: flex-start;
+      background-color: #0284c7;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .card:hover .btn {
+      background-color: #0369a1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="badge">IB DP Mathematics AI SL</span>
+    <h1>Interactive Lesson Decks</h1>
+    <p>Select a topic to launch the interactive presentation deck.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Lesson 1 Card -->
+    <a href="./3d-coordinates/" class="card">
+      <div>
+        <div class="card-topic">Topic 4 • Coordinate Geometry</div>
+        <div class="card-title">3D Coordinate Systems & Midpoints</div>
+        <div class="card-desc">Interactive 2D/3D midpoint calculations, 3D point plotting animations, video walkthroughs, and real-world ski lift exam practice.</div>
+      </div>
+      <div class="btn">Open Presentation &rarr;</div>
+    </a>
+
+    <!-- Template for Lesson 2 (Uncomment and update when ready) -->
+    <!-- 
+    <a href="./voronoi-diagrams/" class="card">
+      <div>
+        <div class="card-topic">Topic 4 • Geometry & Trig</div>
+        <div class="card-title">Voronoi Diagrams</div>
+        <div class="card-desc">Constructing nearest-neighbour sites, finding perpendicular bisectors, and real-world application problems.</div>
+      </div>
+      <div class="btn">Open Presentation &rarr;</div>
+    </a>
+    -->
+  </main>
+
+</body>
+</html>
