@@ -21,17 +21,18 @@
       justify-content: center;
       min-height: 100vh;
       overflow: hidden;
+      padding: 1rem;
     }
 
     .presentation {
-      width: 92vw;
-      max-width: 1050px;
-      height: 75vh;
-      max-height: 700px;
+      width: 96vw;
+      max-width: 1600px;
+      height: 92vh;
+      max-height: 950px;
       position: relative;
       background-color: #1e293b;
-      border-radius: 12px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -46,7 +47,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.4s ease, visibility 0.4s ease;
-      padding: 2.2rem 2.8rem;
+      padding: 3rem 4rem;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
@@ -58,12 +59,12 @@
     }
 
     .slide-title {
-      font-size: 1.75rem;
+      font-size: 2.6rem;
       font-weight: 700;
       color: #38bdf8;
-      margin-bottom: 0.8rem;
-      border-bottom: 2px solid #334155;
-      padding-bottom: 0.4rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.6rem;
     }
 
     .slide-content {
@@ -71,8 +72,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 1.1rem;
-      line-height: 1.5;
+      font-size: 1.5rem;
+      line-height: 1.6;
       color: #cbd5e1;
       overflow-y: auto;
     }
@@ -85,24 +86,24 @@
     }
 
     .title-slide h1 {
-      font-size: 2.8rem;
+      font-size: 4rem;
       color: #38bdf8;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1.2rem;
     }
 
     .title-slide h2 {
-      font-size: 1.4rem;
+      font-size: 2.2rem;
       color: #94a3b8;
       font-weight: 400;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2.5rem;
     }
 
     .title-slide .badge {
       background-color: #0284c7;
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 1.2rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -111,51 +112,33 @@
     .grid-2col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.8rem;
+      gap: 2.5rem;
       align-items: center;
       height: 100%;
     }
 
     .card {
       background-color: #0f172a;
-      padding: 1.2rem;
-      border-radius: 8px;
+      padding: 1.8rem;
+      border-radius: 12px;
       border: 1px solid #334155;
+      font-size: 1.35rem;
     }
 
     .card-title {
+      font-size: 1.8rem;
       font-weight: 600;
       color: #f1f5f9;
-      margin-bottom: 0.4rem;
-    }
-
-    ul.bullet-list {
-      list-style-type: none;
-    }
-
-    ul.bullet-list li {
       margin-bottom: 0.8rem;
-      position: relative;
-      padding-left: 1.4rem;
-    }
-
-    ul.bullet-list li::before {
-      content: "•";
-      color: #38bdf8;
-      font-weight: bold;
-      font-size: 1.4rem;
-      position: absolute;
-      left: 0;
-      top: -0.2rem;
     }
 
     .canvas-container {
       width: 100%;
       height: 100%;
-      min-height: 280px;
+      min-height: 380px;
       position: relative;
       background-color: #0f172a;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid #334155;
       display: flex;
       justify-content: center;
@@ -168,19 +151,19 @@
       height: 100%;
     }
 
-    /* Click to Reveal Green Box */
     .reveal-box {
       background-color: #15803d;
       color: #f8fafc;
-      padding: 0.8rem;
-      border-radius: 8px;
+      padding: 1.2rem;
+      border-radius: 10px;
       border: 2px solid #22c55e;
       cursor: pointer;
       text-align: center;
       font-weight: bold;
+      font-size: 1.3rem;
       user-select: none;
       transition: all 0.3s ease;
-      margin-top: 0.8rem;
+      margin-top: 1.2rem;
     }
 
     .reveal-box:hover {
@@ -189,14 +172,15 @@
 
     .reveal-content {
       display: none;
-      margin-top: 0.6rem;
-      padding: 0.8rem;
+      margin-top: 0.8rem;
+      padding: 1.2rem;
       background-color: #0f172a;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px dashed #4ade80;
       color: #38bdf8;
       text-align: left;
       font-weight: normal;
+      font-size: 1.25rem;
     }
 
     .reveal-box.revealed {
@@ -207,7 +191,7 @@
 
     .reveal-box.revealed .reveal-header {
       color: #4ade80;
-      font-size: 0.85rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -218,10 +202,10 @@
 
     .controls {
       position: absolute;
-      bottom: 1.25rem;
-      right: 2rem;
+      bottom: 1.5rem;
+      right: 2.5rem;
       display: flex;
-      gap: 1rem;
+      gap: 1.2rem;
       z-index: 10;
     }
 
@@ -229,10 +213,11 @@
       background-color: #334155;
       color: #f8fafc;
       border: none;
-      padding: 0.55rem 1.1rem;
-      border-radius: 6px;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 1.2rem;
       transition: background-color 0.2s;
     }
 
@@ -250,18 +235,19 @@
 
     .slide-counter {
       position: absolute;
-      bottom: 1.25rem;
-      left: 2rem;
-      color: #64748b;
-      font-size: 0.9rem;
+      bottom: 1.5rem;
+      left: 2.5rem;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
-    /* Clean Math & Fraction Formatting */
     .math-expr {
       display: inline-flex;
       align-items: center;
       font-family: "Georgia", "Times New Roman", serif;
       font-style: italic;
+      font-size: 1.3em;
     }
 
     .fraction {
@@ -269,22 +255,22 @@
       flex-direction: column;
       vertical-align: middle;
       text-align: center;
-      font-size: 0.85em;
-      margin: 0 0.25em;
+      font-size: 0.9em;
+      margin: 0 0.3em;
       font-style: normal;
     }
     
     .fraction > span:first-child {
-      border-bottom: 1.5px solid #cbd5e1;
-      padding-bottom: 1px;
+      border-bottom: 2px solid #cbd5e1;
+      padding-bottom: 2px;
     }
     
     .fraction > span:last-child {
-      padding-top: 1px;
+      padding-top: 2px;
     }
 
     .bracket {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 300;
       line-height: 1;
       font-family: sans-serif;
@@ -294,14 +280,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 6px;
+      border-radius: 8px;
     }
 
     video {
       width: 100%;
       height: 100%;
-      max-height: 400px;
-      border-radius: 8px;
+      max-height: 550px;
+      border-radius: 12px;
       background: #000;
     }
   </style>
@@ -312,7 +298,7 @@
     <!-- Slide 1: Title -->
     <div class="slide title-slide active" id="slide-1">
       <span class="badge">Chapter 4 • Coordinate Geometry</span>
-      <h1 style="margin-top: 1rem;">4.1 Midpoint in 2D & 3D</h1>
+      <h1 style="margin-top: 1.5rem;">4.1 Midpoint in 2D & 3D</h1>
       <h2>Coordinates, Distance, and the Midpoint Formula</h2>
     </div>
 
@@ -320,10 +306,10 @@
     <div class="slide" id="slide-2">
       <div class="slide-title">2D Midpoint Formula (Page 150)</div>
       <div class="slide-content">
-        <div class="card" style="margin-bottom: 1rem;">
+        <div class="card" style="margin-bottom: 1.5rem;">
           <div class="card-title" style="color: #38bdf8;">The 2D Midpoint Formula</div>
           <p>In a 2D space, the midpoint <em>M</em> joining <em>A</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>) and <em>B</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>) is:</p>
-          <div style="text-align: center; margin: 0.6rem 0; color: #fbbf24; font-size: 1.2rem;">
+          <div style="text-align: center; margin: 1.2rem 0; color: #fbbf24;">
             <div class="math-expr">
               <em>M</em> = <span class="bracket">(</span>
               <div class="fraction"><span><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub></span><span>2</span></div>, 
@@ -374,11 +360,11 @@
             <span class="reveal-header">Click to Reveal Worked Solution</span>
             <div class="reveal-content">
               <p>Equate the x-coordinates using the midpoint formula:</p>
-              <div class="math-expr" style="margin: 0.5rem 0;">
+              <div class="math-expr" style="margin: 0.8rem 0;">
                 <div class="fraction"><span><em>x</em> + (-1)</span><span>2</span></div> = -3
               </div>
-              <p style="margin-top: 0.4rem;">Multiply by 2: <em>x</em> - 1 = -6</p>
-              <p style="margin-top: 0.4rem; color: #4ade80; font-weight: bold;"><em>x</em> = -5</p>
+              <p style="margin-top: 0.6rem;">Multiply by 2: <em>x</em> - 1 = -6</p>
+              <p style="margin-top: 0.6rem; color: #4ade80; font-weight: bold; font-size: 1.4rem;"><em>x</em> = -5</p>
             </div>
           </div>
         </div>
@@ -390,33 +376,33 @@
       <div class="slide-title">Plotting Points in 3D: P(3, 4, 5)</div>
       <div class="slide-content grid-2col">
         <div>
-          <p style="margin-bottom: 1rem;">Standard IB 3D Axis Orientation:</p>
-          <ol style="margin-left: 1.5rem; line-height: 1.8;">
-            <li>Move <strong style="color: #f87171;">3 units out</strong> along the x-axis.</li>
+          <p style="margin-bottom: 1.2rem; font-weight: bold;">Standard IB 3D Axis Orientation:</p>
+          <ol style="margin-left: 2rem; line-height: 2;">
+            <li>Move <strong style="color: #f87171;">3 units out</strong> along x-axis.</li>
             <li>Move <strong style="color: #4ade80;">4 units right</strong> parallel to y-axis.</li>
             <li>Move <strong style="color: #38bdf8;">5 units up</strong> parallel to z-axis.</li>
           </ol>
-          <div style="margin-top: 1.5rem;">
+          <div style="margin-top: 2rem;">
             <button class="action-btn" onclick="runAnimation()">Animate Movement</button>
           </div>
         </div>
         <div class="canvas-container">
           <svg id="animCanvas" viewBox="-200 -200 400 400">
-            <line x1="0" y1="0" x2="0" y2="-160" stroke="#38bdf8" stroke-width="2" opacity="0.4" />
-            <line x1="0" y1="0" x2="160" y2="0" stroke="#4ade80" stroke-width="2" opacity="0.4" />
-            <line x1="0" y1="0" x2="-120" y2="120" stroke="#f87171" stroke-width="2" opacity="0.4" />
+            <line x1="0" y1="0" x2="0" y2="-160" stroke="#38bdf8" stroke-width="3" opacity="0.4" />
+            <line x1="0" y1="0" x2="160" y2="0" stroke="#4ade80" stroke-width="3" opacity="0.4" />
+            <line x1="0" y1="0" x2="-120" y2="120" stroke="#f87171" stroke-width="3" opacity="0.4" />
 
-            <text x="10" y="-150" fill="#38bdf8" font-size="12">z</text>
-            <text x="150" y="-10" fill="#4ade80" font-size="12">y</text>
-            <text x="-135" y="125" fill="#f87171" font-size="12">x</text>
+            <text x="10" y="-150" fill="#38bdf8" font-size="16" font-weight="bold">z</text>
+            <text x="150" y="-10" fill="#4ade80" font-size="16" font-weight="bold">y</text>
+            <text x="-135" y="125" fill="#f87171" font-size="16" font-weight="bold">x</text>
 
-            <line id="pathX" x1="0" y1="0" x2="-60" y2="60" stroke="#f87171" stroke-width="3" stroke-dasharray="4" />
-            <line id="pathY" x1="-60" y1="60" x2="40" y2="60" stroke="#4ade80" stroke-width="3" stroke-dasharray="4" />
-            <line id="pathZ" x1="40" y1="60" x2="40" y2="-40" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4" />
+            <line id="pathX" x1="0" y1="0" x2="-60" y2="60" stroke="#f87171" stroke-width="4" stroke-dasharray="5" />
+            <line id="pathY" x1="-60" y1="60" x2="40" y2="60" stroke="#4ade80" stroke-width="4" stroke-dasharray="5" />
+            <line id="pathZ" x1="40" y1="60" x2="40" y2="-40" stroke="#38bdf8" stroke-width="4" stroke-dasharray="5" />
 
-            <circle id="ball" cx="0" cy="0" r="8" fill="#fbbf24" stroke="#fff" stroke-width="2" />
-            <circle cx="40" cy="-40" r="4" fill="#38bdf8" />
-            <text id="pointLabel" x="50" y="-45" fill="#f8fafc" font-size="14" font-weight="bold" opacity="0">P(3, 4, 5)</text>
+            <circle id="ball" cx="0" cy="0" r="10" fill="#fbbf24" stroke="#fff" stroke-width="3" />
+            <circle cx="40" cy="-40" r="5" fill="#38bdf8" />
+            <text id="pointLabel" x="50" y="-45" fill="#f8fafc" font-size="18" font-weight="bold" opacity="0">P(3, 4, 5)</text>
           </svg>
         </div>
       </div>
@@ -426,15 +412,15 @@
     <div class="slide" id="slide-6">
       <div class="slide-title">The Midpoint Formula in 3D (Page 152)</div>
       <div class="slide-content">
-        <div class="card" style="margin-bottom: 1.5rem;">
-          <div class="card-title" style="font-size: 1.3rem; color: #38bdf8;">Definition</div>
-          <p style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6;">
+        <div class="card" style="margin-bottom: 2rem;">
+          <div class="card-title" style="color: #38bdf8;">Definition</div>
+          <p style="line-height: 1.8;">
             In a three-dimensional (3D) space, the midpoint, <em>M</em>, of the line segment joining points 
             <em>A</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub>) and 
             <em>B</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>, <em>z</em><sub>2</sub>) is:
           </p>
-          <div style="text-align: center; margin: 1.5rem 0; font-size: 1.4rem; color: #fbbf24;">
-            <div class="math-expr">
+          <div style="text-align: center; margin: 2rem 0; color: #fbbf24;">
+            <div class="math-expr" style="font-size: 1.5em;">
               <em>M</em> = <span class="bracket">(</span>
               <div class="fraction"><span><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub></span><span>2</span></div>, 
               <div class="fraction"><span><em>y</em><sub>1</sub> + <em>y</em><sub>2</sub></span><span>2</span></div>, 
@@ -446,7 +432,7 @@
 
         <div class="card">
           <div class="card-title" style="color: #4ade80;">Key Takeaway</div>
-          <p style="font-size: 1.1rem;">
+          <p>
             Just like in 2D, finding the midpoint in 3D is simply calculating the <strong>average</strong> of the x-coordinates, y-coordinates, and z-coordinates.
           </p>
         </div>
@@ -458,43 +444,42 @@
       <div class="slide-title">Example 3: 3D Cuboid Midpoint (Page 152)</div>
       <div class="slide-content grid-2col">
         <div>
-          <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
-            A cuboid <em>ABCO A</em><sub>1</sub><em>B</em><sub>1</sub><em>C</em><sub>1</sub><em>O</em><sub>1</sub> has dimensions 4 &times; 5 &times; 2. The vertices of the base are: <em>A</em>(4,0,0), <em>B</em>(4,5,0), <em>C</em>(0,5,0) and <em>O</em>(0,0,0).
+          <p style="margin-bottom: 0.8rem; font-size: 1.25rem;">
+            A cuboid <em>ABCO A</em><sub>1</sub><em>B</em><sub>1</sub><em>C</em><sub>1</sub><em>O</em><sub>1</sub> has dimensions 4 &times; 5 &times; 2. Vertices of base are <em>A</em>(4,0,0), <em>B</em>(4,5,0), <em>C</em>(0,5,0) and <em>O</em>(0,0,0).
           </p>
-          <div style="font-size: 0.85rem; line-height: 1.4; color: #cbd5e1; margin-bottom: 0.4rem;">
-            <p><strong>(a)</strong> Determine the coordinates of the vertices <em>A</em><sub>1</sub>, <em>B</em><sub>1</sub>, <em>C</em><sub>1</sub> and <em>O</em><sub>1</sub>.</p>
-            <p style="margin-top: 0.2rem;"><strong>(b)</strong> Determine the coordinates of the midpoint <em>M</em> of the diagonal [<em>AC</em><sub>1</sub>].</p>
-            <p style="margin-top: 0.2rem;"><strong>(c)</strong> Explain whether or not you would expect [<em>AC</em><sub>1</sub>] and [<em>A</em><sub>1</sub><em>C</em>] to have the same midpoint.</p>
+          <div style="font-size: 1.15rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 0.8rem;">
+            <p><strong>(a)</strong> Determine coordinates of vertices <em>A</em><sub>1</sub>, <em>B</em><sub>1</sub>, <em>C</em><sub>1</sub> and <em>O</em><sub>1</sub>.</p>
+            <p style="margin-top: 0.4rem;"><strong>(b)</strong> Determine midpoint <em>M</em> of diagonal [<em>AC</em><sub>1</sub>].</p>
+            <p style="margin-top: 0.4rem;"><strong>(c)</strong> Explain if [<em>AC</em><sub>1</sub>] and [<em>A</em><sub>1</sub><em>C</em>] share the same midpoint.</p>
           </div>
           
           <div class="reveal-box" onclick="toggleReveal(this)">
             <span class="reveal-header">Click to Reveal Answers (a, b, c)</span>
-            <div class="reveal-content" style="font-size: 0.85rem;">
+            <div class="reveal-content" style="font-size: 1.1rem;">
               <p><strong>(a) Vertices:</strong><br> <em>A</em><sub>1</sub>(4,0,2), <em>B</em><sub>1</sub>(4,5,2), <em>C</em><sub>1</sub>(0,5,2), <em>O</em><sub>1</sub>(0,0,2)</p>
-              <p style="margin-top: 0.3rem;"><strong>(b) Midpoint <em>M</em> of [<em>AC</em><sub>1</sub>]:</strong><br>
+              <p style="margin-top: 0.5rem;"><strong>(b) Midpoint <em>M</em> of [<em>AC</em><sub>1</sub>]:</strong><br>
                 <em>M</em> = <span class="bracket">(</span>
                 <div class="fraction"><span>4+0</span><span>2</span></div>, 
                 <div class="fraction"><span>0+5</span><span>2</span></div>, 
                 <div class="fraction"><span>0+2</span><span>2</span></div>
                 <span class="bracket">)</span> = (2, 2.5, 1)
               </p>
-              <p style="margin-top: 0.3rem;"><strong>(c)</strong> Yes, diagonals of a cuboid bisect each other, so they share the same midpoint.</p>
+              <p style="margin-top: 0.5rem;"><strong>(c)</strong> Yes, cuboid diagonals bisect each other, sharing the midpoint.</p>
             </div>
           </div>
         </div>
         <div class="canvas-container">
           <svg viewBox="-50 -50 350 250">
-            <!-- 3D Cuboid Graphic -->
-            <polygon points="20,160 120,160 120,120 20,120" fill="none" stroke="#38bdf8" stroke-width="2"/>
-            <polygon points="70,110 170,110 170,70 70,70" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4"/>
-            <line x1="20" y1="160" x2="70" y2="110" stroke="#38bdf8" stroke-width="2"/>
-            <line x1="120" y1="160" x2="170" y2="110" stroke="#38bdf8" stroke-width="2"/>
-            <line x1="120" y1="120" x2="170" y2="70" stroke="#38bdf8" stroke-width="2"/>
-            <line x1="20" y1="120" x2="70" y2="70" stroke="#38bdf8" stroke-width="2"/>
-            <line x1="20" y1="160" x2="170" y2="70" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3"/>
-            <text x="10" y="175" fill="#f87171" font-size="12">A(4,0,0)</text>
-            <text x="125" y="175" fill="#4ade80" font-size="12">B(4,5,0)</text>
-            <text x="175" y="65" fill="#38bdf8" font-size="12">C1(0,5,2)</text>
+            <polygon points="20,160 120,160 120,120 20,120" fill="none" stroke="#38bdf8" stroke-width="3"/>
+            <polygon points="70,110 170,110 170,70 70,70" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5"/>
+            <line x1="20" y1="160" x2="70" y2="110" stroke="#38bdf8" stroke-width="3"/>
+            <line x1="120" y1="160" x2="170" y2="110" stroke="#38bdf8" stroke-width="3"/>
+            <line x1="120" y1="120" x2="170" y2="70" stroke="#38bdf8" stroke-width="3"/>
+            <line x1="20" y1="120" x2="70" y2="70" stroke="#38bdf8" stroke-width="3"/>
+            <line x1="20" y1="160" x2="170" y2="70" stroke="#fbbf24" stroke-width="3" stroke-dasharray="4"/>
+            <text x="5" y="180" fill="#f87171" font-size="14" font-weight="bold">A(4,0,0)</text>
+            <text x="125" y="180" fill="#4ade80" font-size="14" font-weight="bold">B(4,5,0)</text>
+            <text x="175" y="65" fill="#38bdf8" font-size="14" font-weight="bold">C1(0,5,2)</text>
           </svg>
         </div>
       </div>
@@ -506,26 +491,26 @@
       <div class="slide-content grid-2col">
         <div class="card">
           <div class="card-title">Question 1</div>
-          <p style="font-size: 0.95rem;">Find midpoint <em>M</em> for:<br>
+          <p>Find midpoint <em>M</em> for:<br>
           a) <em>D</em>(2, <sup>1</sup>/<sub>3</sub>) and <em>F</em>(&radic;2, 3.5)<br>
           b) <em>A</em>(-1, 5, -4.2) and <em>B</em>(7, 8.5, -11)</p>
           
           <div class="reveal-box" onclick="toggleReveal(this)">
             <span class="reveal-header">Reveal Q1 Answer</span>
-            <div class="reveal-content" style="font-size: 0.85rem;">
+            <div class="reveal-content">
               <p><strong>a)</strong> <em>M</em>(1.71, 1.92) (3 s.f.)</p>
-              <p style="margin-top: 0.3rem;"><strong>b)</strong> <em>M</em>(3, 6.75, -7.6)</p>
+              <p style="margin-top: 0.5rem;"><strong>b)</strong> <em>M</em>(3, 6.75, -7.6)</p>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-title">Question 2</div>
-          <p style="font-size: 0.95rem;">Midpoint connecting <em>A</em>(-2, 1) and <em>B</em>(2, -4):</p>
+          <p>Midpoint connecting <em>A</em>(-2, 1) and <em>B</em>(2, -4):</p>
           
           <div class="reveal-box" onclick="toggleReveal(this)">
             <span class="reveal-header">Reveal Q2 Answer</span>
-            <div class="reveal-content" style="font-size: 0.85rem;">
+            <div class="reveal-content">
               <div class="math-expr">
                 <em>M</em> = <span class="bracket">(</span>
                 <div class="fraction"><span>-2+2</span><span>2</span></div>, 
@@ -545,33 +530,33 @@
         <div>
           <div class="card">
             <div class="card-title">Cuboid Problem</div>
-            <p style="font-size: 0.95rem;">Given the cuboid with base dimensions 6 &times; 7 and height 4:</p>
-            <p style="font-size: 0.9rem; margin-top: 0.3rem;">
-              a) Write coordinates of point B<br>
-              b) Write coordinates of point A<br>
-              c) Find midpoint M of diagonal [AO]
+            <p>Given cuboid with base dimensions 6 &times; 7 and height 4:</p>
+            <p style="margin-top: 0.6rem; font-size: 1.25rem;">
+              a) Coordinates of point B<br>
+              b) Coordinates of point A<br>
+              c) Midpoint M of diagonal [AO]
             </p>
             
             <div class="reveal-box" onclick="toggleReveal(this)">
               <span class="reveal-header">Click to Reveal Solution</span>
-              <div class="reveal-content" style="font-size: 0.9rem;">
+              <div class="reveal-content">
                 <p><strong>a)</strong> <em>B</em>(6, 7, 0)</p>
-                <p style="margin-top: 0.3rem;"><strong>b)</strong> <em>A</em>(6, 7, 4)</p>
-                <p style="margin-top: 0.3rem;"><strong>c)</strong> <em>M</em>(3, 3.5, 2)</p>
+                <p style="margin-top: 0.4rem;"><strong>b)</strong> <em>A</em>(6, 7, 4)</p>
+                <p style="margin-top: 0.4rem;"><strong>c)</strong> <em>M</em>(3, 3.5, 2)</p>
               </div>
             </div>
           </div>
         </div>
         <div class="canvas-container">
           <svg viewBox="-50 -50 350 250">
-            <polygon points="30,170 150,170 150,110 30,110" fill="none" stroke="#4ade80" stroke-width="2"/>
-            <polygon points="90,110 210,110 210,50 90,50" fill="none" stroke="#4ade80" stroke-width="2" stroke-dasharray="4"/>
-            <line x1="30" y1="170" x2="90" y2="110" stroke="#4ade80" stroke-width="2"/>
-            <line x1="150" y1="170" x2="210" y2="110" stroke="#4ade80" stroke-width="2"/>
-            <line x1="150" y1="110" x2="210" y2="50" stroke="#4ade80" stroke-width="2"/>
-            <line x1="30" y1="110" x2="90" y2="50" stroke="#4ade80" stroke-width="2"/>
-            <text x="155" y="185" fill="#38bdf8" font-size="12">B(6,7,0)</text>
-            <text x="215" y="45" fill="#fbbf24" font-weight="bold" font-size="12">A(6,7,4)</text>
+            <polygon points="30,170 150,170 150,110 30,110" fill="none" stroke="#4ade80" stroke-width="3"/>
+            <polygon points="90,110 210,110 210,50 90,50" fill="none" stroke="#4ade80" stroke-width="3" stroke-dasharray="5"/>
+            <line x1="30" y1="170" x2="90" y2="110" stroke="#4ade80" stroke-width="3"/>
+            <line x1="150" y1="170" x2="210" y2="110" stroke="#4ade80" stroke-width="3"/>
+            <line x1="150" y1="110" x2="210" y2="50" stroke="#4ade80" stroke-width="3"/>
+            <line x1="30" y1="110" x2="90" y2="50" stroke="#4ade80" stroke-width="3"/>
+            <text x="155" y="190" fill="#38bdf8" font-size="14" font-weight="bold">B(6,7,0)</text>
+            <text x="215" y="45" fill="#fbbf24" font-weight="bold" font-size="14">A(6,7,4)</text>
           </svg>
         </div>
       </div>
@@ -587,16 +572,16 @@
         <div>
           <div class="card">
             <div class="card-title" style="color: #fbbf24;">Real-World IB Application</div>
-            <p style="font-size: 0.95rem; margin-top: 0.3rem;">
+            <p style="margin-top: 0.5rem;">
               Ski cable connects Base <em>A</em>(2, 1, 3) to Summit <em>B</em>(10, 13, 15).
             </p>
-            <p style="font-size: 0.95rem; margin-top: 0.5rem; color: #38bdf8;">
+            <p style="margin-top: 0.8rem; color: #38bdf8;">
               Find coordinates of Café <em>M</em> built halfway along the cable car route.
             </p>
 
             <div class="reveal-box" onclick="toggleReveal(this)">
               <span class="reveal-header">Click to Reveal Worked Answer</span>
-              <div class="reveal-content" style="font-size: 0.9rem;">
+              <div class="reveal-content">
                 <div class="math-expr">
                   <em>M</em> = <span class="bracket">(</span>
                   <div class="fraction"><span>2+10</span><span>2</span></div>, 
@@ -611,8 +596,42 @@
       </div>
     </div>
 
+    <!-- Slide 11: Ski Animation with Personal Skier -->
+    <div class="slide" id="slide-11">
+      <div class="slide-title">Slide 11: The Perfect Ski Run!</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <div class="card">
+            <div class="card-title" style="color: #4ade80;">Midpoint Vector Trajectory</div>
+            <p style="margin-top: 0.5rem;">
+              Descending along slope path connecting Summit <em>P</em><sub>1</sub>(10, 13, 15), Caf&eacute; Midpoint <em>P</em><sub>2</sub>(6, 7, 9), and Base <em>P</em><sub>3</sub>(2, 1, 3).
+            </p>
+            <div style="margin-top: 2rem; text-align: center;">
+              <button class="action-btn" onclick="runSkierAnimation()">Animate Run</button>
+            </div>
+          </div>
+        </div>
+        <div class="canvas-container">
+          <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Image of Skier on Slope -->
+            <image id="skiBackground" href="skier-path.png" x="0" y="0" width="500" height="350" preserveAspectRatio="xMidYMid slice" />
+            
+            <!-- Curved Trajectory Path -->
+            <path id="skiPath" d="M 140 75 Q 260 140, 310 250" fill="none" stroke="transparent" />
+
+            <!-- Animated Skier Dot Overlay -->
+            <circle id="skierMarker" r="8" fill="#fbbf24" stroke="#ffffff" stroke-width="3" opacity="0">
+              <animateMotion id="skierAnim" dur="3s" begin="indefinite" fill="freeze">
+                <mpath xlink:href="#skiPath"/>
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer Controls -->
-    <div class="slide-counter"><span id="currentSlide">1</span> / 10</div>
+    <div class="slide-counter"><span id="currentSlide">1</span> / 11</div>
     <div class="controls">
       <button class="nav-btn" onclick="prevSlide()">Previous</button>
       <button class="nav-btn" onclick="nextSlide()">Next</button>
@@ -621,7 +640,7 @@
 
   <script>
     let current = 1;
-    const total = 10;
+    const total = 11;
 
     function showSlide(n) {
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
@@ -695,6 +714,15 @@
       }
 
       requestAnimationFrame(animate);
+    }
+
+    function runSkierAnimation() {
+      const marker = document.getElementById('skierMarker');
+      const anim = document.getElementById('skierAnim');
+      if (marker && anim) {
+        marker.setAttribute('opacity', '1');
+        anim.beginElement();
+      }
     }
   </script>
 </body>
