@@ -1,1 +1,1031 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IB Math AISL 15-Minute Quizzes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- MathJax for rendering math formulas -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    
+    /* Print Styles for IB Solution Sheet */
+    @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .ib-box {
+        border: 2px solid #000 !important;
+        box-shadow: none !important;
+      }
+    }
+    
+    .print-only {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header / Navigation Bar -->
+  <header class="bg-slate-900 text-white shadow-md no-print">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="showHub()">
+        <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-xl">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">IB Math AISL</h1>
+          <p class="text-xs text-slate-400">Grade 11 • 15-Minute Formative Quizzes</p>
+        </div>
+      </div>
+      <div id="nav-actions" class="flex items-center space-x-3 mt-2 sm:mt-0">
+        <button onclick="showHub()" class="text-sm bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-md border border-slate-700 transition">
+          <i class="fa-solid fa-house mr-1"></i> Dashboard
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
+    
+    <!-- 1. HUB / LANDING VIEW -->
+    <div id="view-hub" class="space-y-8">
+      
+      <!-- Banner -->
+      <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <div class="relative z-10 max-w-2xl">
+          <span class="bg-blue-500/30 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full border border-blue-400/30 uppercase tracking-wider">Formative Assessment</span>
+          <h2 class="text-3xl font-extrabold mt-3 sm:text-4xl">Statistics & Probability Quiz Hub</h2>
+          <p class="text-slate-300 mt-2 text-sm sm:text-base">
+            Test your understanding of grouped data means, cumulative frequency curves, and weighted averages. Answer questions on rough paper, enter your values, and view instant IB mark schemes!
+          </p>
+          <div class="mt-6 flex flex-wrap gap-4">
+            <button onclick="startRandomQuiz()" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-blue-500/25 transition duration-200 flex items-center space-x-2">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>Start Random Quiz</span>
+            </button>
+          </div>
+        </div>
+        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+          <i class="fa-solid fa-chart-line text-[240px]"></i>
+        </div>
+      </div>
+
+      <!-- Quiz Cards Grid -->
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-slate-800">Available Quizzes</h3>
+          <span class="text-xs font-medium text-slate-500">15 minutes each • Calculator allowed</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Quiz 1 Card -->
+          <div id="card-quiz-1" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Quiz 1</span>
+                <span id="badge-quiz-1" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Not Started</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-lg mb-1">Temperature & Spinner Statistics</h4>
+              <p class="text-xs text-slate-500 mb-4">Grouped mean calculation, age cumulative frequency graph, and linear frequency equation.</p>
+              
+              <div class="bg-slate-50 rounded-lg p-3 text-xs space-y-1 mb-4 text-slate-600">
+                <div class="flex justify-between"><span>Questions:</span> <span class="font-semibold text-slate-800">3 Parts</span></div>
+                <div class="flex justify-between"><span>Total Marks:</span> <span class="font-semibold text-slate-800">9 Marks</span></div>
+                <div class="flex justify-between"><span>Best Score:</span> <span id="score-quiz-1" class="font-semibold text-slate-800">-</span></div>
+              </div>
+            </div>
+            
+            <button onclick="loadQuiz(1)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 rounded-lg text-sm transition flex items-center justify-center space-x-2">
+              <span>Start Quiz 1</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Quiz 2 Card -->
+          <div id="card-quiz-2" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-md">Quiz 2</span>
+                <span id="badge-quiz-2" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Not Started</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-lg mb-1">Animal Lengths & Algebra Marks</h4>
+              <p class="text-xs text-slate-500 mb-4">Continuous grouped data, algebra exam cumulative frequency, and mouse nest frequency puzzle.</p>
+              
+              <div class="bg-slate-50 rounded-lg p-3 text-xs space-y-1 mb-4 text-slate-600">
+                <div class="flex justify-between"><span>Questions:</span> <span class="font-semibold text-slate-800">3 Parts</span></div>
+                <div class="flex justify-between"><span>Total Marks:</span> <span class="font-semibold text-slate-800">9 Marks</span></div>
+                <div class="flex justify-between"><span>Best Score:</span> <span id="score-quiz-2" class="font-semibold text-slate-800">-</span></div>
+              </div>
+            </div>
+            
+            <button onclick="loadQuiz(2)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 rounded-lg text-sm transition flex items-center justify-center space-x-2">
+              <span>Start Quiz 2</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Quiz 3 Card -->
+          <div id="card-quiz-3" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded-md">Quiz 3</span>
+                <span id="badge-quiz-3" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Not Started</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-lg mb-1">Running Times & Sweets Distribution</h4>
+              <p class="text-xs text-slate-500 mb-4">Athlete times statistics, race time cumulative frequency, and missing value from overall mean.</p>
+              
+              <div class="bg-slate-50 rounded-lg p-3 text-xs space-y-1 mb-4 text-slate-600">
+                <div class="flex justify-between"><span>Questions:</span> <span class="font-semibold text-slate-800">3 Parts</span></div>
+                <div class="flex justify-between"><span>Total Marks:</span> <span class="font-semibold text-slate-800">7 Marks</span></div>
+                <div class="flex justify-between"><span>Best Score:</span> <span id="score-quiz-3" class="font-semibold text-slate-800">-</span></div>
+              </div>
+            </div>
+            
+            <button onclick="loadQuiz(3)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 rounded-lg text-sm transition flex items-center justify-center space-x-2">
+              <span>Start Quiz 3</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2. QUIZ ACTIVE & RESULT VIEW -->
+    <div id="view-quiz" class="hidden space-y-6">
+      
+      <!-- Quiz Header Banner -->
+      <div class="bg-white rounded-xl p-4 sm:p-6 border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span id="quiz-title-badge" class="bg-blue-100 text-blue-800 font-bold text-xs px-2.5 py-1 rounded-md">Quiz 1</span>
+            <span class="text-xs text-slate-500">IB Diploma Math AISL</span>
+          </div>
+          <h2 id="quiz-title-heading" class="text-2xl font-bold text-slate-900 mt-1">Formative Assessment</h2>
+        </div>
+        
+        <!-- Timer & Controls -->
+        <div class="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end">
+          <div id="timer-box" class="flex items-center space-x-2 bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-mono font-semibold shadow-inner">
+            <i class="fa-regular fa-clock text-blue-400"></i>
+            <span id="timer-display">15:00</span>
+          </div>
+          <button onclick="showHub()" class="text-xs text-slate-500 hover:text-slate-800 px-3 py-2 border rounded-lg">
+            Exit Quiz
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Banner (Hidden during active quiz) -->
+      <div id="result-summary-box" class="hidden bg-emerald-950 text-white rounded-xl p-6 shadow-xl border border-emerald-800 space-y-4 no-print">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-emerald-800/60 pb-4 gap-4">
+          <div>
+            <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Assessment Result</span>
+            <h3 class="text-3xl font-extrabold text-white mt-0.5" id="result-percentage">88%</h3>
+            <p class="text-sm text-emerald-200" id="result-marks-text">You scored 8 out of 9 marks</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="printIBReport()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2.5 rounded-lg text-sm transition flex items-center space-x-2 shadow">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Download IB Solution PDF</span>
+            </button>
+            <button onclick="showHub()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium px-4 py-2.5 rounded-lg text-sm transition">
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+        <p class="text-xs text-emerald-300">
+          <i class="fa-solid fa-circle-info mr-1"></i> Review the detailed IB mark scheme breakdown below. Click "Download IB Solution PDF" for a nicely styled print version with full working out!
+        </p>
+      </div>
+
+      <!-- PDF PRINT HEADER (Only visible when printing) -->
+      <div class="print-only mb-6 border-b-2 border-black pb-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-bold uppercase tracking-wider">International Baccalaureate</h1>
+            <h2 class="text-lg font-semibold text-gray-700">Mathematics: Analysis and Approaches & Applications and Interpretation</h2>
+            <p class="text-sm">Grade 11 AISL • Formative Assessment Mark Scheme & Student Response</p>
+          </div>
+          <div class="text-right text-xs">
+            <p><strong>Date:</strong> <span id="print-date"></span></p>
+            <p><strong>Time Allowed:</strong> 15 Minutes</p>
+            <p><strong>Subject Code:</strong> MAISL-G11</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question Cards Container -->
+      <div id="questions-container" class="space-y-6">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Submit Button Bar -->
+      <div id="submit-bar" class="bg-white rounded-xl p-4 border border-slate-200 flex justify-between items-center shadow-sm no-print">
+        <p class="text-xs text-slate-500">Ensure all answers are rounded as specified (e.g., 1 decimal place) before submitting.</p>
+        <button onclick="submitQuiz()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl text-sm shadow-md transition duration-150 flex items-center space-x-2">
+          <i class="fa-solid fa-check"></i>
+          <span>Submit Quiz</span>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-500 no-print">
+    <p>IB Mathematics AISL Grade 11 Assessment Tool • Standard IB Mark Scheme Notation ($M1, A1, B1$)</p>
+  </footer>
+
+  <script>
+    /* ==========================================================================
+       QUIZZES DATA DEFINITION
+       ========================================================================== */
+    const quizzesData = {
+      1: {
+        id: 1,
+        title: "Formative Assessment 1",
+        totalMarks: 9,
+        questions: [
+          {
+            id: "q1_1",
+            number: 1,
+            marks: 3,
+            text: `Linda recorded the temperature, in °C, at 9 am on each of 30 days. The table shows information about her results.<br><br>
+                   Calculate an estimate for the mean temperature. Give your answer correct to 1 decimal place.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-left">Temperature ($T$ °C)</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Number of days ($f$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$10 \\le T < 12$</td><td class="border border-slate-300 px-4 py-1.5 text-center">3</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$12 \\le T < 14$</td><td class="border border-slate-300 px-4 py-1.5 text-center">8</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$14 \\le T < 16$</td><td class="border border-slate-300 px-4 py-1.5 text-center">14</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$16 \\le T < 18$</td><td class="border border-slate-300 px-4 py-1.5 text-center">4</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$18 \\le T < 20$</td><td class="border border-slate-300 px-4 py-1.5 text-center">1</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q1_1_ans", label: "Estimate for mean temperature:", unit: "°C", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q1_1_ans);
+              return val >= 14.4 && val <= 14.5;
+            },
+            correctAnswerDisplay: "14.5 °C (Accept 14.4 to 14.5)",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1"><span><strong>M1:</strong> For $f \\times x$ using midpoints (11, 13, 15, 17, 19): $11(3) + 13(8) + 15(14) + 17(4) + 19(1) = 435$</span><span class="font-bold">M1</span></div>
+                <div class="flex justify-between border-b py-1"><span><strong>M1 (dep M1):</strong> For $\\sum fx \\div 30 = 435 \\div 30$</span><span class="font-bold">M1</span></div>
+                <div class="flex justify-between pt-1"><span><strong>A1:</strong> $14.5$ °C (accept 14.4 to 14.5)</span><span class="font-bold">A1</span></div>
+              </div>
+            `
+          },
+          {
+            id: "q1_2",
+            number: 2,
+            marks: 2,
+            text: `The cumulative frequency graph shows information about the ages of 60 people who went to a gym on Saturday.<br><br>
+                   Use the graph to find an estimate for the interquartile range of the ages of these people.`,
+            svgGraph: `
+              <div class="my-4 flex justify-center overflow-x-auto">
+                <svg viewBox="0 0 500 380" class="w-full max-w-xl bg-white border border-slate-400 rounded shadow-md">
+                  <rect width="360" height="260" x="60" y="30" fill="#ffffff" />
+                  <g stroke="#f1f5f9" stroke-width="0.5">
+                    <path d="M 65.14 30 V 290 M 70.29 30 V 290 M 75.43 30 V 290 M 80.57 30 V 290 M 90.86 30 V 290 M 96 30 V 290 M 101.14 30 V 290 M 106.29 30 V 290 M 116.57 30 V 290 M 121.71 30 V 290 M 126.86 30 V 290 M 132 30 V 290 M 142.29 30 V 290 M 147.43 30 V 290 M 152.57 30 V 290 M 157.71 30 V 290 M 168 30 V 290 M 173.14 30 V 290 M 178.29 30 V 290 M 183.43 30 V 290 M 193.71 30 V 290 M 198.86 30 V 290 M 204 30 V 290 M 209.14 30 V 290 M 219.43 30 V 290 M 224.57 30 V 290 M 229.71 30 V 290 M 234.86 30 V 290 M 245.14 30 V 290 M 250.29 30 V 290 M 255.43 30 V 290 M 260.57 30 V 290 M 270.86 30 V 290 M 276 30 V 290 M 281.14 30 V 290 M 286.29 30 V 290 M 296.57 30 V 290 M 301.71 30 V 290 M 306.86 30 V 290 M 312 30 V 290 M 322.29 30 V 290 M 327.43 30 V 290 M 332.57 30 V 290 M 337.71 30 V 290 M 348 30 V 290 M 353.14 30 V 290 M 358.29 30 V 290 M 363.43 30 V 290 M 373.71 30 V 290 M 378.86 30 V 290 M 384 30 V 290 M 389.14 30 V 290 M 399.43 30 V 290 M 404.57 30 V 290 M 409.71 30 V 290 M 414.86 30 V 290" />
+                    <path d="M 60 285.67 H 420 M 60 281.33 H 420 M 60 277 H 420 M 60 272.67 H 420 M 60 264 H 420 M 60 259.67 H 420 M 60 255.33 H 420 M 60 251 H 420 M 60 242.33 H 420 M 60 238 H 420 M 60 233.67 H 420 M 60 229.33 H 420 M 60 220.67 H 420 M 60 216.33 H 420 M 60 212 H 420 M 60 207.67 H 420 M 60 199 H 420 M 60 194.67 H 420 M 60 190.33 H 420 M 60 186 H 420 M 60 177.33 H 420 M 60 173 H 420 M 60 168.67 H 420 M 60 164.33 H 420 M 60 155.67 H 420 M 60 151.33 H 420 M 60 147 H 420 M 60 142.67 H 420 M 60 134 H 420 M 60 129.67 H 420 M 60 125.33 H 420 M 60 121 H 420 M 60 112.33 H 420 M 60 108 H 420 M 60 103.67 H 420 M 60 99.33 H 420 M 60 90.67 H 420 M 60 86.33 H 420 M 60 82 H 420 M 60 77.67 H 420 M 60 69 H 420 M 60 64.67 H 420 M 60 60.33 H 420 M 60 56 H 420 M 60 47.33 H 420 M 60 43 H 420 M 60 38.67 H 420 M 60 34.33 H 420" />
+                  </g>
+                  <g stroke="#cbd5e1" stroke-width="0.8">
+                    <path d="M 85.71 30 V 290 M 111.43 30 V 290 M 137.14 30 V 290 M 162.86 30 V 290 M 188.57 30 V 290 M 214.29 30 V 290 M 240 30 V 290 M 265.71 30 V 290 M 291.43 30 V 290 M 317.14 30 V 290 M 342.86 30 V 290 M 368.57 30 V 290 M 394.29 30 V 290" />
+                    <path d="M 60 268.33 H 420 M 60 225 H 420 M 60 181.67 H 420 M 60 138.33 H 420 M 60 95 H 420 M 60 51.67 H 420" />
+                  </g>
+                  <g stroke="#64748b" stroke-width="1.25">
+                    <path d="M 111.43 30 V 290 M 162.86 30 V 290 M 214.29 30 V 290 M 265.71 30 V 290 M 317.14 30 V 290 M 368.57 30 V 290 M 420 30 V 290" />
+                    <path d="M 60 246.67 H 420 M 60 203.33 H 420 M 60 160 H 420 M 60 116.67 H 420 M 60 73.33 H 420 M 60 30 H 420" />
+                  </g>
+                  <rect width="360" height="260" x="60" y="30" fill="none" stroke="#334155" stroke-width="1.5" />
+                  <line x1="60" y1="290" x2="420" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <line x1="60" y1="30" x2="60" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <text x="48" y="294" font-size="11" font-weight="600" text-anchor="end">0</text>
+                  <text x="48" y="250.67" font-size="11" font-weight="600" text-anchor="end">10</text>
+                  <text x="48" y="207.33" font-size="11" font-weight="600" text-anchor="end">20</text>
+                  <text x="48" y="164" font-size="11" font-weight="600" text-anchor="end">30</text>
+                  <text x="48" y="120.67" font-size="11" font-weight="600" text-anchor="end">40</text>
+                  <text x="48" y="77.33" font-size="11" font-weight="600" text-anchor="end">50</text>
+                  <text x="48" y="34" font-size="11" font-weight="600" text-anchor="end">60</text>
+                  <text x="60" y="310" font-size="11" font-weight="600" text-anchor="middle">10</text>
+                  <text x="111.43" y="310" font-size="11" font-weight="600" text-anchor="middle">20</text>
+                  <text x="162.86" y="310" font-size="11" font-weight="600" text-anchor="middle">30</text>
+                  <text x="214.29" y="310" font-size="11" font-weight="600" text-anchor="middle">40</text>
+                  <text x="265.71" y="310" font-size="11" font-weight="600" text-anchor="middle">50</text>
+                  <text x="317.14" y="310" font-size="11" font-weight="600" text-anchor="middle">60</text>
+                  <text x="368.57" y="310" font-size="11" font-weight="600" text-anchor="middle">70</text>
+                  <text x="420" y="310" font-size="11" font-weight="600" text-anchor="middle">80</text>
+                  <text x="240" y="340" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Age (years)</text>
+                  <text x="18" y="160" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle" transform="rotate(-90 18 160)">Cumulative frequency</text>
+                  <path d="M 60 290 
+                           C 80 270, 95 250, 111.43 233.7
+                           C 130 210, 145 155, 162.86 134
+                           C 180 115, 195 110, 214.29 108
+                           C 232 100, 250 90, 265.71 86.3
+                           C 285 80, 300 70, 317.14 64.7
+                           C 335 58, 350 50, 368.57 47.3
+                           C 385 44, 400 35, 420 30" 
+                        fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" />
+                </svg>
+              </div>
+            `,
+            inputs: [
+              { id: "q1_2_ans", label: "Interquartile Range:", unit: "years", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q1_2_ans);
+              return val >= 24 && val <= 28;
+            },
+            correctAnswerDisplay: "25 years (Accept range 24 - 28)",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1 (ft):</strong> For readings at cumulative frequency 15 and 45 from vertical axis.<br>Lower Quartile ($LQ$) $\\approx 20 - 21$, Upper Quartile ($UQ$) $\\approx 45 - 47$.</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1 (ft):</strong> $IQR = UQ - LQ = 46 - 21 = 25$ years (Accept any value in range 24 to 28).</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "q1_3",
+            number: 3,
+            marks: 4,
+            text: `A six-sided numbered spinner is thrown 50 times. The score for each throw is recorded. Some of the results are shown in the table.<br>
+                   An 8 was thrown $f$ times. An unknown number on the spinner is represented by $n$.<br><br>
+                   The mean score of the 50 throws is 5.5.<br>
+                   Find the value of $f$ and the value of $n$.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-center">Score</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">1</td><td class="border border-slate-300 px-4 py-1.5 text-center">12</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">3</td><td class="border border-slate-300 px-4 py-1.5 text-center">2</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">5</td><td class="border border-slate-300 px-4 py-1.5 text-center">9</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">6</td><td class="border border-slate-300 px-4 py-1.5 text-center">16</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">8</td><td class="border border-slate-300 px-4 py-1.5 text-center font-bold text-blue-600">$f$</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center font-bold text-blue-600">$n$</td><td class="border border-slate-300 px-4 py-1.5 text-center">4</td></tr>
+                    <tr class="bg-slate-50 font-semibold"><td class="border border-slate-300 px-4 py-1.5 text-center">Total</td><td class="border border-slate-300 px-4 py-1.5 text-center">50</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q1_3_f", label: "Value of f:", unit: "", type: "number" },
+              { id: "q1_3_n", label: "Value of n:", unit: "", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              return parseInt(ans.q1_3_f) === 7 && parseInt(ans.q1_3_n) === 15;
+            },
+            correctAnswerDisplay: "f = 7, n = 15",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>B1:</strong> Total frequency equation: $12 + 2 + 9 + 16 + f + 4 = 50 \\implies 43 + f = 50 \\implies f = 7$</span>
+                  <span class="font-bold">B1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Total score equation using mean: $50 \\times 5.5 = 275$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Sum of products: $1(12) + 3(2) + 5(9) + 6(16) + 8(7) + n(4) = 275 \\implies 215 + 4n = 275$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>B1:</strong> $4n = 60 \\implies n = 15$</span>
+                  <span class="font-bold">B1</span>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      2: {
+        id: 2,
+        title: "Formative Assessment 2",
+        totalMarks: 9,
+        questions: [
+          {
+            id: "q2_1",
+            number: 1,
+            marks: 3,
+            text: `Jack collects the lengths of some animals and records the data in the table below.<br><br>
+                   Find the mean of the data in the table. Give your answer correct to 1 decimal place where appropriate.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-left">Length ($y$ cm)</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$80 < y \\le 90$</td><td class="border border-slate-300 px-4 py-1.5 text-center">2</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$90 < y \\le 100$</td><td class="border border-slate-300 px-4 py-1.5 text-center">8</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$100 < y \\le 110$</td><td class="border border-slate-300 px-4 py-1.5 text-center">5</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$110 < y \\le 120$</td><td class="border border-slate-300 px-4 py-1.5 text-center">7</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q2_1_ans", label: "Estimate for mean length:", unit: "cm", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q2_1_ans);
+              return val >= 102.6 && val <= 102.8;
+            },
+            correctAnswerDisplay: "102.7 cm",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> For $\\sum fy$ using midpoints: $85(2) + 95(8) + 105(5) + 115(7) = 170 + 760 + 525 + 805 = 2260$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Divide total by total frequency: $2260 \\div 22$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> $102.7$ cm (to 1 d.p.)</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "q2_2",
+            number: 2,
+            marks: 2,
+            text: `A group of 60 students each sat an algebra test and a geometry test. Each test was marked out of 110.<br>
+                   The cumulative frequency graph gives information about the marks gained by the 60 students in the algebra test.<br><br>
+                   Use the graph to find an estimate for the interquartile range of the marks gained in the algebra test.`,
+            svgGraph: `
+              <div class="my-4 flex justify-center overflow-x-auto">
+                <svg viewBox="0 0 500 380" class="w-full max-w-xl bg-white border border-slate-400 rounded shadow-md">
+                  <rect width="360" height="260" x="60" y="30" fill="#ffffff" />
+                  <g stroke="#f1f5f9" stroke-width="0.5">
+                    <path d="M 60 285.67 H 420 M 60 281.33 H 420 M 60 277 H 420 M 60 272.67 H 420 M 60 264 H 420 M 60 259.67 H 420 M 60 255.33 H 420 M 60 251 H 420 M 60 242.33 H 420 M 60 238 H 420 M 60 233.67 H 420 M 60 229.33 H 420 M 60 220.67 H 420 M 60 216.33 H 420 M 60 212 H 420 M 60 207.67 H 420 M 60 199 H 420 M 60 194.67 H 420 M 60 190.33 H 420 M 60 186 H 420 M 60 177.33 H 420 M 60 173 H 420 M 60 168.67 H 420 M 60 164.33 H 420 M 60 155.67 H 420 M 60 151.33 H 420 M 60 147 H 420 M 60 142.67 H 420 M 60 134 H 420 M 60 129.67 H 420 M 60 125.33 H 420 M 60 121 H 420 M 60 112.33 H 420 M 60 108 H 420 M 60 103.67 H 420 M 60 99.33 H 420 M 60 90.67 H 420 M 60 86.33 H 420 M 60 82 H 420 M 60 77.67 H 420 M 60 69 H 420 M 60 64.67 H 420 M 60 60.33 H 420 M 60 56 H 420 M 60 47.33 H 420 M 60 43 H 420 M 60 38.67 H 420 M 60 34.33 H 420" />
+                  </g>
+                  <g stroke="#cbd5e1" stroke-width="0.8">
+                    <path d="M 60 268.33 H 420 M 60 225 H 420 M 60 181.67 H 420 M 60 138.33 H 420 M 60 95 H 420 M 60 51.67 H 420" />
+                    <path d="M 76.36 30 V 290 M 109.09 30 V 290 M 141.82 30 V 290 M 174.55 30 V 290 M 207.27 30 V 290 M 240 30 V 290 M 272.73 30 V 290 M 305.45 30 V 290 M 338.18 30 V 290 M 370.91 30 V 290 M 403.64 30 V 290" />
+                  </g>
+                  <g stroke="#64748b" stroke-width="1.25">
+                    <path d="M 60 246.67 H 420 M 60 203.33 H 420 M 60 160 H 420 M 60 116.67 H 420 M 60 73.33 H 420 M 60 30 H 420" />
+                    <path d="M 92.73 30 V 290 M 125.45 30 V 290 M 158.18 30 V 290 M 190.91 30 V 290 M 223.64 30 V 290 M 256.36 30 V 290 M 289.09 30 V 290 M 321.82 30 V 290 M 354.55 30 V 290 M 387.27 30 V 290 M 420 30 V 290" />
+                  </g>
+                  <rect width="360" height="260" x="60" y="30" fill="none" stroke="#334155" stroke-width="1.5" />
+                  <line x1="60" y1="290" x2="420" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <line x1="60" y1="30" x2="60" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <text x="48" y="294" font-size="11" font-weight="600" text-anchor="end">0</text>
+                  <text x="48" y="250.67" font-size="11" font-weight="600" text-anchor="end">10</text>
+                  <text x="48" y="207.33" font-size="11" font-weight="600" text-anchor="end">20</text>
+                  <text x="48" y="164" font-size="11" font-weight="600" text-anchor="end">30</text>
+                  <text x="48" y="120.67" font-size="11" font-weight="600" text-anchor="end">40</text>
+                  <text x="48" y="77.33" font-size="11" font-weight="600" text-anchor="end">50</text>
+                  <text x="48" y="34" font-size="11" font-weight="600" text-anchor="end">60</text>
+                  <text x="60" y="310" font-size="10" font-weight="600" text-anchor="middle">0</text>
+                  <text x="92.73" y="310" font-size="10" font-weight="600" text-anchor="middle">10</text>
+                  <text x="125.45" y="310" font-size="10" font-weight="600" text-anchor="middle">20</text>
+                  <text x="158.18" y="310" font-size="10" font-weight="600" text-anchor="middle">30</text>
+                  <text x="190.91" y="310" font-size="10" font-weight="600" text-anchor="middle">40</text>
+                  <text x="223.64" y="310" font-size="10" font-weight="600" text-anchor="middle">50</text>
+                  <text x="256.36" y="310" font-size="10" font-weight="600" text-anchor="middle">60</text>
+                  <text x="289.09" y="310" font-size="10" font-weight="600" text-anchor="middle">70</text>
+                  <text x="321.82" y="310" font-size="10" font-weight="600" text-anchor="middle">80</text>
+                  <text x="354.55" y="310" font-size="10" font-weight="600" text-anchor="middle">90</text>
+                  <text x="387.27" y="310" font-size="10" font-weight="600" text-anchor="middle">100</text>
+                  <text x="420" y="310" font-size="10" font-weight="600" text-anchor="middle">110</text>
+                  <text x="240" y="340" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Algebra mark</text>
+                  <text x="18" y="160" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle" transform="rotate(-90 18 160)">Cumulative frequency</text>
+                  <path d="M 60 290 
+                           C 85 285, 105 278, 125.45 272.7
+                           C 140 268, 150 262, 158.18 255.3
+                           C 170 245, 180 238, 190.91 225
+                           C 205 205, 215 150, 223.64 134
+                           C 230 120, 238 102, 243.2 95
+                           C 248 90, 252 88, 256.36 86.3
+                           C 270 80, 280 70, 289.09 64.7
+                           C 300 60, 310 54, 321.82 51.7
+                           C 350 45, 370 41, 387.27 38.7
+                           C 400 36, 410 32, 420 30" 
+                        fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" />
+                </svg>
+              </div>
+            `,
+            inputs: [
+              { id: "q2_2_ans", label: "Interquartile Range:", unit: "marks", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q2_2_ans);
+              return val >= 15 && val <= 18; // <-- TOLERANCE INCLUDES 15 TO 18
+            },
+            correctAnswerDisplay: "16 marks (Accept 15 to 18)",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> For finding both values at $CF=15$ ($LQ \\approx 40$) and $CF=45$ ($UQ \\approx 55 - 58$).</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> $IQR = 56 - 40 = 16$ (Accept 15 to 18).</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "q2_3",
+            number: 3,
+            marks: 4,
+            text: `The frequency table gives information about the numbers of mice in some nests.<br><br>
+                   The mean number of mice in a nest is 7.<br>
+                   Work out the value of $x$.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-center">Numbers of mice</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">5</td><td class="border border-slate-300 px-4 py-1.5 text-center">4</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">6</td><td class="border border-slate-300 px-4 py-1.5 text-center">13</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">7</td><td class="border border-slate-300 px-4 py-1.5 text-center">16</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">8</td><td class="border border-slate-300 px-4 py-1.5 text-center font-bold text-blue-600">$x$</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">9</td><td class="border border-slate-300 px-4 py-1.5 text-center">6</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q2_3_ans", label: "Value of x:", unit: "", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              return parseInt(ans.q2_3_ans) === 9;
+            },
+            correctAnswerDisplay: "x = 9",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> Calculate known products sum: $4(5) + 13(6) + 16(7) + 6(9) = 20 + 78 + 112 + 54 = 264$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Total frequency: $4 + 13 + 16 + 6 + x = 39 + x$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Set up equation: $\\frac{264 + 8x}{39 + x} = 7 \\implies 264 + 8x = 7(39 + x) = 273 + 7x$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> $8x - 7x = 273 - 264 \\implies x = 9$</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      3: {
+        id: 3,
+        title: "Formative Assessment 3",
+        totalMarks: 7,
+        questions: [
+          {
+            id: "q3_1",
+            number: 1,
+            marks: 3,
+            text: `James collects the running times of some athletes and records the data in the table below.<br><br>
+                   Find the mean of the data in the table. Give your answer correct to 1 decimal place where appropriate.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-left">Time ($x$ seconds)</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$10 < x \\le 20$</td><td class="border border-slate-300 px-4 py-1.5 text-center">3</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$20 < x \\le 30$</td><td class="border border-slate-300 px-4 py-1.5 text-center">2</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$30 < x \\le 40$</td><td class="border border-slate-300 px-4 py-1.5 text-center">8</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$40 < x \\le 50$</td><td class="border border-slate-300 px-4 py-1.5 text-center">6</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5">$50 < x \\le 60$</td><td class="border border-slate-300 px-4 py-1.5 text-center">6</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q3_1_ans", label: "Estimate for mean time:", unit: "seconds", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q3_1_ans);
+              return val >= 38.9 && val <= 39.1;
+            },
+            correctAnswerDisplay: "39 seconds",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> For $\\sum fx$ using midpoints (15, 25, 35, 45, 55): $15(3) + 25(2) + 35(8) + 45(6) + 55(6) = 975$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between border-b py-1">
+                  <span><strong>M1:</strong> Total frequency $\\sum f = 25$. Divide total by 25: $975 \\div 25$</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> $39$ seconds</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "q3_2",
+            number: 2,
+            marks: 2,
+            text: `A total of 80 men and women took part in a race. The cumulative frequency graph gives information about the times, in minutes, they took for the race.<br><br>
+                   Use the graph to find an estimate for the interquartile range.`,
+            svgGraph: `
+              <div class="my-4 flex justify-center overflow-x-auto">
+                <svg viewBox="0 0 500 380" class="w-full max-w-xl bg-white border border-slate-400 rounded shadow-md">
+                  <defs>
+                    <pattern id="grid3-fine" width="7.2" height="3.25" patternUnits="userSpaceOnUse">
+                      <path d="M 7.2 0 L 0 0 0 3.25" fill="none" stroke="#f1f5f9" stroke-width="0.5"/>
+                    </pattern>
+                    <pattern id="grid3-mid" width="36" height="16.25" patternUnits="userSpaceOnUse">
+                      <rect width="36" height="16.25" fill="url(#grid3-fine)"/>
+                      <path d="M 36 0 L 0 0 0 16.25" fill="none" stroke="#cbd5e1" stroke-width="0.75"/>
+                    </pattern>
+                    <pattern id="grid3-heavy" width="72" height="32.5" patternUnits="userSpaceOnUse">
+                      <rect width="72" height="32.5" fill="url(#grid3-mid)"/>
+                      <path d="M 72 0 L 0 0 0 32.5" fill="none" stroke="#64748b" stroke-width="1.25"/>
+                    </pattern>
+                  </defs>
+                  <rect width="360" height="260" x="60" y="30" fill="url(#grid3-heavy)" stroke="#334155" stroke-width="1.5" />
+                  <line x1="60" y1="290" x2="420" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <line x1="60" y1="30" x2="60" y2="290" stroke="#0f172a" stroke-width="2.5"/>
+                  <text x="48" y="294" font-size="11" font-weight="600" text-anchor="end">0</text>
+                  <text x="48" y="261.5" font-size="11" font-weight="600" text-anchor="end">10</text>
+                  <text x="48" y="229" font-size="11" font-weight="600" text-anchor="end">20</text>
+                  <text x="48" y="196.5" font-size="11" font-weight="600" text-anchor="end">30</text>
+                  <text x="48" y="164" font-size="11" font-weight="600" text-anchor="end">40</text>
+                  <text x="48" y="131.5" font-size="11" font-weight="600" text-anchor="end">50</text>
+                  <text x="48" y="99" font-size="11" font-weight="600" text-anchor="end">60</text>
+                  <text x="48" y="66.5" font-size="11" font-weight="600" text-anchor="end">70</text>
+                  <text x="48" y="34" font-size="11" font-weight="600" text-anchor="end">80</text>
+                  <text x="60" y="310" font-size="11" font-weight="600" text-anchor="middle">20</text>
+                  <text x="132" y="310" font-size="11" font-weight="600" text-anchor="middle">30</text>
+                  <text x="204" y="310" font-size="11" font-weight="600" text-anchor="middle">40</text>
+                  <text x="276" y="310" font-size="11" font-weight="600" text-anchor="middle">50</text>
+                  <text x="348" y="310" font-size="11" font-weight="600" text-anchor="middle">60</text>
+                  <text x="420" y="310" font-size="11" font-weight="600" text-anchor="middle">70</text>
+                  <text x="240" y="340" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Time (minutes)</text>
+                  <text x="18" y="160" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle" transform="rotate(-90 18 160)">Cumulative frequency</text>
+                  <path d="M 60 290 
+                           Q 132 264, 204 225
+                           C 240 190, 260 160, 276 156.75
+                           C 310 110, 330 80, 348 72.25
+                           Q 390 40, 420 30" 
+                        fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" />
+                </svg>
+              </div>
+            `,
+            inputs: [
+              { id: "q3_2_ans", label: "Interquartile Range:", unit: "minutes", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              const val = parseFloat(ans.q3_2_ans);
+              return val >= 17 && val <= 19;
+            },
+            correctAnswerDisplay: "18 minutes (Accept range 17 to 19)",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> For subtracting horizontal values corresponding to $CF=20$ ($LQ \\approx 38$) and $CF=60$ ($UQ \\approx 56$).</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> $56 - 38 = 18$ minutes (Accept range 17 - 19).</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "q3_3",
+            number: 3,
+            marks: 2,
+            text: `Altogether, I have 10 bags of sweets. The mean number of sweets in the bags is 41.<br>
+                   The table shows how many sweets there are in 9 of the bags.<br><br>
+                   Calculate how many sweets there are in the 10th bag.`,
+            tableHTML: `
+              <div class="overflow-x-auto my-3">
+                <table class="min-w-full text-sm border-collapse border border-slate-300 bg-white max-w-sm">
+                  <thead>
+                    <tr class="bg-slate-100 text-slate-700">
+                      <th class="border border-slate-300 px-4 py-2 text-center">Number of sweets in a bag</th>
+                      <th class="border border-slate-300 px-4 py-2 text-center">Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">39</td><td class="border border-slate-300 px-4 py-1.5 text-center">3</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">40</td><td class="border border-slate-300 px-4 py-1.5 text-center">2</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">41</td><td class="border border-slate-300 px-4 py-1.5 text-center">1</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">42</td><td class="border border-slate-300 px-4 py-1.5 text-center">1</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">43</td><td class="border border-slate-300 px-4 py-1.5 text-center">0</td></tr>
+                    <tr><td class="border border-slate-300 px-4 py-1.5 text-center">44</td><td class="border border-slate-300 px-4 py-1.5 text-center">2</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            inputs: [
+              { id: "q3_3_ans", label: "Sweets in 10th bag:", unit: "sweets", type: "number" }
+            ],
+            checkAnswer: (ans) => {
+              return parseInt(ans.q3_3_ans) === 42;
+            },
+            correctAnswerDisplay: "42 sweets",
+            markScheme: `
+              <div class="space-y-1 text-xs sm:text-sm font-mono bg-amber-50/50 p-3 rounded-lg border border-amber-200">
+                <div class="flex justify-between border-b pb-1">
+                  <span><strong>M1:</strong> Total sweets required: $10 \\times 41 = 410$.<br>Sum of 9 bags: $39(3) + 40(2) + 41(1) + 42(1) + 43(0) + 44(2) = 117 + 80 + 41 + 42 + 88 = 368$.</span>
+                  <span class="font-bold">M1</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                  <span><strong>A1:</strong> 10th bag $= 410 - 368 = 42$ sweets.</span>
+                  <span class="font-bold">A1</span>
+                </div>
+              </div>
+            `
+          }
+        ]
+      }
+    };
+
+    /* App State Variables */
+    let currentQuizId = null;
+    let timerInterval = null;
+    let timeRemaining = 15 * 60;
+    let userAnswers = {};
+    let quizScores = { 1: null, 2: null, 3: null };
+    let quizSubmitted = false;
+
+    document.getElementById('print-date').innerText = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    /* NAVIGATION CONTROLS */
+    function showHub() {
+      clearInterval(timerInterval);
+      document.getElementById('view-hub').classList.remove('hidden');
+      document.getElementById('view-quiz').classList.add('hidden');
+      updateHubUI();
+    }
+
+    function updateHubUI() {
+      [1, 2, 3].forEach(id => {
+        const badge = document.getElementById(`badge-quiz-${id}`);
+        const scoreDisplay = document.getElementById(`score-quiz-${id}`);
+        const score = quizScores[id];
+        
+        if (score !== null) {
+          badge.className = "text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold";
+          badge.innerText = `Completed (${score.pct}%)`;
+          scoreDisplay.innerText = `${score.earned}/${score.total} Marks (${score.pct}%)`;
+        }
+      });
+    }
+
+    function startRandomQuiz() {
+      const uncompleted = [1, 2, 3].filter(id => quizScores[id] === null);
+      let targetId;
+      if (uncompleted.length > 0) {
+        targetId = uncompleted[Math.floor(Math.random() * uncompleted.length)];
+      } else {
+        targetId = Math.floor(Math.random() * 3) + 1;
+      }
+      loadQuiz(targetId);
+    }
+
+    function loadQuiz(quizId) {
+      currentQuizId = quizId;
+      quizSubmitted = false;
+      userAnswers = {};
+      const data = quizzesData[quizId];
+      
+      document.getElementById('quiz-title-badge').innerText = `Quiz ${quizId}`;
+      document.getElementById('quiz-title-heading').innerText = data.title;
+      document.getElementById('result-summary-box').classList.add('hidden');
+      document.getElementById('submit-bar').classList.remove('hidden');
+      
+      const container = document.getElementById('questions-container');
+      container.innerHTML = '';
+
+      data.questions.forEach((q) => {
+        const qCard = document.createElement('div');
+        qCard.className = "bg-white rounded-xl border border-slate-200 p-6 shadow-sm ib-box relative";
+        
+        let inputsHTML = '';
+        q.inputs.forEach(input => {
+          inputsHTML += `
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+              <label for="${input.id}" class="text-sm font-semibold text-slate-700">${input.label}</label>
+              <div class="relative flex items-center">
+                <input type="${input.type}" id="${input.id}" step="any"
+                  oninput="userAnswers['${input.id}'] = this.value"
+                  class="w-36 bg-slate-50 border border-slate-300 focus:border-blue-500 focus:bg-white text-slate-900 rounded-lg px-3 py-1.5 text-sm font-mono shadow-inner outline-none transition"
+                  placeholder="Your answer..." />
+                ${input.unit ? `<span class="ml-2 text-xs font-medium text-slate-500">${input.unit}</span>` : ''}
+              </div>
+            </div>
+          `;
+        });
+
+        qCard.innerHTML = `
+          <div class="flex justify-between items-start border-b border-slate-100 pb-3 mb-4">
+            <h3 class="font-bold text-slate-900 text-lg">Question ${q.number}</h3>
+            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200">[${q.marks} Marks]</span>
+          </div>
+          
+          <div class="text-slate-800 text-sm sm:text-base leading-relaxed mb-3">
+            ${q.text}
+          </div>
+          
+          ${q.tableHTML || ''}
+          ${q.svgGraph || ''}
+          
+          <div id="input-container-${q.id}" class="mt-4 pt-4 border-t border-slate-100">
+            ${inputsHTML}
+          </div>
+
+          <div id="solution-${q.id}" class="hidden mt-4 pt-4 border-t border-slate-200 space-y-3">
+            <div class="flex items-center space-x-2 text-sm font-bold" id="status-${q.id}"></div>
+            <div class="text-xs sm:text-sm text-slate-700"><strong>IB Standard Answer:</strong> ${q.correctAnswerDisplay}</div>
+            <div class="mt-2">
+              <div class="text-xs font-bold uppercase text-amber-800 mb-1">IB Mark Scheme & Worked Solution:</div>
+              ${q.markScheme}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(qCard);
+      });
+
+      document.getElementById('view-hub').classList.add('hidden');
+      document.getElementById('view-quiz').classList.remove('hidden');
+
+      startTimer();
+
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    /* TIMER FUNCTIONS */
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeRemaining = 15 * 60;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert("Time's up! Your answers are being submitted.");
+          submitQuiz();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      const timerEl = document.getElementById('timer-display');
+      timerEl.innerText = display;
+
+      if (timeRemaining < 180) {
+        timerEl.parentElement.className = "flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-mono font-semibold shadow-inner animate-pulse";
+      } else {
+        timerEl.parentElement.className = "flex items-center space-x-2 bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-mono font-semibold shadow-inner";
+      }
+    }
+
+    /* SUBMISSION & AUTO-GRADING */
+    function submitQuiz() {
+      if (quizSubmitted) return;
+      quizSubmitted = true;
+      clearInterval(timerInterval);
+
+      const data = quizzesData[currentQuizId];
+      let earnedMarks = 0;
+
+      data.questions.forEach(q => {
+        const isCorrect = q.checkAnswer(userAnswers);
+        const statusEl = document.getElementById(`status-${q.id}`);
+        const solEl = document.getElementById(`solution-${q.id}`);
+
+        if (isCorrect) {
+          earnedMarks += q.marks;
+          statusEl.className = "flex items-center space-x-2 text-sm font-bold text-emerald-600";
+          statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>Correct (+${q.marks}/${q.marks} Marks)</span>`;
+        } else {
+          statusEl.className = "flex items-center space-x-2 text-sm font-bold text-rose-600";
+          statusEl.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <span>Incorrect (0/${q.marks} Marks)</span>`;
+        }
+
+        q.inputs.forEach(input => {
+          const inputElem = document.getElementById(input.id);
+          if (inputElem) inputElem.disabled = true;
+        });
+
+        solEl.classList.remove('hidden');
+      });
+
+      const percentage = Math.round((earnedMarks / data.totalMarks) * 100);
+      quizScores[currentQuizId] = { earned: earnedMarks, total: data.totalMarks, pct: percentage };
+
+      document.getElementById('result-percentage').innerText = `${percentage}%`;
+      document.getElementById('result-marks-text').innerText = `You scored ${earnedMarks} out of ${data.totalMarks} marks`;
+      document.getElementById('result-summary-box').classList.remove('hidden');
+      document.getElementById('submit-bar').classList.add('hidden');
+
+      // Scroll smoothly to top of page to see percentage score & download PDF button
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function printIBReport() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
