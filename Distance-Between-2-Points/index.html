@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IB Maths AI SL - Lesson 2: Distance Between Two Points (2D & 3D)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    .presentation {
+      width: 96vw;
+      max-width: 1600px;
+      height: 92vh;
+      max-height: 950px;
+      position: relative;
+      background-color: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slide-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.5rem;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.35rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      overflow-y: auto;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .card {
+      background-color: #0f172a;
+      padding: 1.6rem;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      font-size: 1.2rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 0.6rem;
+    }
+
+    .canvas-container {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      position: relative;
+      background-color: #0f172a;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .toolbar {
+      width: 100%;
+      background-color: #1e293b;
+      padding: 0.4rem 0.8rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .tool-btn {
+      background: #334155;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tool-btn:hover {
+      background: #475569;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.8rem;
+      gap: 0.5rem;
+    }
+
+    .input-box {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border: 2px solid #334155;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      width: 110px;
+      text-align: center;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border-color: #38bdf8;
+    }
+
+    .feedback-msg {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      display: block;
+      text-align: center;
+    }
+
+    .feedback-msg.success {
+      background-color: #15803d;
+      color: #4ade80;
+      border: 1px solid #22c55e;
+    }
+
+    .feedback-msg.error {
+      background-color: #7f1d1d;
+      color: #f87171;
+      border: 1px solid #ef4444;
+    }
+
+    .reveal-box {
+      background-color: #15803d;
+      color: #f8fafc;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      border: 2px solid #22c55e;
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      user-select: none;
+      transition: all 0.3s ease;
+      margin-top: 0.6rem;
+    }
+
+    .reveal-box:hover {
+      background-color: #166534;
+    }
+
+    .reveal-content {
+      display: none;
+      margin-top: 0.6rem;
+      padding: 0.8rem 1rem;
+      background-color: #0f172a;
+      border-radius: 8px;
+      border: 1px dashed #4ade80;
+      color: #38bdf8;
+      text-align: left;
+      font-weight: normal;
+      font-size: 1.1rem;
+    }
+
+    .reveal-box.revealed {
+      background-color: #0f172a;
+      border-color: #4ade80;
+      cursor: default;
+    }
+
+    .reveal-box.revealed .reveal-header {
+      color: #4ade80;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .reveal-box.revealed .reveal-content {
+      display: block;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2.5rem;
+      display: flex;
+      gap: 1.2rem;
+      z-index: 10;
+    }
+
+    .nav-btn, .submit-btn {
+      background-color: #334155;
+      color: #f8fafc;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background-color 0.2s;
+    }
+
+    .nav-btn:hover, .submit-btn:hover {
+      background-color: #475569;
+    }
+
+    .submit-btn {
+      background-color: #0284c7;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background-color: #0369a1;
+    }
+
+    .slide-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 2.5rem;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .formula-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 2px solid #0284c7;
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 90%;
+    }
+
+    .formula-title {
+      font-size: 2.2rem;
+      color: #38bdf8;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
+    .radical-symbol {
+      font-size: 3.5rem;
+      vertical-align: middle;
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .radicand {
+      display: inline-block;
+      border-top: 3px solid #fbbf24;
+      padding-top: 4px;
+      padding-left: 6px;
+      padding-right: 10px;
+      vertical-align: middle;
+    }
+
+    .hw-box {
+      background-color: #facc15;
+      color: #0f172a;
+      border-radius: 20px;
+      padding: 1.8rem 3rem;
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      margin-bottom: 1.5rem;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    .math-expr {
+      font-family: "Georgia", serif;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation">
+
+    <!-- SLIDE 1: Step 1 - Horizontal & Vertical Differences -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-title">Slide 1: Horizontal & Vertical Distances</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <div class="card">
+            <div class="card-title" style="color: #38bdf8;">Finding Distances along Grid Lines</div>
+            <p style="margin-bottom: 0.8rem;">Consider points <strong>B(1, 4)</strong> and <strong>C(5, 1)</strong>.</p>
+            
+            <div class="input-row">
+              <label for="s1_x">Horizontal distance between x-values:</label>
+              <input type="text" id="s1_x" class="input-box" placeholder="|5 - 1|">
+            </div>
+
+            <div class="input-row">
+              <label for="s1_y">Vertical distance between y-values:</label>
+              <input type="text" id="s1_y" class="input-box" placeholder="|4 - 1|">
+            </div>
+
+            <button class="submit-btn" onclick="checkSlide1()">Submit Answers</button>
+            <div id="fb1"></div>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <svg viewBox="-20 -20 340 340">
+            <g stroke="#334155" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="0" x2="300" y2="0"/><line x1="0" y1="60" x2="300" y2="60"/>
+              <line x1="0" y1="120" x2="300" y2="120"/><line x1="0" y1="180" x2="300" y2="180"/>
+              <line x1="0" y1="240" x2="300" y2="240"/><line x1="0" y1="300" x2="300" y2="300"/>
+              <line x1="0" y1="0" x2="0" y2="300"/><line x1="60" y1="0" x2="60" y2="300"/>
+              <line x1="120" y1="0" x2="120" y2="300"/><line x1="180" y1="0" x2="180" y2="300"/>
+              <line x1="240" y1="0" x2="240" y2="300"/><line x1="300" y1="0" x2="300" y2="300"/>
+            </g>
+            <line x1="60" y1="0" x2="60" y2="300" stroke="#f8fafc" stroke-width="2"/>
+            <line x1="0" y1="240" x2="300" y2="240" stroke="#f8fafc" stroke-width="2"/>
+            <text x="45" y="255" fill="#f8fafc" font-size="14">0</text>
+            <text x="115" y="255" fill="#f8fafc" font-size="14">2</text>
+            <text x="175" y="255" fill="#f8fafc" font-size="14">4</text>
+            <text x="235" y="255" fill="#f8fafc" font-size="14">6</text>
+            <text x="40" y="185" fill="#f8fafc" font-size="14">2</text>
+            <text x="40" y="125" fill="#f8fafc" font-size="14">4</text>
+
+            <circle cx="90" cy="120" r="7" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+            <text x="90" y="100" fill="#fbbf24" font-weight="bold" font-size="16">B(1, 4)</text>
+
+            <circle cx="210" cy="210" r="7" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+            <text x="210" y="235" fill="#fbbf24" font-weight="bold" font-size="16">C(5, 1)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Step 2 - Introducing Pythagoras -->
+    <div class="slide" id="slide-2">
+      <div class="slide-title">Slide 2: Introducing Pythagoras' Theorem</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <div class="card">
+            <div class="card-title" style="color: #4ade80;">Right Triangle ABC</div>
+            <p style="margin-bottom: 0.6rem;">Using right-angled triangle <em>ABC</em>:</p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8; color: #cbd5e1;">
+              <li>Horizontal leg <span class="math-expr">a = |10 - 2| = 8</span></li>
+              <li>Vertical leg <span class="math-expr">b = |8 - 2| = 6</span></li>
+            </ul>
+            <p style="margin-top: 0.8rem; color: #fbbf24;">Calculate distance <em>d</em> using <span class="math-expr">a² + b² = c²</span>:</p>
+
+            <div class="input-row">
+              <label for="s2_ans">Distance from B to C:</label>
+              <input type="text" id="s2_ans" class="input-box" placeholder="√(8² + 6²)">
+            </div>
+
+            <button class="submit-btn" onclick="checkSlide2()">Submit Distance</button>
+            <div id="fb2"></div>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <svg viewBox="-20 -20 340 340">
+            <g stroke="#334155" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="0" x2="300" y2="0"/><line x1="0" y1="60" x2="300" y2="60"/>
+              <line x1="0" y1="120" x2="300" y2="120"/><line x1="0" y1="180" x2="300" y2="180"/>
+              <line x1="0" y1="240" x2="300" y2="240"/><line x1="0" y1="300" x2="300" y2="300"/>
+              <line x1="0" y1="0" x2="0" y2="300"/><line x1="60" y1="0" x2="60" y2="300"/>
+              <line x1="120" y1="0" x2="120" y2="300"/><line x1="180" y1="0" x2="180" y2="300"/>
+              <line x1="240" y1="0" x2="240" y2="300"/><line x1="300" y1="0" x2="300" y2="300"/>
+            </g>
+            <line x1="60" y1="0" x2="60" y2="300" stroke="#f8fafc" stroke-width="2"/>
+            <line x1="0" y1="240" x2="300" y2="240" stroke="#f8fafc" stroke-width="2"/>
+            <text x="45" y="255" fill="#f8fafc" font-size="14">0</text>
+            <text x="115" y="255" fill="#f8fafc" font-size="14">2</text>
+            <text x="175" y="255" fill="#f8fafc" font-size="14">5</text>
+            <text x="285" y="255" fill="#f8fafc" font-size="14">10</text>
+            <text x="40" y="185" fill="#f8fafc" font-size="14">2</text>
+            <text x="40" y="65" fill="#f8fafc" font-size="14">8</text>
+
+            <polygon points="120,180 120,60 290,180" fill="none" stroke="#38bdf8" stroke-width="3"/>
+            <polyline points="120,165 135,165 135,180" fill="none" stroke="#4ade80" stroke-width="2"/>
+            
+            <circle cx="120" cy="180" r="6" fill="#ef4444"/>
+            <text x="60" y="195" fill="#ef4444" font-weight="bold" font-size="15">A(2,2)</text>
+
+            <circle cx="120" cy="60" r="6" fill="#fbbf24"/>
+            <text x="60" y="55" fill="#fbbf24" font-weight="bold" font-size="15">B(2,8)</text>
+
+            <circle cx="290" cy="180" r="6" fill="#fbbf24"/>
+            <text x="245" y="205" fill="#fbbf24" font-weight="bold" font-size="15">C(10,2)</text>
+
+            <text x="100" y="125" fill="#38bdf8" font-size="15" font-weight="bold">6</text>
+            <text x="200" y="170" fill="#38bdf8" font-size="15" font-weight="bold">8</text>
+            <text x="210" y="110" fill="#4ade80" font-size="18" font-weight="bold">d = ?</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Drawing & Subtraction Steps -->
+    <div class="slide" id="slide-3">
+      <div class="slide-title">Slide 3: Drawing & Step-by-Step Calculation</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <div class="card">
+            <p>1. Sketch a right triangle connecting <strong>B(2, 7)</strong> and <strong>C(8, 2)</strong>.</p>
+            <p style="margin-top: 0.4rem; color: #94a3b8;">2. Subtract coordinates to find leg lengths:</p>
+
+            <div class="input-row">
+              <label for="s3_dx">Difference in x (<span class="math-expr">8 - 2</span>):</label>
+              <input type="text" id="s3_dx" class="input-box">
+            </div>
+
+            <div class="input-row">
+              <label for="s3_dy">Difference in y (<span class="math-expr">7 - 2</span>):</label>
+              <input type="text" id="s3_dy" class="input-box">
+            </div>
+
+            <div class="input-row" style="margin-top: 1rem;">
+              <label for="s3_d">Distance BC (<span class="math-expr">√(Δx² + Δy²)</span>):</label>
+              <input type="text" id="s3_d" class="input-box" placeholder="3 s.f. or exact">
+            </div>
+
+            <button class="submit-btn" onclick="checkSlide3()">Submit Solution</button>
+            <div id="fb3"></div>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <div class="toolbar">
+            <button class="tool-btn" onclick="clearCanvas(3)">Clear Sketch</button>
+            <span style="font-size: 0.9rem; color: #94a3b8; margin-left: auto;">Click & drag to draw line</span>
+          </div>
+          <svg id="svg3" viewBox="-20 -20 340 340">
+            <g stroke="#334155" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="0" x2="300" y2="0"/><line x1="0" y1="60" x2="300" y2="60"/>
+              <line x1="0" y1="120" x2="300" y2="120"/><line x1="0" y1="180" x2="300" y2="180"/>
+              <line x1="0" y1="240" x2="300" y2="240"/><line x1="0" y1="300" x2="300" y2="300"/>
+              <line x1="0" y1="0" x2="0" y2="300"/><line x1="60" y1="0" x2="60" y2="300"/>
+              <line x1="120" y1="0" x2="120" y2="300"/><line x1="180" y1="0" x2="180" y2="300"/>
+              <line x1="240" y1="0" x2="240" y2="300"/><line x1="300" y1="0" x2="300" y2="300"/>
+            </g>
+            <line x1="60" y1="0" x2="60" y2="300" stroke="#f8fafc" stroke-width="2"/>
+            <line x1="0" y1="240" x2="300" y2="240" stroke="#f8fafc" stroke-width="2"/>
+            <text x="45" y="255" fill="#f8fafc" font-size="14">0</text>
+            <text x="115" y="255" fill="#f8fafc" font-size="14">2</text>
+            <text x="175" y="255" fill="#f8fafc" font-size="14">4</text>
+            <text x="235" y="255" fill="#f8fafc" font-size="14">6</text>
+            <text x="290" y="255" fill="#f8fafc" font-size="14">8</text>
+            <text x="40" y="185" fill="#f8fafc" font-size="14">2</text>
+            <text x="40" y="125" fill="#f8fafc" font-size="14">4</text>
+            <text x="40" y="65" fill="#f8fafc" font-size="14">6</text>
+
+            <circle cx="120" cy="30" r="6" fill="#fbbf24"/>
+            <text x="120" y="20" fill="#fbbf24" font-weight="bold" font-size="15">B(2, 7)</text>
+
+            <circle cx="300" cy="180" r="6" fill="#fbbf24"/>
+            <text x="245" y="205" fill="#fbbf24" font-weight="bold" font-size="15">C(8, 2)</text>
+
+            <g id="drawGroup3"></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Negative Coordinates Task -->
+    <div class="slide" id="slide-4">
+      <div class="slide-title">Slide 4: Handling Negative Coordinates</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <div class="card">
+            <p>1. Sketch a right triangle connecting <strong>B(-3, 4)</strong> and <strong>C(5, -2)</strong>.</p>
+            <p style="margin-top: 0.4rem; color: #94a3b8;">2. Calculate horizontal & vertical steps:</p>
+
+            <div class="input-row">
+              <label for="s4_dx">Difference in x (<span class="math-expr">5 - (-3)</span>):</label>
+              <input type="text" id="s4_dx" class="input-box">
+            </div>
+
+            <div class="input-row">
+              <label for="s4_dy">Difference in y (<span class="math-expr">4 - (-2)</span>):</label>
+              <input type="text" id="s4_dy" class="input-box">
+            </div>
+
+            <div class="input-row" style="margin-top: 1rem;">
+              <label for="s4_d">Distance BC (<span class="math-expr">√(Δx² + Δy²)</span>):</label>
+              <input type="text" id="s4_d" class="input-box" placeholder="Distance">
+            </div>
+
+            <button class="submit-btn" onclick="checkSlide4()">Submit Solution</button>
+            <div id="fb4"></div>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <div class="toolbar">
+            <button class="tool-btn" onclick="clearCanvas(4)">Clear Sketch</button>
+            <span style="font-size: 0.9rem; color: #94a3b8; margin-left: auto;">Click & drag to draw line</span>
+          </div>
+          <svg id="svg4" viewBox="-20 -20 340 340">
+            <g stroke="#334155" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="0" x2="300" y2="0"/><line x1="0" y1="60" x2="300" y2="60"/>
+              <line x1="0" y1="120" x2="300" y2="120"/><line x1="0" y1="180" x2="300" y2="180"/>
+              <line x1="0" y1="240" x2="300" y2="240"/><line x1="0" y1="300" x2="300" y2="300"/>
+              <line x1="0" y1="0" x2="0" y2="300"/><line x1="60" y1="0" x2="60" y2="300"/>
+              <line x1="120" y1="0" x2="120" y2="300"/><line x1="180" y1="0" x2="180" y2="300"/>
+              <line x1="240" y1="0" x2="240" y2="300"/><line x1="300" y1="0" x2="300" y2="300"/>
+            </g>
+            <line x1="120" y1="0" x2="120" y2="300" stroke="#f8fafc" stroke-width="2"/>
+            <line x1="0" y1="180" x2="300" y2="180" stroke="#f8fafc" stroke-width="2"/>
+            <text x="25" y="195" fill="#f8fafc" font-size="14">-3</text>
+            <text x="125" y="195" fill="#f8fafc" font-size="14">0</text>
+            <text x="265" y="195" fill="#f8fafc" font-size="14">5</text>
+            <text x="100" y="65" fill="#f8fafc" font-size="14">4</text>
+            <text x="95" y="245" fill="#f8fafc" font-size="14">-2</text>
+
+            <circle cx="30" cy="60" r="6" fill="#fbbf24"/>
+            <text x="10" y="45" fill="#fbbf24" font-weight="bold" font-size="15">B(-3, 4)</text>
+
+            <circle cx="270" cy="240" r="6" fill="#fbbf24"/>
+            <text x="220" y="265" fill="#fbbf24" font-weight="bold" font-size="15">C(5, -2)</text>
+
+            <g id="drawGroup4"></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: General 2D Distance Formula -->
+    <div class="slide" id="slide-5">
+      <div class="slide-title">Slide 5: General 2D Distance Formula</div>
+      <div class="slide-content" style="align-items: center; justify-content: center;">
+        <div class="formula-card">
+          <div class="formula-title">Distance Between Points (x<sub>1</sub>, y<sub>1</sub>) and (x<sub>2</sub>, y<sub>2</sub>)</div>
+          
+          <div style="font-size: 3rem; color: #fbbf24; display: inline-flex; align-items: center; margin-bottom: 2rem;">
+            <span class="math-expr" style="margin-right: 0.5rem;">d =</span>
+            <span class="radical-symbol">&radic;</span>
+            <span class="radicand">
+              <span class="math-expr">(x<sub>1</sub> - x<sub>2</sub>)<sup>2</sup> + (y<sub>1</sub> - y<sub>2</sub>)<sup>2</sup></span>
+            </span>
+          </div>
+
+          <p style="font-size: 1.35rem; color: #cbd5e1; max-width: 850px; margin: 0 auto; line-height: 1.8;">
+            Derived directly from <strong>Pythagoras' Theorem</strong>! <br>
+            Horizontal distance leg = <strong>(x<sub>1</sub> - x<sub>2</sub>)</strong> &nbsp;&bull;&nbsp; 
+            Vertical distance leg = <strong>(y<sub>1</sub> - y<sub>2</sub>)</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: PDF Page 1 - 2D & 3D Distance Formulas Summary -->
+    <div class="slide" id="slide-6">
+      <div class="slide-title">Slide 6: 2D and 3D Distance Formulas</div>
+      <div class="slide-content" style="align-items: center; justify-content: center;">
+        <div class="formula-card" style="padding: 2.5rem; max-width: 1050px;">
+          <!-- 2D Section -->
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.8rem; color: #38bdf8; margin-bottom: 0.6rem;">The distance between two points in 2D</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 1rem;">
+              In a two-dimensional (2D) space, the distance between two points, 
+              <span class="math-expr">A(x<sub>1</sub>, y<sub>1</sub>)</span> and <span class="math-expr">B(x<sub>2</sub>, y<sub>2</sub>)</span> is:
+            </p>
+            <div style="font-size: 2.2rem; color: #fbbf24; display: inline-flex; align-items: center;">
+              <span class="math-expr" style="margin-right: 0.5rem;">d =</span>
+              <span class="radical-symbol" style="font-size: 2.8rem;">&radic;</span>
+              <span class="radicand" style="border-top-width: 2.5px;">
+                <span class="math-expr">(x<sub>2</sub> - x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> - y<sub>1</sub>)<sup>2</sup></span>
+              </span>
+            </div>
+          </div>
+
+          <hr style="border: 1px solid #334155; margin: 1.5rem 0;">
+
+          <!-- 3D Section -->
+          <div>
+            <h3 style="font-size: 1.8rem; color: #4ade80; margin-bottom: 0.6rem;">The distance between two points in 3D</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 1rem;">
+              In a three-dimensional (3D) space, the distance between two points, 
+              <span class="math-expr">A(x<sub>1</sub>, y<sub>1</sub>, z<sub>1</sub>)</span> and <span class="math-expr">B(x<sub>2</sub>, y<sub>2</sub>, z<sub>2</sub>)</span> is:
+            </p>
+            <div style="font-size: 2.2rem; color: #fbbf24; display: inline-flex; align-items: center;">
+              <span class="math-expr" style="margin-right: 0.5rem;">d =</span>
+              <span class="radical-symbol" style="font-size: 2.8rem;">&radic;</span>
+              <span class="radicand" style="border-top-width: 2.5px;">
+                <span class="math-expr">(x<sub>2</sub> - x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> - y<sub>1</sub>)<sup>2</sup> + (z<sub>2</sub> - z<sub>1</sub>)<sup>2</sup></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: PDF Page 2 - Example 4 Storage Box (Interactive Part Answers & Reveals) -->
+    <div class="slide" id="slide-7">
+      <div class="slide-title">Slide 7: Example 4 - Page 155 (Storage Box)</div>
+      <div class="slide-content grid-2col">
+        <div>
+          <p style="font-size: 1.15rem; margin-bottom: 0.8rem;">
+            A storage box for garden tools in the shape of a cuboid, <em>OCDRFBAQ</em>, is shown in the diagram. 
+            The vertex <strong>A</strong> has coordinates <strong>(2, 3, 4)</strong>. All coordinates are given in metres.
+          </p>
+          
+          <div style="font-size: 1.1rem; line-height: 1.5;">
+            <!-- Part (a) -->
+            <div style="margin-bottom: 0.6rem;">
+              <strong>(a)</strong> Coordinates of vertices R, C, B and Q:
+              <div style="display: flex; gap: 0.4rem; align-items: center; margin-top: 0.3rem;">
+                <input type="text" id="s7_a" class="input-box" style="width:100%; text-align:left; font-size:0.95rem;" placeholder="R(...), C(...), B(...), Q(...)">
+              </div>
+              <div class="reveal-box" onclick="toggleReveal(this)">
+                <span class="reveal-header">Reveal Solution (a)</span>
+                <div class="reveal-content">
+                  R(2, 0, 0), C(0, 3, 0), B(0, 3, 4), Q(2, 0, 4)
+                </div>
+              </div>
+            </div>
+
+            <!-- Part (b) -->
+            <div style="margin-bottom: 0.6rem;">
+              <strong>(b)</strong> Maximum length of a garden tool fitting in box:
+              <div style="display: flex; gap: 0.4rem; align-items: center; margin-top: 0.3rem;">
+                <input type="text" id="s7_b" class="input-box" style="width:100%; text-align:left; font-size:0.95rem;" placeholder="Length = √(2² + 3² + 4²)">
+              </div>
+              <div class="reveal-box" onclick="toggleReveal(this)">
+                <span class="reveal-header">Reveal Solution (b)</span>
+                <div class="reveal-content">
+                  Diagonal OR = &radic;(2² + 3² + 4²) = &radic;29 &approx; <strong>5.39 m</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Part (c) -->
+            <div style="margin-bottom: 0.6rem;">
+              <strong>(c)</strong> The height, RQ, of the storage box:
+              <div style="display: flex; gap: 0.4rem; align-items: center; margin-top: 0.3rem;">
+                <input type="text" id="s7_c" class="input-box" style="width:100%; text-align:left; font-size:0.95rem;" placeholder="Height RQ">
+              </div>
+              <div class="reveal-box" onclick="toggleReveal(this)">
+                <span class="reveal-header">Reveal Solution (c)</span>
+                <div class="reveal-content">
+                  RQ = <strong>4 m</strong> (z-coordinate height)
+                </div>
+              </div>
+            </div>
+
+            <!-- Part (d) -->
+            <div>
+              <strong>(d)</strong> The angle between diagonals [BR] and [BQ]:
+              <div style="display: flex; gap: 0.4rem; align-items: center; margin-top: 0.3rem;">
+                <input type="text" id="s7_d" class="input-box" style="width:100%; text-align:left; font-size:0.95rem;" placeholder="Angle in degrees">
+              </div>
+              <div class="reveal-box" onclick="toggleReveal(this)">
+                <span class="reveal-header">Reveal Solution (d)</span>
+                <div class="reveal-content">
+                  Right-angled &Delta;BQR: sin(&theta;) = 4/&radic;29 &rArr; &theta; = sin⁻¹(4/&radic;29) &approx; <strong>48.0°</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <svg viewBox="-60 -60 380 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Axes -->
+            <line x1="40" y1="140" x2="40" y2="-45" stroke="#f8fafc" stroke-width="2.5"/>
+            <line x1="40" y1="140" x2="280" y2="140" stroke="#f8fafc" stroke-width="2.5"/>
+            <line x1="40" y1="140" x2="-45" y2="245" stroke="#f8fafc" stroke-width="2.5"/>
+
+            <text x="30" y="-48" fill="#f8fafc" font-size="16" font-weight="bold">z</text>
+            <text x="285" y="145" fill="#f8fafc" font-size="16" font-weight="bold">y</text>
+            <text x="-55" y="255" fill="#f8fafc" font-size="16" font-weight="bold">x</text>
+
+            <!-- Cuboid Frame -->
+            <rect x="40" y="20" width="160" height="120" fill="none" stroke="#0099ff" stroke-width="3"/>
+            <rect x="-20" y="100" width="160" height="120" fill="none" stroke="#0099ff" stroke-width="3"/>
+            <line x1="40" y1="20" x2="-20" y2="100" stroke="#0099ff" stroke-width="3"/>
+            <line x1="200" y1="20" x2="140" y2="100" stroke="#0099ff" stroke-width="3"/>
+            <line x1="200" y1="140" x2="140" y2="220" stroke="#0099ff" stroke-width="3"/>
+            <line x1="40" y1="140" x2="-20" y2="220" stroke="#0099ff" stroke-width="3"/>
+
+            <!-- Dashed Internal Diagonal -->
+            <line x1="-20" y1="220" x2="200" y2="20" stroke="#4ade80" stroke-width="3" stroke-dasharray="6"/>
+            <!-- Top Diagonal -->
+            <line x1="-20" y1="100" x2="200" y2="20" stroke="#a855f7" stroke-width="3"/>
+
+            <!-- Vertex Labels -->
+            <text x="25" y="155" fill="#f8fafc" font-size="15" font-weight="bold">O</text>
+            <text x="45" y="15" fill="#f8fafc" font-size="15" font-weight="bold">F</text>
+            <text x="205" y="15" fill="#fbbf24" font-size="16" font-weight="bold">B</text>
+            <text x="205" y="155" fill="#f8fafc" font-size="15" font-weight="bold">C</text>
+            <text x="-40" y="105" fill="#f8fafc" font-size="15" font-weight="bold">Q</text>
+            <text x="-35" y="235" fill="#4ade80" font-size="16" font-weight="bold">R</text>
+            <text x="145" y="235" fill="#f8fafc" font-size="15" font-weight="bold">D</text>
+            <text x="150" y="105" fill="#fbbf24" font-size="16" font-weight="bold">A(2, 3, 4)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: PDF Page 3 - Homework & Worksheet Practice -->
+    <div class="slide" id="slide-8">
+      <div class="slide-title">Slide 8: Independent Practice & Homework</div>
+      <div class="slide-content" style="align-items: center; justify-content: center;">
+        
+        <div class="hw-box">
+          Worksheet Corbettmaths &ndash;<br>
+          Distance Between Two Points
+        </div>
+
+        <div style="font-size: 3rem; font-weight: bold; color: #38bdf8; margin: 0.5rem 0;">+</div>
+
+        <div style="font-size: 2.2rem; font-weight: bold; color: #cbd5e1; margin-bottom: 0.8rem;">Homework</div>
+
+        <div class="hw-box" style="background-color: #facc15;">
+          MyiMaths<br>
+          Midpoint &amp; Line Segments 2
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Navigation & Counter -->
+    <div class="slide-counter"><span id="currentSlide">1</span> / 8</div>
+    <div class="controls">
+      <button class="nav-btn" onclick="prevSlide()">Previous</button>
+      <button class="nav-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+
+  <script>
+    let current = 1;
+    const total = 8;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById(`slide-${n}`).classList.add('active');
+      document.getElementById('currentSlide').textContent = n;
+    }
+
+    function nextSlide() {
+      if (current < total) {
+        current++;
+        showSlide(current);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 1) {
+        current--;
+        showSlide(current);
+      }
+    }
+
+    function toggleReveal(el) {
+      el.classList.toggle('revealed');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Drawing Canvas Logic for Slides 3 & 4
+    let isDrawing = false;
+    let startX = 0, startY = 0;
+    let currentLine = null;
+
+    function initDrawing(slideNum) {
+      const svg = document.getElementById(`svg${slideNum}`);
+      const group = document.getElementById(`drawGroup${slideNum}`);
+      if (!svg || !group) return;
+
+      svg.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        const rect = svg.getBoundingClientRect();
+        startX = (e.clientX - rect.left) * (300 / rect.width);
+        startY = (e.clientY - rect.top) * (300 / rect.height);
+
+        currentLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        currentLine.setAttribute('x1', startX);
+        currentLine.setAttribute('y1', startY);
+        currentLine.setAttribute('x2', startX);
+        currentLine.setAttribute('y2', startY);
+        currentLine.setAttribute('stroke', '#38bdf8');
+        currentLine.setAttribute('stroke-width', '3');
+        group.appendChild(currentLine);
+      });
+
+      svg.addEventListener('mousemove', (e) => {
+        if (!isDrawing || !currentLine) return;
+        const rect = svg.getBoundingClientRect();
+        const curX = (e.clientX - rect.left) * (300 / rect.width);
+        const curY = (e.clientY - rect.top) * (300 / rect.height);
+        currentLine.setAttribute('x2', curX);
+        currentLine.setAttribute('y2', curY);
+      });
+
+      svg.addEventListener('mouseup', () => { isDrawing = false; });
+    }
+
+    function clearCanvas(slideNum) {
+      const group = document.getElementById(`drawGroup${slideNum}`);
+      if (group) group.innerHTML = '';
+    }
+
+    initDrawing(3);
+    initDrawing(4);
+
+    // Answer Validation Functions
+    function checkSlide1() {
+      const x = parseFloat(document.getElementById('s1_x').value);
+      const y = parseFloat(document.getElementById('s1_y').value);
+      const fb = document.getElementById('fb1');
+
+      if (x === 4 && y === 3) {
+        fb.className = 'feedback-msg success';
+        fb.innerHTML = 'Nice work! Horizontal = 4, Vertical = 3.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.innerHTML = 'Keep Trying! Subtract x-values (5-1) and y-values (4-1).';
+      }
+    }
+
+    function checkSlide2() {
+      const d = parseFloat(document.getElementById('s2_ans').value);
+      const fb = document.getElementById('fb2');
+
+      if (d === 10) {
+        fb.className = 'feedback-msg success';
+        fb.innerHTML = 'Nice work! d = √(8² + 6²) = √100 = 10.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.innerHTML = 'Keep Trying! a = 8, b = 6 -> c = √(64 + 36).';
+      }
+    }
+
+    function checkSlide3() {
+      const dx = parseFloat(document.getElementById('s3_dx').value);
+      const dy = parseFloat(document.getElementById('s3_dy').value);
+      const d = parseFloat(document.getElementById('s3_d').value);
+      const fb = document.getElementById('fb3');
+
+      const isDValid = (d === 61 || Math.abs(d - 7.81) < 0.05);
+
+      if (dx === 6 && dy === 5 && isDValid) {
+        fb.className = 'feedback-msg success';
+        fb.innerHTML = 'Nice work! Δx = 6, Δy = 5, d = √61 ≈ 7.81.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.innerHTML = 'Keep Trying! Check Δx = 8-2, Δy = 7-2, and d = √(6² + 5²).';
+      }
+    }
+
+    function checkSlide4() {
+      const dx = parseFloat(document.getElementById('s4_dx').value);
+      const dy = parseFloat(document.getElementById('s4_dy').value);
+      const d = parseFloat(document.getElementById('s4_d').value);
+      const fb = document.getElementById('fb4');
+
+      if (dx === 8 && dy === 6 && d === 10) {
+        fb.className = 'feedback-msg success';
+        fb.innerHTML = 'Nice work! Δx = 8, Δy = 6, d = 10.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.innerHTML = 'Keep Trying! Δx = 5-(-3)=8, Δy = 4-(-2)=6, d = √(8²+6²).';
+      }
+    }
+  </script>
+</body>
+</html>
