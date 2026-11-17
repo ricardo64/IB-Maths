@@ -1,1 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IB Maths AI SL - Gradients of Straight Lines Match-Up</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1600px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.2rem;
+      gap: 1rem;
+    }
+
+    .title-group h1 {
+      font-size: 1.95rem;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .title-group p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      margin-top: 0.2rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .score-badge {
+      background-color: #1e293b;
+      border: 2px solid #334155;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fbbf24;
+    }
+
+    .btn {
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      padding: 0.65rem 1.3rem;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background-color: #0369a1;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-reset {
+      background-color: #334155;
+    }
+
+    .btn-reset:hover {
+      background-color: #475569;
+    }
+
+    .btn-green {
+      background-color: #16a34a;
+    }
+
+    .btn-green:hover {
+      background-color: #15803d;
+    }
+
+    /* Sticky Gradient Tile Bank */
+    .tile-bank-container {
+      width: 100%;
+      max-width: 1600px;
+      background-color: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 1.4rem;
+      position: sticky;
+      top: 0.6rem;
+      z-index: 50;
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    .bank-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tile-bank {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+      gap: 0.65rem;
+      min-height: 56px;
+    }
+
+    .tile {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border: 2px solid #38bdf8;
+      border-radius: 10px;
+      padding: 0.45rem 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      min-height: 54px;
+    }
+
+    .tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(56, 189, 248, 0.35);
+    }
+
+    .tile.selected {
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 3px #fbbf24;
+      transform: scale(1.04);
+    }
+
+    .tile-letter {
+      background-color: rgba(15, 23, 42, 0.45);
+      color: #fbbf24;
+      font-size: 0.82rem;
+      padding: 0.12rem 0.4rem;
+      border-radius: 5px;
+      font-weight: 800;
+    }
+
+    /* Fraction styling */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 1rem;
+      line-height: 1.05;
+    }
+
+    .frac .num {
+      border-bottom: 2px solid currentColor;
+      padding: 0 4px 2px 4px;
+    }
+
+    .frac .den {
+      padding: 2px 4px 0 4px;
+    }
+
+    .neg-sign {
+      margin-right: 2px;
+      font-weight: 800;
+    }
+
+    /* Main Workspace Layout: Questions on Left, Sketchpad on Right */
+    .workspace {
+      width: 100%;
+      max-width: 1600px;
+      display: grid;
+      grid-template-columns: 1.45fr 0.85fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1100px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Questions Grid (1-10) */
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .q-card {
+      background-color: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.25s, background-color 0.25s;
+    }
+
+    .q-card.correct {
+      border-color: #22c55e;
+      background-color: rgba(21, 128, 61, 0.22);
+    }
+
+    .q-card.incorrect {
+      border-color: #ef4444;
+      background-color: rgba(127, 29, 29, 0.22);
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .q-num {
+      background-color: #0f172a;
+      color: #38bdf8;
+      font-weight: 800;
+      font-size: 1.05rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #334155;
+    }
+
+    .status-icon {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .q-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+      min-height: 145px;
+    }
+
+    .q-body svg {
+      width: 158px;
+      height: 132px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 2px solid #475569;
+    }
+
+    .coord-prompt {
+      text-align: center;
+      font-size: 1.12rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+      background-color: #0f172a;
+      padding: 0.9rem 0.7rem;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      width: 100%;
+    }
+
+    .coord-prompt strong {
+      color: #fbbf24;
+      font-size: 1.22rem;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .dropzone {
+      width: 100%;
+      min-height: 58px;
+      background-color: #0f172a;
+      border: 2px dashed #475569;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      transition: border-color 0.2s, background-color 0.2s;
+      cursor: pointer;
+    }
+
+    .dropzone.drag-over {
+      border-color: #38bdf8;
+      background-color: rgba(56, 189, 248, 0.15);
+    }
+
+    .dropzone-placeholder {
+      color: #64748b;
+      font-size: 0.92rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .dropzone .tile {
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Sticky Student Sketchpad / Working Space */
+    .sketchpad-panel {
+      background-color: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1.1rem;
+      position: sticky;
+      top: 145px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .sketch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .sketch-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .sketch-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      border: 1.5px solid #475569;
+      padding: 0.35rem 0.7rem;
+      border-radius: 7px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s;
+    }
+
+    .tool-btn:hover {
+      border-color: #38bdf8;
+    }
+
+    .tool-btn.active {
+      border-color: #fbbf24;
+      background-color: #1e293b;
+      box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.35);
+    }
+
+    .color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .btn-clear-pad {
+      background-color: #991b1b;
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+
+    .btn-clear-pad:hover {
+      background-color: #b91c1c;
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 410px;
+      background-color: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 10px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to right, rgba(51, 65, 85, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(51, 65, 85, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    #workingCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .sketch-formula-hint {
+      font-size: 0.92rem;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sketch-formula-hint span strong {
+      color: #38bdf8;
+    }
+
+    /* Toddle Submission Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background-color: #1e293b;
+      border: 2px solid #38bdf8;
+      border-radius: 16px;
+      max-width: 560px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #334155;
+      padding-bottom: 0.75rem;
+    }
+
+    .modal-header h2 {
+      color: #38bdf8;
+      font-size: 1.45rem;
+    }
+
+    .close-x {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close-x:hover {
+      color: #f8fafc;
+    }
+
+    .name-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .name-input-group label {
+      font-weight: 700;
+      color: #fbbf24;
+      font-size: 1rem;
+    }
+
+    .name-input {
+      background-color: #0f172a;
+      border: 2px solid #475569;
+      border-radius: 10px;
+      padding: 0.7rem 0.95rem;
+      font-size: 1.15rem;
+      color: #f8fafc;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .name-input:focus {
+      border-color: #38bdf8;
+    }
+
+    /* Official Screenshot Certificate Box */
+    .certificate-box {
+      background: linear-gradient(135deg, #0f172a 0%, #172554 100%);
+      border: 2px solid #fbbf24;
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .cert-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .cert-student-row {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 0.5rem;
+    }
+
+    .cert-student-row span {
+      color: #38bdf8;
+    }
+
+    .cert-score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .cert-score-big {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #4ade80;
+    }
+
+    .cert-breakdown {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .toddle-steps {
+      background-color: #0f172a;
+      border-left: 4px solid #38bdf8;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+    }
+
+    .toddle-steps ol {
+      margin-left: 1.3rem;
+      margin-top: 0.3rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-group">
+      <h1>Gradients of Straight Lines &mdash; Match-Up</h1>
+      <p>Match each gradient tile into Questions 1&ndash;10 (2 extra tiles are distractors). Use the working pad on the right for calculations.</p>
+    </div>
+    <div class="controls">
+      <div class="score-badge" id="scoreDisplay">Score: 0 / 10</div>
+      <button class="btn" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn btn-reset" onclick="resetActivity()">Reset All</button>
+    </div>
+  </header>
+
+  <!-- Draggable Gradient Tiles Bank -->
+  <section class="tile-bank-container">
+    <div class="bank-label">
+      <span>Gradient Tiles (Drag or Tap to Select)</span>
+      <span id="hintText" style="color: #38bdf8;"></span>
+    </div>
+    <div class="tile-bank" id="tileBank" ondragover="allowDrop(event)" ondrop="dropToBank(event)">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- Main Workspace: 10 Question Cards + Student Working Sketchpad -->
+  <div class="workspace">
+    <main class="questions-grid" id="questionsGrid">
+      <!-- Populated by JS -->
+    </main>
+
+    <!-- Student Sketchpad -->
+    <aside class="sketchpad-panel">
+      <div class="sketch-header">
+        <div class="sketch-title">Student Working Pad</div>
+        <div class="sketch-tools">
+          <button class="tool-btn active" id="penBlue" onclick="setPen('#38bdf8', 3, this)">
+            <span class="color-dot" style="background:#38bdf8;"></span> Pen
+          </button>
+          <button class="tool-btn" id="penYellow" onclick="setPen('#fbbf24', 3, this)">
+            <span class="color-dot" style="background:#fbbf24;"></span> Yellow
+          </button>
+          <button class="tool-btn" id="penWhite" onclick="setPen('#f8fafc', 3, this)">
+            <span class="color-dot" style="background:#f8fafc;"></span> White
+          </button>
+          <button class="tool-btn" id="eraserBtn" onclick="setEraser(this)">Eraser</button>
+          <button class="tool-btn" onclick="undoStroke()">Undo</button>
+          <button class="tool-btn btn-clear-pad" onclick="clearCanvas()">Clear Working</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="workingCanvas"></canvas>
+      </div>
+
+      <div class="sketch-formula-hint">
+        <span>Formula: <strong>m = (y<sub>2</sub> &minus; y<sub>1</sub>) / (x<sub>2</sub> &minus; x<sub>1</sub>)</strong></span>
+        <span>Supports mouse, stylus &amp; touch</span>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toddle Submission Modal -->
+  <div class="modal-backdrop" id="toddleModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Toddle Submission Summary</h2>
+        <button class="close-x" onclick="closeModal()" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="name-input-group">
+        <label for="studentNameInput">1. Enter Your Full Name:</label>
+        <input type="text" id="studentNameInput" class="name-input" placeholder="Type your first and last name..." oninput="updateCertificateName()">
+      </div>
+
+      <!-- Verified Results Card for Screenshot -->
+      <div class="certificate-box" id="certificateBox">
+        <div class="cert-top">
+          <span>IB Maths AI SL &bull; Gradients Match-Up</span>
+          <span id="certTimestamp"></span>
+        </div>
+        <div class="cert-student-row">
+          Student: <span id="certStudentName">[Enter Name Above]</span>
+        </div>
+        <div class="cert-score-row">
+          <div class="cert-score-big" id="certScoreBig">0 / 10</div>
+          <div class="cert-breakdown" id="certBreakdown"></div>
+        </div>
+      </div>
+
+      <div class="toddle-steps">
+        <strong>2. Submit Your Results to Toddle:</strong>
+        <ol>
+          <li>Ensure your <strong>full name</strong> is visible in the gold box above.</li>
+          <li>Take a <strong>screenshot</strong> of this window (or click <em>Download Proof PNG</em> below).</li>
+          <li>Open <strong>Toddle</strong> and upload the image to today's assignment.</li>
+        </ol>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-reset" onclick="closeModal()">Back to Questions</button>
+        <button class="btn btn-green" onclick="downloadProofImage()">Download Proof PNG</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Gradient Tile Definitions (A-L; C and G act as distractors for 1-10)
+    const tilesData = [
+      { id: 'A', label: '2', html: `<span class="tile-letter">A</span> <span>2</span>` },
+      { id: 'B', label: '1', html: `<span class="tile-letter">B</span> <span>1</span>` },
+      { id: 'C', label: '-3/2', html: `<span class="tile-letter">C</span> <span class="neg-sign">&minus;</span><span class="frac"><span class="num">3</span><span class="den">2</span></span>` },
+      { id: 'D', label: '4', html: `<span class="tile-letter">D</span> <span>4</span>` },
+      { id: 'E', label: '-2', html: `<span class="tile-letter">E</span> <span>&minus;2</span>` },
+      { id: 'F', label: '1/4', html: `<span class="tile-letter">F</span> <span class="frac"><span class="num">1</span><span class="den">4</span></span>` },
+      { id: 'G', label: '-2/5', html: `<span class="tile-letter">G</span> <span class="neg-sign">&minus;</span><span class="frac"><span class="num">2</span><span class="den">5</span></span>` },
+      { id: 'H', label: '3/2', html: `<span class="tile-letter">H</span> <span class="frac"><span class="num">3</span><span class="den">2</span></span>` },
+      { id: 'I', label: '-1', html: `<span class="tile-letter">I</span> <span>&minus;1</span>` },
+      { id: 'J', label: '-1/2', html: `<span class="tile-letter">J</span> <span class="neg-sign">&minus;</span><span class="frac"><span class="num">1</span><span class="den">2</span></span>` },
+      { id: 'K', label: '2/3', html: `<span class="tile-letter">K</span> <span class="frac"><span class="num">2</span><span class="den">3</span></span>` },
+      { id: 'L', label: '3', html: `<span class="tile-letter">L</span> <span>3</span>` }
+    ];
+
+    function makeGridSVG(x1, y1, x2, y2) {
+      const sx1 = x1 * 30;
+      const sy1 = 150 - y1 * 30;
+      const sx2 = x2 * 30;
+      const sy2 = 150 - y2 * 30;
+
+      let gridLines = '';
+      for (let i = 1; i < 6; i++) {
+        gridLines += `<line x1="${i * 30}" y1="0" x2="${i * 30}" y2="150" stroke="#64748b" stroke-width="1"/>`;
+      }
+      for (let j = 1; j < 5; j++) {
+        gridLines += `<line x1="0" y1="${j * 30}" x2="180" y2="${j * 30}" stroke="#64748b" stroke-width="1"/>`;
+      }
+
+      return `
+        <svg viewBox="0 0 180 150">
+          ${gridLines}
+          <rect x="0" y="0" width="180" height="150" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+          <line x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
+    const questionsData = [
+      { num: 1, answer: 'A', content: makeGridSVG(1, 0, 3.5, 5) },
+      { num: 2, answer: 'I', content: makeGridSVG(0, 5, 5, 0) },
+      { num: 3, answer: 'F', content: makeGridSVG(0, 1.75, 6, 3.25) },
+      { num: 4, answer: 'H', content: makeGridSVG(1.33, 0, 4.67, 5) },
+      { num: 5, answer: 'E', content: makeGridSVG(2, 5, 4.5, 0) },
+      { num: 6, answer: 'J', content: makeGridSVG(0, 4, 6, 1) },
+      { num: 7, answer: 'B', content: `<div class="coord-prompt">The line joining<strong>(0, 0) and (2, 2)</strong></div>` },
+      { num: 8, answer: 'D', content: `<div class="coord-prompt">The line joining<strong>(1, 2) and (3, 10)</strong></div>` },
+      { num: 9, answer: 'L', content: `<div class="coord-prompt">The line joining<strong>(&minus;2, 0) and (1, 9)</strong></div>` },
+      { num: 10, answer: 'K', content: `<div class="coord-prompt">The line joining<strong>(5, 2) and (&minus;1, &minus;2)</strong></div>` }
+    ];
+
+    let selectedTileId = null;
+    let latestScore = 0;
+    let latestResultsList = [];
+
+    function renderActivity() {
+      const bank = document.getElementById('tileBank');
+      const grid = document.getElementById('questionsGrid');
+      bank.innerHTML = '';
+      grid.innerHTML = '';
+
+      tilesData.forEach(t => {
+        bank.appendChild(createTileElement(t));
+      });
+
+      questionsData.forEach(q => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `card-${q.num}`;
+        card.dataset.answer = q.answer;
+
+        card.innerHTML = `
+          <div class="q-header">
+            <div class="q-num">${q.num}</div>
+            <div class="status-icon" id="status-${q.num}"></div>
+          </div>
+          <div class="q-body">${q.content}</div>
+          <div class="dropzone" id="drop-${q.num}"
+               ondragover="allowDrop(event)"
+               ondragleave="leaveDrop(event)"
+               ondrop="dropToZone(event, ${q.num})"
+               onclick="handleZoneClick(${q.num})">
+            <span class="dropzone-placeholder">Drop gradient here</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function createTileElement(tileObj) {
+      const div = document.createElement('div');
+      div.className = 'tile';
+      div.id = `tile-${tileObj.id}`;
+      div.draggable = true;
+      div.dataset.id = tileObj.id;
+      div.innerHTML = tileObj.html;
+
+      div.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', tileObj.id);
+        clearSelection();
+      });
+
+      div.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (selectedTileId === tileObj.id) {
+          clearSelection();
+        } else {
+          clearSelection();
+          selectedTileId = tileObj.id;
+          div.classList.add('selected');
+          document.getElementById('hintText').textContent = `Selected Tile ${tileObj.id} — tap any box to place it`;
+        }
+      });
+
+      return div;
+    }
+
+    function clearSelection() {
+      selectedTileId = null;
+      document.querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
+      document.getElementById('hintText').textContent = '';
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+      if (e.currentTarget.classList.contains('dropzone')) {
+        e.currentTarget.classList.add('drag-over');
+      }
+    }
+
+    function leaveDrop(e) {
+      if (e.currentTarget.classList.contains('dropzone')) {
+        e.currentTarget.classList.remove('drag-over');
+      }
+    }
+
+    function placeTileInZone(tileId, zoneNum) {
+      const tile = document.getElementById(`tile-${tileId}`);
+      const zone = document.getElementById(`drop-${zoneNum}`);
+      const bank = document.getElementById('tileBank');
+      if (!tile || !zone) return;
+
+      resetCardFeedback(zoneNum);
+      if (tile.parentElement && tile.parentElement.classList.contains('dropzone')) {
+        const oldNum = tile.parentElement.id.replace('drop-', '');
+        resetCardFeedback(oldNum);
+        if (tile.parentElement.children.length === 1) {
+          tile.parentElement.innerHTML = '<span class="dropzone-placeholder">Drop gradient here</span>';
+        }
+      }
+
+      const existingTile = zone.querySelector('.tile');
+      if (existingTile) {
+        bank.appendChild(existingTile);
+      }
+
+      zone.innerHTML = '';
+      zone.appendChild(tile);
+      clearSelection();
+    }
+
+    function dropToZone(e, zoneNum) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+      const tileId = e.dataTransfer.getData('text/plain');
+      placeTileInZone(tileId, zoneNum);
+    }
+
+    function handleZoneClick(zoneNum) {
+      const zone = document.getElementById(`drop-${zoneNum}`);
+      if (selectedTileId) {
+        placeTileInZone(selectedTileId, zoneNum);
+      } else {
+        const existingTile = zone.querySelector('.tile');
+        if (existingTile) {
+          document.getElementById('tileBank').appendChild(existingTile);
+          zone.innerHTML = '<span class="dropzone-placeholder">Drop gradient here</span>';
+          resetCardFeedback(zoneNum);
+        }
+      }
+    }
+
+    function dropToBank(e) {
+      e.preventDefault();
+      const tileId = e.dataTransfer.getData('text/plain');
+      const tile = document.getElementById(`tile-${tileId}`);
+      if (!tile) return;
+
+      if (tile.parentElement && tile.parentElement.classList.contains('dropzone')) {
+        const oldZone = tile.parentElement;
+        const oldNum = oldZone.id.replace('drop-', '');
+        oldZone.innerHTML = '<span class="dropzone-placeholder">Drop gradient here</span>';
+        resetCardFeedback(oldNum);
+      }
+      document.getElementById('tileBank').appendChild(tile);
+      clearSelection();
+    }
+
+    function resetCardFeedback(num) {
+      const card = document.getElementById(`card-${num}`);
+      const status = document.getElementById(`status-${num}`);
+      if (card) card.classList.remove('correct', 'incorrect');
+      if (status) status.textContent = '';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      latestResultsList = [];
+
+      questionsData.forEach(q => {
+        const card = document.getElementById(`card-${q.num}`);
+        const zone = document.getElementById(`drop-${q.num}`);
+        const status = document.getElementById(`status-${q.num}`);
+        const placedTile = zone.querySelector('.tile');
+
+        card.classList.remove('correct', 'incorrect');
+
+        if (placedTile && placedTile.dataset.id === q.answer) {
+          score++;
+          card.classList.add('correct');
+          status.textContent = '✓';
+          status.style.color = '#4ade80';
+          latestResultsList.push(`Q${q.num}: ✓`);
+        } else {
+          card.classList.add('incorrect');
+          status.textContent = '✗';
+          status.style.color = '#f87171';
+          latestResultsList.push(`Q${q.num}: ✗`);
+        }
+      });
+
+      latestScore = score;
+      const badge = document.getElementById('scoreDisplay');
+      badge.textContent = `Score: ${score} / 10`;
+      badge.style.color = score === 10 ? '#4ade80' : '#fbbf24';
+
+      openToddleModal();
+    }
+
+    function openToddleModal() {
+      const now = new Date();
+      const timeStr = now.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) +
+                      ' • ' + now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+
+      document.getElementById('certTimestamp').textContent = timeStr;
+      const scoreEl = document.getElementById('certScoreBig');
+      scoreEl.textContent = `${latestScore} / 10 (${latestScore * 10}%)`;
+      scoreEl.style.color = latestScore >= 8 ? '#4ade80' : (latestScore >= 5 ? '#fbbf24' : '#f87171');
+
+      const row1 = latestResultsList.slice(0, 5).join('  |  ');
+      const row2 = latestResultsList.slice(5, 10).join('  |  ');
+      document.getElementById('certBreakdown').innerHTML = `${row1}<br>${row2}`;
+
+      updateCertificateName();
+      document.getElementById('toddleModal').classList.add('open');
+      setTimeout(() => document.getElementById('studentNameInput').focus(), 100);
+    }
+
+    function closeModal() {
+      document.getElementById('toddleModal').classList.remove('open');
+    }
+
+    function updateCertificateName() {
+      const val = document.getElementById('studentNameInput').value.trim();
+      const display = document.getElementById('certStudentName');
+      if (val) {
+        display.textContent = val;
+        display.style.color = '#38bdf8';
+      } else {
+        display.textContent = '[Enter Name Above]';
+        display.style.color = '#f87171';
+      }
+    }
+
+    // Generates a clean downloadable PNG proof image with student name, timestamp & score
+    function downloadProofImage() {
+      const nameVal = document.getElementById('studentNameInput').value.trim();
+      if (!nameVal) {
+        alert('Please enter your full name first before downloading your Toddle proof image.');
+        document.getElementById('studentNameInput').focus();
+        return;
+      }
+
+      const c = document.createElement('canvas');
+      c.width = 900;
+      c.height = 460;
+      const g = c.getContext('2d');
+
+      // Background
+      g.fillStyle = '#0f172a';
+      g.fillRect(0, 0, c.width, c.height);
+
+      // Gold Border
+      g.strokeStyle = '#fbbf24';
+      g.lineWidth = 6;
+      g.strokeRect(18, 18, c.width - 36, c.height - 36);
+
+      // Header
+      g.fillStyle = '#38bdf8';
+      g.font = 'bold 28px Arial, sans-serif';
+      g.fillText('IB Maths AI SL — Gradients Match-Up Results', 48, 76);
+
+      g.fillStyle = '#94a3b8';
+      g.font = '18px Arial, sans-serif';
+      g.fillText(`Completed: ${document.getElementById('certTimestamp').textContent}`, 48, 110);
+
+      // Divider
+      g.strokeStyle = '#334155';
+      g.lineWidth = 2;
+      g.beginPath();
+      g.moveTo(48, 134);
+      g.lineTo(c.width - 48, 134);
+      g.stroke();
+
+      // Student Name
+      g.fillStyle = '#f8fafc';
+      g.font = 'bold 26px Arial, sans-serif';
+      g.fillText(`Student Name: ${nameVal}`, 48, 184);
+
+      // Score
+      g.fillStyle = latestScore >= 8 ? '#4ade80' : '#fbbf24';
+      g.font = 'bold 54px Arial, sans-serif';
+      g.fillText(`Score: ${latestScore} / 10  (${latestScore * 10}%)`, 48, 260);
+
+      // Breakdown
+      g.fillStyle = '#e2e8f0';
+      g.font = '20px monospace';
+      g.fillText(latestResultsList.slice(0, 5).join('   |   '), 48, 325);
+      g.fillText(latestResultsList.slice(5, 10).join('   |   '), 48, 362);
+
+      g.fillStyle = '#94a3b8';
+      g.font = 'italic 16px Arial, sans-serif';
+      g.fillText('Verified interactive activity completion — Upload to Toddle', 48, 415);
+
+      const link = document.createElement('a');
+      const safeName = nameVal.replace(/[^a-z0-9]/gi, '_');
+      link.download = `Gradients_MatchUp_${safeName}.png`;
+      link.href = c.toDataURL('image/png');
+      link.click();
+    }
+
+    function resetActivity() {
+      clearSelection();
+      document.getElementById('scoreDisplay').textContent = 'Score: 0 / 10';
+      document.getElementById('scoreDisplay').style.color = '#fbbf24';
+      renderActivity();
+    }
+
+    // --- Interactive Sketchpad ---
+    const canvas = document.getElementById('workingCanvas');
+    const wrapper = document.getElementById('canvasWrapper');
+    const ctx = canvas.getContext('2d');
+
+    let isDrawing = false;
+    let strokeColor = '#38bdf8';
+    let strokeWidth = 3;
+    let isEraser = false;
+    let history = [];
+
+    function resizeCanvas() {
+      const rect = wrapper.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const tempImg = canvas.width > 0 ? canvas.toDataURL() : null;
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (tempImg) {
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        img.src = tempImg;
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function saveState() {
+      history.push(canvas.toDataURL());
+      if (history.length > 25) history.shift();
+    }
+
+    function undoStroke() {
+      if (history.length === 0) return;
+      const lastState = history.pop();
+      const rect = wrapper.getBoundingClientRect();
+      const img = new Image();
+      img.onload = () => {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        ctx.drawImage(img, 0, 0, rect.width, rect.height);
+      };
+      img.src = lastState;
+    }
+
+    function clearCanvas() {
+      saveState();
+      const rect = wrapper.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+    }
+
+    function setActiveToolBtn(btn) {
+      document.querySelectorAll('.sketch-tools .tool-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function setPen(color, width, btn) {
+      isEraser = false;
+      strokeColor = color;
+      strokeWidth = width;
+      setActiveToolBtn(btn);
+    }
+
+    function setEraser(btn) {
+      isEraser = true;
+      strokeWidth = 22;
+      setActiveToolBtn(btn);
+    }
+
+    function getPointerPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
+    canvas.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      saveState();
+      isDrawing = true;
+      const pos = getPointerPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPointerPos(e);
+
+      if (isEraser) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineWidth = strokeWidth;
+      } else {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = e.pressure && e.pressure !== 0.5 ? strokeWidth * (0.6 + e.pressure) : strokeWidth;
+      }
+
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    });
+
+    function endStroke() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      ctx.closePath();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    canvas.addEventListener('pointerup', endStroke);
+    canvas.addEventListener('pointercancel', endStroke);
+
+    renderActivity();
+  </script>
+</body>
+</html>
