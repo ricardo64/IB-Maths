@@ -1,1 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IB Maths AI SL - Lesson 3: Equations of Straight Lines (Part 1)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    .presentation {
+      width: 96vw;
+      max-width: 1600px;
+      height: 92vh;
+      max-height: 950px;
+      position: relative;
+      background-color: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 2.2rem 3.2rem 4.5rem 3.2rem;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .slide-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .slide-tag {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fbbf24;
+      background-color: #0f172a;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.25rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+      overflow-y: auto;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .card {
+      background-color: #0f172a;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      font-size: 1.18rem;
+    }
+
+    .roadmap-card {
+      background: linear-gradient(180deg, #0f172a 0%, #162033 100%);
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .roadmap-card.highlight {
+      border-color: #38bdf8;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.18);
+    }
+
+    .formula-pill {
+      background-color: #1e293b;
+      border: 2px solid #fbbf24;
+      color: #fbbf24;
+      font-family: "Georgia", serif;
+      font-style: italic;
+      font-size: 1.85rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.9rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    .canvas-container {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      background-color: #0f172a;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.75rem;
+      gap: 0.6rem;
+    }
+
+    .input-box {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border: 2px solid #334155;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      width: 150px;
+      text-align: center;
+      outline: none;
+      font-weight: 600;
+    }
+
+    .input-box:focus {
+      border-color: #38bdf8;
+    }
+
+    .submit-btn {
+      background-color: #0284c7;
+      color: #f8fafc;
+      border: none;
+      padding: 0.65rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.05rem;
+      width: 100%;
+      margin-top: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #0369a1;
+    }
+
+    .feedback-msg {
+      margin-top: 0.75rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.55rem 0.9rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .feedback-msg.success {
+      background-color: rgba(21, 128, 61, 0.35);
+      color: #4ade80;
+      border: 1px solid #22c55e;
+    }
+
+    .feedback-msg.error {
+      background-color: rgba(127, 29, 29, 0.35);
+      color: #f87171;
+      border: 1px solid #ef4444;
+    }
+
+    .reveal-box {
+      background-color: #15803d;
+      color: #f8fafc;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #22c55e;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      user-select: none;
+      transition: all 0.25s ease;
+      margin-top: 0.65rem;
+    }
+
+    .reveal-box:hover {
+      background-color: #166534;
+    }
+
+    .reveal-content {
+      display: none;
+      margin-top: 0.6rem;
+      padding: 0.75rem 0.9rem;
+      background-color: #0f172a;
+      border-radius: 8px;
+      border: 1px dashed #4ade80;
+      color: #e2e8f0;
+      text-align: left;
+      font-weight: normal;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .reveal-box.revealed {
+      background-color: #0f172a;
+      border-color: #4ade80;
+      cursor: default;
+    }
+
+    .reveal-box.revealed .reveal-header {
+      color: #4ade80;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .reveal-box.revealed .reveal-content {
+      display: block;
+    }
+
+    .math-expr {
+      font-family: "Georgia", serif;
+      font-style: italic;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 0.95em;
+      line-height: 1.05;
+      margin: 0 3px;
+    }
+
+    .frac .num {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 3px 2px 3px;
+    }
+
+    .frac .den {
+      padding: 2px 3px 0 3px;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .nav-btn {
+      background-color: #334155;
+      color: #f8fafc;
+      border: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: background-color 0.2s;
+    }
+
+    .nav-btn:hover {
+      background-color: #475569;
+    }
+
+    .slide-counter {
+      position: absolute;
+      bottom: 1.4rem;
+      left: 2.5rem;
+      color: #94a3b8;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    /* Slider controls for interactive explorer */
+    input[type="range"] {
+      width: 100%;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation">
+
+    <!-- SLIDE 1: The Big Picture Roadmap (3 Forms of Straight Lines) -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="slide-title">1. The Three Forms of a Straight Line</div>
+        <div class="slide-tag">Unit Roadmap</div>
+      </div>
+      <div class="slide-content">
+        <p style="margin-bottom: 1.2rem; font-size: 1.25rem;">
+          Just like a number can be written as a fraction, decimal, or percentage, the <strong>exact same straight line</strong> can be written in three algebraic forms:
+        </p>
+
+        <div class="grid-3col">
+          <!-- Form 1 -->
+          <div class="roadmap-card highlight">
+            <div>
+              <div style="color: #38bdf8; font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Form 1 &bull; Today's Focus</div>
+              <h3 style="font-size: 1.45rem; color: #f8fafc; margin-top: 0.3rem;">Gradient-Intercept Form</h3>
+              <div class="formula-pill">y = mx + c</div>
+              <p style="font-size: 1.05rem; color: #cbd5e1;">
+                Best when you know the <strong>gradient (<span class="math-expr">m</span>)</strong> and the <strong>y-intercept (<span class="math-expr">c</span>)</strong>, or when graphing on your Casio fx-CG50.
+              </p>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid #334155; font-size: 0.95rem; color: #4ade80;">
+              Example: <span class="math-expr">y = 2x &minus; 3</span>
+            </div>
+          </div>
+
+          <!-- Form 2 -->
+          <div class="roadmap-card">
+            <div>
+              <div style="color: #94a3b8; font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Form 2 &bull; Coming Next</div>
+              <h3 style="font-size: 1.45rem; color: #f8fafc; margin-top: 0.3rem;">Point-Slope Form</h3>
+              <div class="formula-pill" style="border-color: #64748b; color: #e2e8f0;">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</div>
+              <p style="font-size: 1.05rem; color: #94a3b8;">
+                Best when you know the <strong>gradient (<span class="math-expr">m</span>)</strong> and <strong>any point (<span class="math-expr">x<sub>1</sub>, y<sub>1</sub></span>)</strong> on the line.
+              </p>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid #334155; font-size: 0.95rem; color: #94a3b8;">
+              Example: <span class="math-expr">y &minus; 5 = 2(x &minus; 4)</span>
+            </div>
+          </div>
+
+          <!-- Form 3 -->
+          <div class="roadmap-card">
+            <div>
+              <div style="color: #94a3b8; font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Form 3 &bull; Final Form</div>
+              <h3 style="font-size: 1.45rem; color: #f8fafc; margin-top: 0.3rem;">Standard (General) Form</h3>
+              <div class="formula-pill" style="border-color: #64748b; color: #e2e8f0;">ax + by + d = 0</div>
+              <p style="font-size: 1.05rem; color: #94a3b8;">
+                Required IB exam format where <span class="math-expr">a, b, d</span> are <strong>integers</strong> (no fractions or decimals).
+              </p>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid #334155; font-size: 0.95rem; color: #94a3b8;">
+              Example: <span class="math-expr">2x &minus; y &minus; 3 = 0</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.3rem; background-color: #0f172a; border-left: 5px solid #fbbf24; padding: 0.9rem 1.3rem; border-radius: 8px; font-size: 1.15rem;">
+          <strong>Key Takeaway:</strong> Notice that <strong>gradient (<span class="math-expr">m</span>)</strong> is the engine inside both Form 1 and Form 2. Always find <span class="math-expr">m</span> first!
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Quick Gradient Recap (The Engine) -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-title">2. Step 1: Finding the Gradient (<span class="math-expr">m</span>)</div>
+        <div class="slide-tag">Foundation Check</div>
+      </div>
+      <div class="slide-content grid-2col">
+        <div class="card">
+          <h3 style="color: #38bdf8; margin-bottom: 0.6rem;">Gradient Formula</h3>
+          <div style="background-color: #1e293b; padding: 0.8rem; border-radius: 10px; text-align: center; font-size: 1.45rem; color: #fbbf24; margin-bottom: 1rem;">
+            <span class="math-expr">m</span> = <span class="frac"><span class="num">rise</span><span class="den">run</span></span> = <span class="frac"><span class="num">y<sub>2</sub> &minus; y<sub>1</sub></span><span class="den">x<sub>2</sub> &minus; x<sub>1</sub></span></span>
+          </div>
+
+          <p style="margin-bottom: 0.6rem;"><strong>Quick Warm-Up:</strong> Find the gradient of the line passing through <strong>A(1, &minus;2)</strong> and <strong>B(4, 7)</strong>:</p>
+          
+          <div class="input-row">
+            <label for="s2_m">Gradient <span class="math-expr">m</span> =</label>
+            <input type="text" id="s2_m" class="input-box" placeholder="e.g. 3">
+          </div>
+          <button class="submit-btn" onclick="checkSlide2()">Check Gradient</button>
+          <div id="fb2"></div>
+
+          <div style="margin-top: 1rem; font-size: 1.05rem; color: #94a3b8; border-top: 1px solid #334155; padding-top: 0.7rem;">
+            <strong>IB Reminders:</strong><br>
+            &bull; Parallel lines have equal gradients: <span class="math-expr">m<sub>1</sub> = m<sub>2</sub></span><br>
+            &bull; Perpendicular lines: <span class="math-expr">m<sub>1</sub> &times; m<sub>2</sub> = &minus;1</span> (negative reciprocal)
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <svg viewBox="0 0 340 300">
+            <!-- Grid -->
+            <g stroke="#334155" stroke-width="1">
+              <line x1="40" y1="20" x2="40" y2="270"/><line x1="90" y1="20" x2="90" y2="270"/>
+              <line x1="140" y1="20" x2="140" y2="270"/><line x1="190" y1="20" x2="190" y2="270"/>
+              <line x1="240" y1="20" x2="240" y2="270"/><line x1="290" y1="20" x2="290" y2="270"/>
+              <line x1="20" y1="40" x2="310" y2="40"/><line x1="20" y1="85" x2="310" y2="85"/>
+              <line x1="20" y1="130" x2="310" y2="130"/><line x1="20" y1="175" x2="310" y2="175"/>
+              <line x1="20" y1="220" x2="310" y2="220"/><line x1="20" y1="265" x2="310" y2="265"/>
+            </g>
+            <!-- Rise & Run dashed legs -->
+            <line x1="90" y1="220" x2="240" y2="220" stroke="#4ade80" stroke-width="3" stroke-dasharray="6"/>
+            <line x1="240" y1="220" x2="240" y2="40" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6"/>
+            <!-- Main Line -->
+            <line x1="65" y1="250" x2="265" y2="10" stroke="#fbbf24" stroke-width="3.5"/>
+            <!-- Points -->
+            <circle cx="90" cy="220" r="6" fill="#fbbf24"/>
+            <text x="45" y="242" fill="#f8fafc" font-size="14" font-weight="bold">A(1, -2)</text>
+            <circle cx="240" cy="40" r="6" fill="#fbbf24"/>
+            <text x="248" y="42" fill="#f8fafc" font-size="14" font-weight="bold">B(4, 7)</text>
+            <!-- Labels -->
+            <text x="140" y="242" fill="#4ade80" font-size="14" font-weight="bold">Run = 4 - 1 = 3</text>
+            <text x="248" y="135" fill="#38bdf8" font-size="14" font-weight="bold">Rise = 9</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Interactive Gradient-Intercept Explorer -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-title">3. Gradient-Intercept Form: <span class="math-expr">y = mx + c</span></div>
+        <div class="slide-tag">Interactive Explorer</div>
+      </div>
+      <div class="slide-content grid-2col">
+        <div class="card">
+          <div style="font-size: 2rem; text-align: center; color: #fbbf24; font-weight: bold; margin-bottom: 1rem;">
+            <span class="math-expr" id="liveEqDisplay">y = 1x + 1</span>
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+              <label for="sliderM" style="color: #38bdf8; font-weight: bold;">Gradient (<span class="math-expr">m</span>) — Steepness &amp; Direction:</label>
+              <span id="valM" style="color: #38bdf8; font-weight: 800;">1</span>
+            </div>
+            <input type="range" id="sliderM" min="-4" max="4" step="0.5" value="1" oninput="updateGraph()">
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+              <label for="sliderC" style="color: #4ade80; font-weight: bold;">y-intercept (<span class="math-expr">c</span>) — Crossing point (0, c):</label>
+              <span id="valC" style="color: #4ade80; font-weight: 800;">1</span>
+            </div>
+            <input type="range" id="sliderC" min="-5" max="5" step="1" value="1" oninput="updateGraph()">
+          </div>
+
+          <div style="background-color: #1e293b; padding: 0.9rem; border-radius: 10px; font-size: 1.05rem; line-height: 1.6;">
+            &bull; <strong>When <span class="math-expr">m &gt; 0</span>:</strong> Line slopes upwards left-to-right.<br>
+            &bull; <strong>When <span class="math-expr">m &lt; 0</span>:</strong> Line slopes downwards left-to-right.<br>
+            &bull; <strong>When <span class="math-expr">m = 0</span>:</strong> Horizontal line <span class="math-expr">y = c</span>.<br>
+            &bull; <strong>Vertical lines:</strong> Cannot use <span class="math-expr">y = mx + c</span>; written as <span class="math-expr">x = k</span>.
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <svg id="explorerSvg" viewBox="0 0 340 340">
+            <!-- Grid lines (-6 to 6) -> 25px per unit, center at (170, 170) -->
+            <g id="expGrid" stroke="#334155" stroke-width="0.8"></g>
+            <!-- Axes -->
+            <line x1="20" y1="170" x2="320" y2="170" stroke="#f8fafc" stroke-width="2"/>
+            <line x1="170" y1="20" x2="170" y2="320" stroke="#f8fafc" stroke-width="2"/>
+            <text x="323" y="174" fill="#f8fafc" font-size="13" font-weight="bold">x</text>
+            <text x="166" y="14" fill="#f8fafc" font-size="13" font-weight="bold">y</text>
+            <!-- Dynamic Line & y-intercept dot -->
+            <line id="expLine" x1="20" y1="295" x2="320" y2="-5" stroke="#38bdf8" stroke-width="3.5"/>
+            <circle id="expDot" cx="170" cy="145" r="6.5" fill="#4ade80" stroke="#0f172a" stroke-width="2"/>
+            <text id="expDotLabel" x="180" y="142" fill="#4ade80" font-size="14" font-weight="bold">(0, 1)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Worked Examples (Writing Equations in y = mx + c) -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-title">4. Worked Examples: Finding <span class="math-expr">y = mx + c</span></div>
+        <div class="slide-tag">Teacher Walkthrough</div>
+      </div>
+      <div class="slide-content grid-2col">
+        <!-- Example 1 -->
+        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: #38bdf8; font-weight: 800; font-size: 1rem; text-transform: uppercase;">Example 1 &bull; From a Graph</div>
+            <p style="margin: 0.5rem 0;">Find the equation of the line shown on the graph in gradient-intercept form.</p>
+            <div style="background-color: #1e293b; border-radius: 10px; padding: 0.5rem; margin: 0.6rem 0; display: flex; justify-content: center;">
+              <svg viewBox="0 0 260 220" style="width: 240px; height: 200px;">
+                <!-- Grid 25px per unit, origin at (80, 150) -->
+                <g stroke="#334155" stroke-width="0.8">
+                  <line x1="30" y1="25" x2="30" y2="200"/><line x1="55" y1="25" x2="55" y2="200"/>
+                  <line x1="80" y1="25" x2="80" y2="200"/><line x1="105" y1="25" x2="105" y2="200"/>
+                  <line x1="130" y1="25" x2="130" y2="200"/><line x1="155" y1="25" x2="155" y2="200"/>
+                  <line x1="180" y1="25" x2="180" y2="200"/><line x1="205" y1="25" x2="205" y2="200"/>
+                  <line x1="30" y1="50" x2="220" y2="50"/><line x1="30" y1="75" x2="220" y2="75"/>
+                  <line x1="30" y1="100" x2="220" y2="100"/><line x1="30" y1="125" x2="220" y2="125"/>
+                  <line x1="30" y1="150" x2="220" y2="150"/><line x1="30" y1="175" x2="220" y2="175"/>
+                </g>
+                <line x1="25" y1="150" x2="225" y2="150" stroke="#f8fafc" stroke-width="2"/>
+                <line x1="80" y1="20" x2="80" y2="205" stroke="#f8fafc" stroke-width="2"/>
+                <text x="68" y="165" fill="#f8fafc" font-size="12">0</text>
+                <text x="127" y="165" fill="#f8fafc" font-size="12">2</text>
+                <text x="177" y="165" fill="#f8fafc" font-size="12">4</text>
+                <text x="64" y="104" fill="#f8fafc" font-size="12">2</text>
+                <text x="64" y="54" fill="#f8fafc" font-size="12">4</text>
+                <!-- Line through (0, 4) -> (80, 50) and (4, 1) -> (180, 125) -->
+                <line x1="40" y1="20" x2="220" y2="155" stroke="#fbbf24" stroke-width="3"/>
+                <circle cx="80" cy="50" r="5" fill="#4ade80"/>
+                <circle cx="180" cy="125" r="5" fill="#38bdf8"/>
+                <text x="186" y="120" fill="#38bdf8" font-size="12" font-weight="bold">(4, 1)</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="reveal-box" onclick="toggleReveal(this)">
+            <span class="reveal-header">Reveal Solution (Example 1)</span>
+            <div class="reveal-content">
+              1. Read <span class="math-expr">y</span>-intercept from graph: <strong><span class="math-expr">c = 4</span></strong> at (0, 4).<br>
+              2. Find gradient using (0, 4) and (4, 1):<br>
+              &nbsp;&nbsp;&nbsp;<span class="math-expr">m</span> = <span class="frac"><span class="num">1 &minus; 4</span><span class="den">4 &minus; 0</span></span> = <strong>&minus;<span class="frac"><span class="num">3</span><span class="den">4</span></span></strong><br>
+              3. Substitute into <span class="math-expr">y = mx + c</span>: <strong><span class="math-expr" style="color:#4ade80;">y = &minus;<span class="frac"><span class="num">3</span><span class="den">4</span></span>x + 4</span></strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: #fbbf24; font-weight: 800; font-size: 1rem; text-transform: uppercase;">Example 2 &bull; From Two Points</div>
+            <p style="margin: 0.7rem 0; font-size: 1.25rem;">
+              Find the equation of the straight line passing through <strong>P(2, 5)</strong> and <strong>Q(6, 13)</strong> in the form <span class="math-expr">y = mx + c</span>.
+            </p>
+            <div style="background-color: #1e293b; padding: 1rem; border-radius: 10px; margin-top: 1rem; font-size: 1.1rem; color: #cbd5e1;">
+              <strong>Three-Step Method:</strong>
+              <ol style="margin-left: 1.4rem; margin-top: 0.4rem; line-height: 1.7;">
+                <li>Calculate gradient <span class="math-expr">m</span>.</li>
+                <li>Substitute <span class="math-expr">m</span> and one point <span class="math-expr">(x, y)</span> into <span class="math-expr">y = mx + c</span> to solve for <span class="math-expr">c</span>.</li>
+                <li>Write out the final equation.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="reveal-box" onclick="toggleReveal(this)">
+            <span class="reveal-header">Reveal Solution (Example 2)</span>
+            <div class="reveal-content">
+              1. <span class="math-expr">m</span> = <span class="frac"><span class="num">13 &minus; 5</span><span class="den">6 &minus; 2</span></span> = <span class="frac"><span class="num">8</span><span class="den">4</span></span> = <strong>2</strong><br>
+              2. Substitute <span class="math-expr">m = 2</span> and P(2, 5) into <span class="math-expr">y = mx + c</span>:<br>
+              &nbsp;&nbsp;&nbsp;<span class="math-expr">5 = 2(2) + c &rArr; 5 = 4 + c &rArr; <strong>c = 1</strong></span><br>
+              3. Final equation: <strong><span class="math-expr" style="color:#4ade80;">y = 2x + 1</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Interactive Practice Questions (Part 1: Reading & Rearranging) -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-title">5. Practice Set A: Identify <span class="math-expr">m</span> and <span class="math-expr">c</span></div>
+        <div class="slide-tag">Student Check</div>
+      </div>
+      <div class="slide-content grid-2col">
+        <!-- Question 1 -->
+        <div class="card">
+          <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.4rem;">Question 1</div>
+          <p style="margin-bottom: 0.8rem;">State the gradient (<span class="math-expr">m</span>) and <span class="math-expr">y</span>-intercept (<span class="math-expr">c</span>) of:</p>
+          <div class="formula-pill" style="font-size: 1.6rem;">y = &minus;3x + 7</div>
+
+          <div class="input-row">
+            <label for="q1_m">Gradient <span class="math-expr">m</span> =</label>
+            <input type="text" id="q1_m" class="input-box" placeholder="m">
+          </div>
+          <div class="input-row">
+            <label for="q1_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
+            <input type="text" id="q1_c" class="input-box" placeholder="c">
+          </div>
+          <button class="submit-btn" onclick="checkPracticeA1()">Check Question 1</button>
+          <div id="fb_a1"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+          <div style="color: #fbbf24; font-weight: 800; margin-bottom: 0.4rem;">Question 2 (Rearrange First!)</div>
+          <p style="margin-bottom: 0.8rem;">Rearrange into <span class="math-expr">y = mx + c</span> to find <span class="math-expr">m</span> and <span class="math-expr">c</span>:</p>
+          <div class="formula-pill" style="font-size: 1.6rem;">4x + 2y = 10</div>
+
+          <div class="input-row">
+            <label for="q2_m">Gradient <span class="math-expr">m</span> =</label>
+            <input type="text" id="q2_m" class="input-box" placeholder="m">
+          </div>
+          <div class="input-row">
+            <label for="q2_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
+            <input type="text" id="q2_c" class="input-box" placeholder="c">
+          </div>
+          <button class="submit-btn" onclick="checkPracticeA2()">Check Question 2</button>
+          <div id="fb_a2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Interactive Practice Questions (Part 2: Finding Equations & IB Modelling) -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-title">6. Practice Set B: Writing Equations &amp; Modelling</div>
+        <div class="slide-tag">IB AI SL Practice</div>
+      </div>
+      <div class="slide-content grid-2col">
+        <!-- Question 3 -->
+        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.5rem;">Question 3 &bull; Two Points</div>
+            <p style="margin-bottom: 0.8rem;">
+              Find the equation of the line passing through <strong>(&minus;2, 1)</strong> and <strong>(4, 10)</strong> in the form <span class="math-expr">y = mx + c</span>.
+            </p>
+            <div class="input-row">
+              <label for="q3_m">Gradient <span class="math-expr">m</span> =</label>
+              <input type="text" id="q3_m" class="input-box" placeholder="e.g. 1.5 or 3/2">
+            </div>
+            <div class="input-row">
+              <label for="q3_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
+              <input type="text" id="q3_c" class="input-box" placeholder="c">
+            </div>
+            <button class="submit-btn" onclick="checkPracticeB1()">Check Question 3</button>
+            <div id="fb_b1"></div>
+          </div>
+
+          <div class="reveal-box" onclick="toggleReveal(this)">
+            <span class="reveal-header">Reveal Full Working (Q3)</span>
+            <div class="reveal-content">
+              <span class="math-expr">m</span> = <span class="frac"><span class="num">10 &minus; 1</span><span class="den">4 &minus; (&minus;2)</span></span> = <span class="frac"><span class="num">9</span><span class="den">6</span></span> = <strong>1.5</strong> (or <span class="frac"><span class="num">3</span><span class="den">2</span></span>)<br>
+              <span class="math-expr">10 = 1.5(4) + c &rArr; 10 = 6 + c &rArr; <strong>c = 4</strong></span><br>
+              Equation: <strong><span class="math-expr" style="color:#4ade80;">y = 1.5x + 4</span></strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 4 (IB AI SL Contextual Modelling) -->
+        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: #4ade80; font-weight: 800; margin-bottom: 0.5rem;">Question 4 &bull; IB AI SL Real-World Context</div>
+            <p style="margin-bottom: 0.7rem; font-size: 1.12rem;">
+              A plumber charges a fixed call-out fee plus an hourly rate. A <strong>2-hour</strong> job costs <strong>$145</strong>, and a <strong>5-hour</strong> job costs <strong>$280</strong>.
+            </p>
+            <p style="font-size: 1.1rem; color: #fbbf24; margin-bottom: 0.5rem;">
+              Write a linear model <span class="math-expr">C = mt + c</span> for total cost <span class="math-expr">C</span> after <span class="math-expr">t</span> hours:
+            </p>
+            <div class="input-row">
+              <label for="q4_m">Hourly rate (<span class="math-expr">m</span>) =</label>
+              <input type="text" id="q4_m" class="input-box" placeholder="$ per hour">
+            </div>
+            <div class="input-row">
+              <label for="q4_c">Call-out fee (<span class="math-expr">c</span>) =</label>
+              <input type="text" id="q4_c" class="input-box" placeholder="$ fixed">
+            </div>
+            <button class="submit-btn" onclick="checkPracticeB2()">Check Question 4</button>
+            <div id="fb_b2"></div>
+          </div>
+
+          <div class="reveal-box" onclick="toggleReveal(this)">
+            <span class="reveal-header">Reveal Full Working &amp; Interpretation (Q4)</span>
+            <div class="reveal-content">
+              Points: (2, 145) and (5, 280)<br>
+              <span class="math-expr">m</span> = <span class="frac"><span class="num">280 &minus; 145</span><span class="den">5 &minus; 2</span></span> = <span class="frac"><span class="num">135</span><span class="den">3</span></span> = <strong>$45/hour</strong><br>
+              <span class="math-expr">145 = 45(2) + c &rArr; <strong>c = $55</strong></span> (fixed call-out fee)<br>
+              Model: <strong><span class="math-expr" style="color:#4ade80;">C = 45t + 55</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation & Counter -->
+    <div class="slide-counter"><span id="currentSlide">1</span> / 6</div>
+    <div class="controls">
+      <button class="nav-btn" onclick="prevSlide()">Previous</button>
+      <button class="nav-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+
+  <script>
+    let current = 1;
+    const total = 6;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById(`slide-${n}`).classList.add('active');
+      document.getElementById('currentSlide').textContent = n;
+    }
+
+    function nextSlide() {
+      if (current < total) {
+        current++;
+        showSlide(current);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 1) {
+        current--;
+        showSlide(current);
+      }
+    }
+
+    function toggleReveal(el) {
+      el.classList.toggle('revealed');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT') return;
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Build grid for Slide 3 Interactive Explorer
+    function initExplorerGrid() {
+      const g = document.getElementById('expGrid');
+      if (!g) return;
+      let lines = '';
+      for (let i = -6; i <= 6; i++) {
+        const pos = 170 + i * 25;
+        lines += `<line x1="${pos}" y1="20" x2="${pos}" y2="320"/>`;
+        lines += `<line x1="20" y1="${pos}" x2="320" y2="${pos}"/>`;
+      }
+      g.innerHTML = lines;
+      updateGraph();
+    }
+
+    function updateGraph() {
+      const m = parseFloat(document.getElementById('sliderM').value);
+      const c = parseFloat(document.getElementById('sliderC').value);
+
+      document.getElementById('valM').textContent = m;
+      document.getElementById('valC').textContent = c;
+
+      // Format equation cleanly
+      let mPart = `${m}x`;
+      if (m === 1) mPart = 'x';
+      if (m === -1) mPart = '−x';
+      if (m === 0) mPart = '';
+
+      let cPart = '';
+      if (m === 0) {
+        cPart = `${c}`;
+      } else if (c > 0) {
+        cPart = ` + ${c}`;
+      } else if (c < 0) {
+        cPart = ` − ${Math.abs(c)}`;
+      }
+      document.getElementById('liveEqDisplay').textContent = `y = ${mPart}${cPart}`;
+
+      // Map x in [-6, 6] to SVG coordinates (25px per unit, center 170,170)
+      const x1 = -6;
+      const y1 = m * x1 + c;
+      const x2 = 6;
+      const y2 = m * x2 + c;
+
+      const svgX1 = 170 + x1 * 25;
+      const svgY1 = 170 - y1 * 25;
+      const svgX2 = 170 + x2 * 25;
+      const svgY2 = 170 - y2 * 25;
+
+      const line = document.getElementById('expLine');
+      line.setAttribute('x1', svgX1);
+      line.setAttribute('y1', svgY1);
+      line.setAttribute('x2', svgX2);
+      line.setAttribute('y2', svgY2);
+
+      const dotY = 170 - c * 25;
+      const dot = document.getElementById('expDot');
+      const label = document.getElementById('expDotLabel');
+      dot.setAttribute('cy', dotY);
+      label.setAttribute('y', dotY - 6);
+      label.textContent = `(0, ${c})`;
+    }
+
+    initExplorerGrid();
+
+    // Helper to parse fractions or decimals
+    function parseMathVal(str) {
+      if (!str) return NaN;
+      const clean = str.trim().replace('−', '-');
+      if (clean.includes('/')) {
+        const parts = clean.split('/');
+        if (parts.length === 2) {
+          return parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+      }
+      return parseFloat(clean);
+    }
+
+    function checkSlide2() {
+      const m = parseMathVal(document.getElementById('s2_m').value);
+      const fb = document.getElementById('fb2');
+      if (m === 3) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Correct! m = (7 − (−2)) / (4 − 1) = 9 / 3 = 3.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Try again: watch the double negative in 7 − (−2) = 9, divided by 4 − 1 = 3.';
+      }
+    }
+
+    function checkPracticeA1() {
+      const m = parseMathVal(document.getElementById('q1_m').value);
+      const c = parseMathVal(document.getElementById('q1_c').value);
+      const fb = document.getElementById('fb_a1');
+      if (m === -3 && c === 7) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Spot on! m = −3 and y-intercept c = 7.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Check signs: the coefficient of x is −3, and the constant term is 7.';
+      }
+    }
+
+    function checkPracticeA2() {
+      const m = parseMathVal(document.getElementById('q2_m').value);
+      const c = parseMathVal(document.getElementById('q2_c').value);
+      const fb = document.getElementById('fb_a2');
+      if (m === -2 && c === 5) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Excellent! 2y = −4x + 10 → y = −2x + 5, so m = −2 and c = 5.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Rearrange first: subtract 4x (2y = −4x + 10), then divide everything by 2.';
+      }
+    }
+
+    function checkPracticeB1() {
+      const m = parseMathVal(document.getElementById('q3_m').value);
+      const c = parseMathVal(document.getElementById('q3_c').value);
+      const fb = document.getElementById('fb_b1');
+      if (Math.abs(m - 1.5) < 0.01 && c === 4) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Nailed it! m = 1.5 (3/2) and c = 4 → y = 1.5x + 4.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Check m = (10 − 1)/(4 − (−2)) = 9/6 = 1.5, then substitute (4, 10) into y = mx + c.';
+      }
+    }
+
+    function checkPracticeB2() {
+      const m = parseMathVal(document.getElementById('q4_m').value);
+      const c = parseMathVal(document.getElementById('q4_c').value);
+      const fb = document.getElementById('fb_b2');
+      if (m === 45 && c === 55) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Correct! Hourly rate m = $45/hr, call-out fee c = $55 → C = 45t + 55.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Treat (2, 145) and (5, 280) as points: m = (280 − 145)/(5 − 2), then solve for c.';
+      }
+    }
+  </script>
+</body>
+</html>
