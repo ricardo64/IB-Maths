@@ -47,7 +47,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.35s ease, visibility 0.35s ease;
-      padding: 2.2rem 3.2rem 4.5rem 3.2rem;
+      padding: 2rem 3rem 4.4rem 3rem;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
@@ -63,24 +63,25 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 3px solid #334155;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.2rem;
+      padding-bottom: 0.45rem;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
     }
 
     .slide-title {
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       color: #38bdf8;
     }
 
     .slide-tag {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #fbbf24;
       background-color: #0f172a;
-      padding: 0.35rem 0.85rem;
+      padding: 0.32rem 0.85rem;
       border-radius: 8px;
       border: 1px solid #334155;
     }
@@ -90,8 +91,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 1.25rem;
-      line-height: 1.55;
+      font-size: 1.2rem;
+      line-height: 1.5;
       color: #cbd5e1;
       overflow-y: auto;
     }
@@ -99,8 +100,8 @@
     .grid-2col {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
-      gap: 2rem;
-      align-items: center;
+      gap: 1.75rem;
+      align-items: stretch;
       height: 100%;
     }
 
@@ -113,10 +114,14 @@
 
     .card {
       background-color: #0f172a;
-      padding: 1.5rem;
+      padding: 1.25rem 1.4rem;
       border-radius: 12px;
       border: 1px solid #334155;
-      font-size: 1.18rem;
+      font-size: 1.12rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
     }
 
     .roadmap-card {
@@ -141,18 +146,18 @@
       color: #fbbf24;
       font-family: "Georgia", serif;
       font-style: italic;
-      font-size: 1.85rem;
+      font-size: 1.65rem;
       font-weight: bold;
       text-align: center;
-      padding: 0.9rem;
+      padding: 0.65rem;
       border-radius: 10px;
-      margin: 1rem 0;
+      margin: 0.65rem 0;
     }
 
     .canvas-container {
       width: 100%;
       height: 100%;
-      min-height: 360px;
+      min-height: 340px;
       background-color: #0f172a;
       border-radius: 12px;
       border: 1px solid #334155;
@@ -167,7 +172,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 0.75rem;
+      margin-top: 0.55rem;
       gap: 0.6rem;
     }
 
@@ -175,10 +180,10 @@
       background-color: #1e293b;
       color: #f8fafc;
       border: 2px solid #334155;
-      padding: 0.5rem 0.75rem;
+      padding: 0.42rem 0.7rem;
       border-radius: 8px;
-      font-size: 1.1rem;
-      width: 150px;
+      font-size: 1.05rem;
+      width: 145px;
       text-align: center;
       outline: none;
       font-weight: 600;
@@ -192,13 +197,13 @@
       background-color: #0284c7;
       color: #f8fafc;
       border: none;
-      padding: 0.65rem 1.2rem;
+      padding: 0.58rem 1.1rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       width: 100%;
-      margin-top: 0.9rem;
+      margin-top: 0.65rem;
       transition: background-color 0.2s;
     }
 
@@ -207,10 +212,10 @@
     }
 
     .feedback-msg {
-      margin-top: 0.75rem;
-      font-size: 1.05rem;
+      margin-top: 0.6rem;
+      font-size: 1rem;
       font-weight: 700;
-      padding: 0.55rem 0.9rem;
+      padding: 0.5rem 0.85rem;
       border-radius: 8px;
       text-align: center;
     }
@@ -230,16 +235,16 @@
     .reveal-box {
       background-color: #15803d;
       color: #f8fafc;
-      padding: 0.7rem 1rem;
+      padding: 0.6rem 0.95rem;
       border-radius: 8px;
       border: 2px solid #22c55e;
       cursor: pointer;
       text-align: center;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       user-select: none;
       transition: all 0.25s ease;
-      margin-top: 0.65rem;
+      margin-top: 0.6rem;
     }
 
     .reveal-box:hover {
@@ -248,32 +253,162 @@
 
     .reveal-content {
       display: none;
-      margin-top: 0.6rem;
-      padding: 0.75rem 0.9rem;
+      margin-top: 0.55rem;
+      padding: 0.65rem 0.85rem;
       background-color: #0f172a;
       border-radius: 8px;
       border: 1px dashed #4ade80;
       color: #e2e8f0;
       text-align: left;
       font-weight: normal;
-      font-size: 1.05rem;
-      line-height: 1.5;
+      font-size: 1.02rem;
+      line-height: 1.48;
     }
 
     .reveal-box.revealed {
       background-color: #0f172a;
       border-color: #4ade80;
-      cursor: default;
+      cursor: pointer;
     }
 
     .reveal-box.revealed .reveal-header {
       color: #4ade80;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .reveal-box.revealed .reveal-content {
+      display: block;
+    }
+
+    /* Inline Collapsible Sketchpad Styles */
+    .sketchpad-box {
+      margin-top: 0.65rem;
+      background-color: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 10px;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: all 0.25s ease;
+    }
+
+    .sketchpad-box.hidden {
+      display: none;
+    }
+
+    .sketchpad-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .sketchpad-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fbbf24;
+    }
+
+    .sketch-btns {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .sp-btn {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      padding: 0.22rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .sp-btn:hover {
+      border-color: #38bdf8;
+    }
+
+    .sp-btn.active {
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 1.5px rgba(251, 191, 36, 0.4);
+    }
+
+    .sp-btn.clear-btn {
+      background-color: #7f1d1d;
+      border-color: #ef4444;
+      color: #fff;
+    }
+
+    .sp-btn.clear-btn:hover {
+      background-color: #991b1b;
+    }
+
+    .sp-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .sp-canvas-wrap {
+      width: 100%;
+      height: 145px;
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 7px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to right, rgba(51, 65, 85, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(51, 65, 85, 0.35) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .sp-canvas-wrap.tall {
+      height: 175px;
+    }
+
+    .sp-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .reopen-pad-btn {
+      display: none;
+      margin-top: 0.5rem;
+      background-color: transparent;
+      color: #94a3b8;
+      border: 1px dashed #475569;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .reopen-pad-btn:hover {
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+
+    .reopen-pad-btn.visible {
       display: block;
     }
 
@@ -303,7 +438,7 @@
 
     .controls {
       position: absolute;
-      bottom: 1.2rem;
+      bottom: 1.1rem;
       right: 2.5rem;
       display: flex;
       gap: 1rem;
@@ -314,11 +449,11 @@
       background-color: #334155;
       color: #f8fafc;
       border: none;
-      padding: 0.65rem 1.4rem;
+      padding: 0.6rem 1.35rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       transition: background-color 0.2s;
     }
 
@@ -328,14 +463,13 @@
 
     .slide-counter {
       position: absolute;
-      bottom: 1.4rem;
+      bottom: 1.3rem;
       left: 2.5rem;
       color: #94a3b8;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 600;
     }
 
-    /* Slider controls for interactive explorer */
     input[type="range"] {
       width: 100%;
       accent-color: #38bdf8;
@@ -419,21 +553,27 @@
       </div>
       <div class="slide-content grid-2col">
         <div class="card">
-          <h3 style="color: #38bdf8; margin-bottom: 0.6rem;">Gradient Formula</h3>
-          <div style="background-color: #1e293b; padding: 0.8rem; border-radius: 10px; text-align: center; font-size: 1.45rem; color: #fbbf24; margin-bottom: 1rem;">
-            <span class="math-expr">m</span> = <span class="frac"><span class="num">rise</span><span class="den">run</span></span> = <span class="frac"><span class="num">y<sub>2</sub> &minus; y<sub>1</sub></span><span class="den">x<sub>2</sub> &minus; x<sub>1</sub></span></span>
+          <div>
+            <h3 style="color: #38bdf8; margin-bottom: 0.45rem;">Gradient Formula</h3>
+            <div style="background-color: #1e293b; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 1.35rem; color: #fbbf24; margin-bottom: 0.75rem;">
+              <span class="math-expr">m</span> = <span class="frac"><span class="num">rise</span><span class="den">run</span></span> = <span class="frac"><span class="num">y<sub>2</sub> &minus; y<sub>1</sub></span><span class="den">x<sub>2</sub> &minus; x<sub>1</sub></span></span>
+            </div>
+
+            <p style="margin-bottom: 0.4rem;"><strong>Quick Warm-Up:</strong> Find the gradient of the line passing through <strong>A(1, &minus;2)</strong> and <strong>B(4, 7)</strong>:</p>
+
+            <!-- Working Pad for Slide 2 -->
+            <div class="sketchpad-box" id="pad-s2"></div>
+            <button class="reopen-pad-btn" id="reopen-s2" onclick="showPad('s2')">Show Working Pad</button>
+
+            <div class="input-row">
+              <label for="s2_m">Gradient <span class="math-expr">m</span> =</label>
+              <input type="text" id="s2_m" class="input-box" placeholder="e.g. 3">
+            </div>
+            <button class="submit-btn" onclick="checkSlide2()">Check Gradient</button>
+            <div id="fb2"></div>
           </div>
 
-          <p style="margin-bottom: 0.6rem;"><strong>Quick Warm-Up:</strong> Find the gradient of the line passing through <strong>A(1, &minus;2)</strong> and <strong>B(4, 7)</strong>:</p>
-          
-          <div class="input-row">
-            <label for="s2_m">Gradient <span class="math-expr">m</span> =</label>
-            <input type="text" id="s2_m" class="input-box" placeholder="e.g. 3">
-          </div>
-          <button class="submit-btn" onclick="checkSlide2()">Check Gradient</button>
-          <div id="fb2"></div>
-
-          <div style="margin-top: 1rem; font-size: 1.05rem; color: #94a3b8; border-top: 1px solid #334155; padding-top: 0.7rem;">
+          <div style="margin-top: 0.75rem; font-size: 1rem; color: #94a3b8; border-top: 1px solid #334155; padding-top: 0.55rem;">
             <strong>IB Reminders:</strong><br>
             &bull; Parallel lines have equal gradients: <span class="math-expr">m<sub>1</sub> = m<sub>2</sub></span><br>
             &bull; Perpendicular lines: <span class="math-expr">m<sub>1</sub> &times; m<sub>2</sub> = &minus;1</span> (negative reciprocal)
@@ -477,24 +617,26 @@
       </div>
       <div class="slide-content grid-2col">
         <div class="card">
-          <div style="font-size: 2rem; text-align: center; color: #fbbf24; font-weight: bold; margin-bottom: 1rem;">
-            <span class="math-expr" id="liveEqDisplay">y = 1x + 1</span>
-          </div>
-
-          <div style="margin-bottom: 1.2rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-              <label for="sliderM" style="color: #38bdf8; font-weight: bold;">Gradient (<span class="math-expr">m</span>) — Steepness &amp; Direction:</label>
-              <span id="valM" style="color: #38bdf8; font-weight: 800;">1</span>
+          <div>
+            <div style="font-size: 2rem; text-align: center; color: #fbbf24; font-weight: bold; margin-bottom: 1rem;">
+              <span class="math-expr" id="liveEqDisplay">y = 1x + 1</span>
             </div>
-            <input type="range" id="sliderM" min="-4" max="4" step="0.5" value="1" oninput="updateGraph()">
-          </div>
 
-          <div style="margin-bottom: 1.2rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-              <label for="sliderC" style="color: #4ade80; font-weight: bold;">y-intercept (<span class="math-expr">c</span>) — Crossing point (0, c):</label>
-              <span id="valC" style="color: #4ade80; font-weight: 800;">1</span>
+            <div style="margin-bottom: 1.2rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                <label for="sliderM" style="color: #38bdf8; font-weight: bold;">Gradient (<span class="math-expr">m</span>) — Steepness &amp; Direction:</label>
+                <span id="valM" style="color: #38bdf8; font-weight: 800;">1</span>
+              </div>
+              <input type="range" id="sliderM" min="-4" max="4" step="0.5" value="1" oninput="updateGraph()">
             </div>
-            <input type="range" id="sliderC" min="-5" max="5" step="1" value="1" oninput="updateGraph()">
+
+            <div style="margin-bottom: 1.2rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                <label for="sliderC" style="color: #4ade80; font-weight: bold;">y-intercept (<span class="math-expr">c</span>) — Crossing point (0, c):</label>
+                <span id="valC" style="color: #4ade80; font-weight: 800;">1</span>
+              </div>
+              <input type="range" id="sliderC" min="-5" max="5" step="1" value="1" oninput="updateGraph()">
+            </div>
           </div>
 
           <div style="background-color: #1e293b; padding: 0.9rem; border-radius: 10px; font-size: 1.05rem; line-height: 1.6;">
@@ -507,14 +649,11 @@
 
         <div class="canvas-container">
           <svg id="explorerSvg" viewBox="0 0 340 340">
-            <!-- Grid lines (-6 to 6) -> 25px per unit, center at (170, 170) -->
             <g id="expGrid" stroke="#334155" stroke-width="0.8"></g>
-            <!-- Axes -->
             <line x1="20" y1="170" x2="320" y2="170" stroke="#f8fafc" stroke-width="2"/>
             <line x1="170" y1="20" x2="170" y2="320" stroke="#f8fafc" stroke-width="2"/>
             <text x="323" y="174" fill="#f8fafc" font-size="13" font-weight="bold">x</text>
             <text x="166" y="14" fill="#f8fafc" font-size="13" font-weight="bold">y</text>
-            <!-- Dynamic Line & y-intercept dot -->
             <line id="expLine" x1="20" y1="295" x2="320" y2="-5" stroke="#38bdf8" stroke-width="3.5"/>
             <circle id="expDot" cx="170" cy="145" r="6.5" fill="#4ade80" stroke="#0f172a" stroke-width="2"/>
             <text id="expDotLabel" x="180" y="142" fill="#4ade80" font-size="14" font-weight="bold">(0, 1)</text>
@@ -531,39 +670,41 @@
       </div>
       <div class="slide-content grid-2col">
         <!-- Example 1 -->
-        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card">
           <div>
-            <div style="color: #38bdf8; font-weight: 800; font-size: 1rem; text-transform: uppercase;">Example 1 &bull; From a Graph</div>
-            <p style="margin: 0.5rem 0;">Find the equation of the line shown on the graph in gradient-intercept form.</p>
-            <div style="background-color: #1e293b; border-radius: 10px; padding: 0.5rem; margin: 0.6rem 0; display: flex; justify-content: center;">
-              <svg viewBox="0 0 260 220" style="width: 240px; height: 200px;">
-                <!-- Grid 25px per unit, origin at (80, 150) -->
+            <div style="color: #38bdf8; font-weight: 800; font-size: 0.95rem; text-transform: uppercase;">Example 1 &bull; From a Graph</div>
+            <p style="margin: 0.35rem 0;">Find the equation of the line shown on the graph in gradient-intercept form.</p>
+            <div style="background-color: #1e293b; border-radius: 10px; padding: 0.4rem; margin: 0.4rem 0; display: flex; justify-content: center;">
+              <svg viewBox="0 0 260 210" style="width: 225px; height: 180px;">
                 <g stroke="#334155" stroke-width="0.8">
-                  <line x1="30" y1="25" x2="30" y2="200"/><line x1="55" y1="25" x2="55" y2="200"/>
-                  <line x1="80" y1="25" x2="80" y2="200"/><line x1="105" y1="25" x2="105" y2="200"/>
-                  <line x1="130" y1="25" x2="130" y2="200"/><line x1="155" y1="25" x2="155" y2="200"/>
-                  <line x1="180" y1="25" x2="180" y2="200"/><line x1="205" y1="25" x2="205" y2="200"/>
+                  <line x1="30" y1="25" x2="30" y2="195"/><line x1="55" y1="25" x2="55" y2="195"/>
+                  <line x1="80" y1="25" x2="80" y2="195"/><line x1="105" y1="25" x2="105" y2="195"/>
+                  <line x1="130" y1="25" x2="130" y2="195"/><line x1="155" y1="25" x2="155" y2="195"/>
+                  <line x1="180" y1="25" x2="180" y2="195"/><line x1="205" y1="25" x2="205" y2="195"/>
                   <line x1="30" y1="50" x2="220" y2="50"/><line x1="30" y1="75" x2="220" y2="75"/>
                   <line x1="30" y1="100" x2="220" y2="100"/><line x1="30" y1="125" x2="220" y2="125"/>
                   <line x1="30" y1="150" x2="220" y2="150"/><line x1="30" y1="175" x2="220" y2="175"/>
                 </g>
                 <line x1="25" y1="150" x2="225" y2="150" stroke="#f8fafc" stroke-width="2"/>
-                <line x1="80" y1="20" x2="80" y2="205" stroke="#f8fafc" stroke-width="2"/>
+                <line x1="80" y1="20" x2="80" y2="200" stroke="#f8fafc" stroke-width="2"/>
                 <text x="68" y="165" fill="#f8fafc" font-size="12">0</text>
                 <text x="127" y="165" fill="#f8fafc" font-size="12">2</text>
                 <text x="177" y="165" fill="#f8fafc" font-size="12">4</text>
                 <text x="64" y="104" fill="#f8fafc" font-size="12">2</text>
                 <text x="64" y="54" fill="#f8fafc" font-size="12">4</text>
-                <!-- Line through (0, 4) -> (80, 50) and (4, 1) -> (180, 125) -->
                 <line x1="40" y1="20" x2="220" y2="155" stroke="#fbbf24" stroke-width="3"/>
                 <circle cx="80" cy="50" r="5" fill="#4ade80"/>
                 <circle cx="180" cy="125" r="5" fill="#38bdf8"/>
                 <text x="186" y="120" fill="#38bdf8" font-size="12" font-weight="bold">(4, 1)</text>
               </svg>
             </div>
+
+            <!-- Working Pad for Example 1 -->
+            <div class="sketchpad-box" id="pad-ex1"></div>
+            <button class="reopen-pad-btn" id="reopen-ex1" onclick="showPad('ex1')">Show Working Pad</button>
           </div>
 
-          <div class="reveal-box" onclick="toggleReveal(this)">
+          <div class="reveal-box" onclick="toggleRevealWithPad(this, 'ex1')">
             <span class="reveal-header">Reveal Solution (Example 1)</span>
             <div class="reveal-content">
               1. Read <span class="math-expr">y</span>-intercept from graph: <strong><span class="math-expr">c = 4</span></strong> at (0, 4).<br>
@@ -575,23 +716,27 @@
         </div>
 
         <!-- Example 2 -->
-        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card">
           <div>
-            <div style="color: #fbbf24; font-weight: 800; font-size: 1rem; text-transform: uppercase;">Example 2 &bull; From Two Points</div>
-            <p style="margin: 0.7rem 0; font-size: 1.25rem;">
+            <div style="color: #fbbf24; font-weight: 800; font-size: 0.95rem; text-transform: uppercase;">Example 2 &bull; From Two Points</div>
+            <p style="margin: 0.45rem 0; font-size: 1.18rem;">
               Find the equation of the straight line passing through <strong>P(2, 5)</strong> and <strong>Q(6, 13)</strong> in the form <span class="math-expr">y = mx + c</span>.
             </p>
-            <div style="background-color: #1e293b; padding: 1rem; border-radius: 10px; margin-top: 1rem; font-size: 1.1rem; color: #cbd5e1;">
+            <div style="background-color: #1e293b; padding: 0.7rem 0.9rem; border-radius: 10px; margin-top: 0.45rem; font-size: 1rem; color: #cbd5e1;">
               <strong>Three-Step Method:</strong>
-              <ol style="margin-left: 1.4rem; margin-top: 0.4rem; line-height: 1.7;">
+              <ol style="margin-left: 1.3rem; margin-top: 0.25rem; line-height: 1.55;">
                 <li>Calculate gradient <span class="math-expr">m</span>.</li>
                 <li>Substitute <span class="math-expr">m</span> and one point <span class="math-expr">(x, y)</span> into <span class="math-expr">y = mx + c</span> to solve for <span class="math-expr">c</span>.</li>
                 <li>Write out the final equation.</li>
               </ol>
             </div>
+
+            <!-- Working Pad for Example 2 -->
+            <div class="sketchpad-box" id="pad-ex2" data-tall="true"></div>
+            <button class="reopen-pad-btn" id="reopen-ex2" onclick="showPad('ex2')">Show Working Pad</button>
           </div>
 
-          <div class="reveal-box" onclick="toggleReveal(this)">
+          <div class="reveal-box" onclick="toggleRevealWithPad(this, 'ex2')">
             <span class="reveal-header">Reveal Solution (Example 2)</span>
             <div class="reveal-content">
               1. <span class="math-expr">m</span> = <span class="frac"><span class="num">13 &minus; 5</span><span class="den">6 &minus; 2</span></span> = <span class="frac"><span class="num">8</span><span class="den">4</span></span> = <strong>2</strong><br>
@@ -613,38 +758,54 @@
       <div class="slide-content grid-2col">
         <!-- Question 1 -->
         <div class="card">
-          <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.4rem;">Question 1</div>
-          <p style="margin-bottom: 0.8rem;">State the gradient (<span class="math-expr">m</span>) and <span class="math-expr">y</span>-intercept (<span class="math-expr">c</span>) of:</p>
-          <div class="formula-pill" style="font-size: 1.6rem;">y = &minus;3x + 7</div>
+          <div>
+            <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.3rem;">Question 1</div>
+            <p style="margin-bottom: 0.4rem;">State the gradient (<span class="math-expr">m</span>) and <span class="math-expr">y</span>-intercept (<span class="math-expr">c</span>) of:</p>
+            <div class="formula-pill">y = &minus;3x + 7</div>
 
-          <div class="input-row">
-            <label for="q1_m">Gradient <span class="math-expr">m</span> =</label>
-            <input type="text" id="q1_m" class="input-box" placeholder="m">
+            <!-- Working Pad for Practice A1 -->
+            <div class="sketchpad-box" id="pad-a1"></div>
+            <button class="reopen-pad-btn" id="reopen-a1" onclick="showPad('a1')">Show Working Pad</button>
           </div>
-          <div class="input-row">
-            <label for="q1_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
-            <input type="text" id="q1_c" class="input-box" placeholder="c">
+
+          <div>
+            <div class="input-row">
+              <label for="q1_m">Gradient <span class="math-expr">m</span> =</label>
+              <input type="text" id="q1_m" class="input-box" placeholder="m">
+            </div>
+            <div class="input-row">
+              <label for="q1_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
+              <input type="text" id="q1_c" class="input-box" placeholder="c">
+            </div>
+            <button class="submit-btn" onclick="checkPracticeA1()">Check Question 1</button>
+            <div id="fb_a1"></div>
           </div>
-          <button class="submit-btn" onclick="checkPracticeA1()">Check Question 1</button>
-          <div id="fb_a1"></div>
         </div>
 
         <!-- Question 2 -->
         <div class="card">
-          <div style="color: #fbbf24; font-weight: 800; margin-bottom: 0.4rem;">Question 2 (Rearrange First!)</div>
-          <p style="margin-bottom: 0.8rem;">Rearrange into <span class="math-expr">y = mx + c</span> to find <span class="math-expr">m</span> and <span class="math-expr">c</span>:</p>
-          <div class="formula-pill" style="font-size: 1.6rem;">4x + 2y = 10</div>
+          <div>
+            <div style="color: #fbbf24; font-weight: 800; margin-bottom: 0.3rem;">Question 2 (Rearrange First!)</div>
+            <p style="margin-bottom: 0.4rem;">Rearrange into <span class="math-expr">y = mx + c</span> to find <span class="math-expr">m</span> and <span class="math-expr">c</span>:</p>
+            <div class="formula-pill">4x + 2y = 10</div>
 
-          <div class="input-row">
-            <label for="q2_m">Gradient <span class="math-expr">m</span> =</label>
-            <input type="text" id="q2_m" class="input-box" placeholder="m">
+            <!-- Working Pad for Practice A2 -->
+            <div class="sketchpad-box" id="pad-a2"></div>
+            <button class="reopen-pad-btn" id="reopen-a2" onclick="showPad('a2')">Show Working Pad</button>
           </div>
-          <div class="input-row">
-            <label for="q2_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
-            <input type="text" id="q2_c" class="input-box" placeholder="c">
+
+          <div>
+            <div class="input-row">
+              <label for="q2_m">Gradient <span class="math-expr">m</span> =</label>
+              <input type="text" id="q2_m" class="input-box" placeholder="m">
+            </div>
+            <div class="input-row">
+              <label for="q2_c"><span class="math-expr">y</span>-intercept <span class="math-expr">c</span> =</label>
+              <input type="text" id="q2_c" class="input-box" placeholder="c">
+            </div>
+            <button class="submit-btn" onclick="checkPracticeA2()">Check Question 2</button>
+            <div id="fb_a2"></div>
           </div>
-          <button class="submit-btn" onclick="checkPracticeA2()">Check Question 2</button>
-          <div id="fb_a2"></div>
         </div>
       </div>
     </div>
@@ -657,12 +818,19 @@
       </div>
       <div class="slide-content grid-2col">
         <!-- Question 3 -->
-        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card">
           <div>
-            <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.5rem;">Question 3 &bull; Two Points</div>
-            <p style="margin-bottom: 0.8rem;">
+            <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.35rem;">Question 3 &bull; Two Points</div>
+            <p style="margin-bottom: 0.45rem;">
               Find the equation of the line passing through <strong>(&minus;2, 1)</strong> and <strong>(4, 10)</strong> in the form <span class="math-expr">y = mx + c</span>.
             </p>
+
+            <!-- Working Pad for Practice B1 -->
+            <div class="sketchpad-box" id="pad-b1"></div>
+            <button class="reopen-pad-btn" id="reopen-b1" onclick="showPad('b1')">Show Working Pad</button>
+          </div>
+
+          <div>
             <div class="input-row">
               <label for="q3_m">Gradient <span class="math-expr">m</span> =</label>
               <input type="text" id="q3_m" class="input-box" placeholder="e.g. 1.5 or 3/2">
@@ -673,28 +841,35 @@
             </div>
             <button class="submit-btn" onclick="checkPracticeB1()">Check Question 3</button>
             <div id="fb_b1"></div>
-          </div>
 
-          <div class="reveal-box" onclick="toggleReveal(this)">
-            <span class="reveal-header">Reveal Full Working (Q3)</span>
-            <div class="reveal-content">
-              <span class="math-expr">m</span> = <span class="frac"><span class="num">10 &minus; 1</span><span class="den">4 &minus; (&minus;2)</span></span> = <span class="frac"><span class="num">9</span><span class="den">6</span></span> = <strong>1.5</strong> (or <span class="frac"><span class="num">3</span><span class="den">2</span></span>)<br>
-              <span class="math-expr">10 = 1.5(4) + c &rArr; 10 = 6 + c &rArr; <strong>c = 4</strong></span><br>
-              Equation: <strong><span class="math-expr" style="color:#4ade80;">y = 1.5x + 4</span></strong>
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'b1')">
+              <span class="reveal-header">Reveal Full Working (Q3)</span>
+              <div class="reveal-content">
+                <span class="math-expr">m</span> = <span class="frac"><span class="num">10 &minus; 1</span><span class="den">4 &minus; (&minus;2)</span></span> = <span class="frac"><span class="num">9</span><span class="den">6</span></span> = <strong>1.5</strong> (or <span class="frac"><span class="num">3</span><span class="den">2</span></span>)<br>
+                <span class="math-expr">10 = 1.5(4) + c &rArr; 10 = 6 + c &rArr; <strong>c = 4</strong></span><br>
+                Equation: <strong><span class="math-expr" style="color:#4ade80;">y = 1.5x + 4</span></strong>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Question 4 (IB AI SL Contextual Modelling) -->
-        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card">
           <div>
-            <div style="color: #4ade80; font-weight: 800; margin-bottom: 0.5rem;">Question 4 &bull; IB AI SL Real-World Context</div>
-            <p style="margin-bottom: 0.7rem; font-size: 1.12rem;">
+            <div style="color: #4ade80; font-weight: 800; margin-bottom: 0.35rem;">Question 4 &bull; IB AI SL Real-World Context</div>
+            <p style="margin-bottom: 0.35rem; font-size: 1.06rem;">
               A plumber charges a fixed call-out fee plus an hourly rate. A <strong>2-hour</strong> job costs <strong>$145</strong>, and a <strong>5-hour</strong> job costs <strong>$280</strong>.
             </p>
-            <p style="font-size: 1.1rem; color: #fbbf24; margin-bottom: 0.5rem;">
+            <p style="font-size: 1.04rem; color: #fbbf24; margin-bottom: 0.35rem;">
               Write a linear model <span class="math-expr">C = mt + c</span> for total cost <span class="math-expr">C</span> after <span class="math-expr">t</span> hours:
             </p>
+
+            <!-- Working Pad for Practice B2 -->
+            <div class="sketchpad-box" id="pad-b2"></div>
+            <button class="reopen-pad-btn" id="reopen-b2" onclick="showPad('b2')">Show Working Pad</button>
+          </div>
+
+          <div>
             <div class="input-row">
               <label for="q4_m">Hourly rate (<span class="math-expr">m</span>) =</label>
               <input type="text" id="q4_m" class="input-box" placeholder="$ per hour">
@@ -705,15 +880,15 @@
             </div>
             <button class="submit-btn" onclick="checkPracticeB2()">Check Question 4</button>
             <div id="fb_b2"></div>
-          </div>
 
-          <div class="reveal-box" onclick="toggleReveal(this)">
-            <span class="reveal-header">Reveal Full Working &amp; Interpretation (Q4)</span>
-            <div class="reveal-content">
-              Points: (2, 145) and (5, 280)<br>
-              <span class="math-expr">m</span> = <span class="frac"><span class="num">280 &minus; 145</span><span class="den">5 &minus; 2</span></span> = <span class="frac"><span class="num">135</span><span class="den">3</span></span> = <strong>$45/hour</strong><br>
-              <span class="math-expr">145 = 45(2) + c &rArr; <strong>c = $55</strong></span> (fixed call-out fee)<br>
-              Model: <strong><span class="math-expr" style="color:#4ade80;">C = 45t + 55</span></strong>
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'b2')">
+              <span class="reveal-header">Reveal Full Working &amp; Interpretation (Q4)</span>
+              <div class="reveal-content">
+                Points: (2, 145) and (5, 280)<br>
+                <span class="math-expr">m</span> = <span class="frac"><span class="num">280 &minus; 145</span><span class="den">5 &minus; 2</span></span> = <span class="frac"><span class="num">135</span><span class="den">3</span></span> = <strong>$45/hour</strong><br>
+                <span class="math-expr">145 = 45(2) + c &rArr; <strong>c = $55</strong></span> (fixed call-out fee)<br>
+                Model: <strong><span class="math-expr" style="color:#4ade80;">C = 45t + 55</span></strong>
+              </div>
             </div>
           </div>
         </div>
@@ -737,6 +912,8 @@
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       document.getElementById(`slide-${n}`).classList.add('active');
       document.getElementById('currentSlide').textContent = n;
+      // Ensure canvases on newly visible slide have accurate bounding dimensions
+      setTimeout(resizeAllPads, 50);
     }
 
     function nextSlide() {
@@ -753,8 +930,31 @@
       }
     }
 
-    function toggleReveal(el) {
+    // Hide/Show Sketchpad Helpers
+    function hidePad(padKey) {
+      const box = document.getElementById(`pad-${padKey}`);
+      const reopenBtn = document.getElementById(`reopen-${padKey}`);
+      if (box) box.classList.add('hidden');
+      if (reopenBtn) reopenBtn.classList.add('visible');
+    }
+
+    function showPad(padKey) {
+      const box = document.getElementById(`pad-${padKey}`);
+      const reopenBtn = document.getElementById(`reopen-${padKey}`);
+      if (box) box.classList.remove('hidden');
+      if (reopenBtn) reopenBtn.classList.remove('visible');
+      setTimeout(() => {
+        if (pads[padKey]) pads[padKey].resize();
+      }, 20);
+    }
+
+    function toggleRevealWithPad(el, padKey) {
       el.classList.toggle('revealed');
+      if (el.classList.contains('revealed')) {
+        hidePad(padKey);
+      } else {
+        showPad(padKey);
+      }
     }
 
     document.addEventListener('keydown', (e) => {
@@ -763,7 +963,174 @@
       if (e.key === 'ArrowLeft') prevSlide();
     });
 
-    // Build grid for Slide 3 Interactive Explorer
+    // --- Interactive Sketchpad Factory (Mouse, Touch & Apple Pencil Ready) ---
+    const pads = {};
+
+    function createSketchpad(padKey) {
+      const container = document.getElementById(`pad-${padKey}`);
+      if (!container) return;
+
+      const isTall = container.dataset.tall === 'true';
+
+      container.innerHTML = `
+        <div class="sketchpad-toolbar">
+          <span class="sketchpad-label">Working Pad</span>
+          <div class="sketch-btns">
+            <button type="button" class="sp-btn active" data-tool="blue">
+              <span class="sp-dot" style="background:#38bdf8;"></span> Pen
+            </button>
+            <button type="button" class="sp-btn" data-tool="yellow">
+              <span class="sp-dot" style="background:#fbbf24;"></span> Yellow
+            </button>
+            <button type="button" class="sp-btn" data-tool="eraser">Eraser</button>
+            <button type="button" class="sp-btn" data-tool="undo">Undo</button>
+            <button type="button" class="sp-btn clear-btn" data-tool="clear">Clear</button>
+          </div>
+        </div>
+        <div class="sp-canvas-wrap ${isTall ? 'tall' : ''}">
+          <canvas></canvas>
+        </div>
+      `;
+
+      const wrap = container.querySelector('.sp-canvas-wrap');
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let drawing = false;
+      let color = '#38bdf8';
+      let lineWidth = 2.8;
+      let eraser = false;
+      let history = [];
+
+      function resize() {
+        const rect = wrap.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        const dpr = window.devicePixelRatio || 1;
+        const snapshot = canvas.width > 0 ? canvas.toDataURL() : null;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        if (snapshot) {
+          const img = new Image();
+          img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+          img.src = snapshot;
+        }
+      }
+
+      function saveHistory() {
+        history.push(canvas.toDataURL());
+        if (history.length > 20) history.shift();
+      }
+
+      function undo() {
+        if (!history.length) return;
+        const prev = history.pop();
+        const rect = wrap.getBoundingClientRect();
+        const img = new Image();
+        img.onload = () => {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.clearRect(0, 0, rect.width, rect.height);
+          ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = prev;
+      }
+
+      function clear() {
+        saveHistory();
+        const rect = wrap.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+      }
+
+      // Toolbar button handlers
+      container.querySelectorAll('.sp-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const tool = btn.dataset.tool;
+          if (tool === 'undo') {
+            undo();
+            return;
+          }
+          if (tool === 'clear') {
+            clear();
+            return;
+          }
+          container.querySelectorAll('.sp-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          if (tool === 'blue') {
+            eraser = false;
+            color = '#38bdf8';
+            lineWidth = 2.8;
+          } else if (tool === 'yellow') {
+            eraser = false;
+            color = '#fbbf24';
+            lineWidth = 2.8;
+          } else if (tool === 'eraser') {
+            eraser = true;
+            lineWidth = 20;
+          }
+        });
+      });
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+
+      canvas.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        canvas.setPointerCapture(e.pointerId);
+        saveHistory();
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!drawing) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        if (eraser) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.lineWidth = lineWidth;
+        } else {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.strokeStyle = color;
+          ctx.lineWidth = e.pressure && e.pressure !== 0.5 ? lineWidth * (0.65 + e.pressure) : lineWidth;
+        }
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      });
+
+      function stopDraw() {
+        if (!drawing) return;
+        drawing = false;
+        ctx.closePath();
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      canvas.addEventListener('pointerup', stopDraw);
+      canvas.addEventListener('pointercancel', stopDraw);
+
+      resize();
+      pads[padKey] = { resize, clear };
+    }
+
+    function resizeAllPads() {
+      Object.values(pads).forEach(p => p.resize());
+    }
+
+    window.addEventListener('resize', resizeAllPads);
+
+    // Initialize all 7 sketchpads across Slides 2, 4, 5, and 6
+    ['s2', 'ex1', 'ex2', 'a1', 'a2', 'b1', 'b2'].forEach(createSketchpad);
+
+    // --- Slide 3 Interactive Explorer ---
     function initExplorerGrid() {
       const g = document.getElementById('expGrid');
       if (!g) return;
@@ -784,7 +1151,6 @@
       document.getElementById('valM').textContent = m;
       document.getElementById('valC').textContent = c;
 
-      // Format equation cleanly
       let mPart = `${m}x`;
       if (m === 1) mPart = 'x';
       if (m === -1) mPart = '−x';
@@ -800,7 +1166,6 @@
       }
       document.getElementById('liveEqDisplay').textContent = `y = ${mPart}${cPart}`;
 
-      // Map x in [-6, 6] to SVG coordinates (25px per unit, center 170,170)
       const x1 = -6;
       const y1 = m * x1 + c;
       const x2 = 6;
@@ -827,7 +1192,7 @@
 
     initExplorerGrid();
 
-    // Helper to parse fractions or decimals
+    // --- Answer Checkers (Auto-hide working pad on check) ---
     function parseMathVal(str) {
       if (!str) return NaN;
       const clean = str.trim().replace('−', '-');
@@ -841,6 +1206,7 @@
     }
 
     function checkSlide2() {
+      hidePad('s2');
       const m = parseMathVal(document.getElementById('s2_m').value);
       const fb = document.getElementById('fb2');
       if (m === 3) {
@@ -853,6 +1219,7 @@
     }
 
     function checkPracticeA1() {
+      hidePad('a1');
       const m = parseMathVal(document.getElementById('q1_m').value);
       const c = parseMathVal(document.getElementById('q1_c').value);
       const fb = document.getElementById('fb_a1');
@@ -866,6 +1233,7 @@
     }
 
     function checkPracticeA2() {
+      hidePad('a2');
       const m = parseMathVal(document.getElementById('q2_m').value);
       const c = parseMathVal(document.getElementById('q2_c').value);
       const fb = document.getElementById('fb_a2');
@@ -879,6 +1247,7 @@
     }
 
     function checkPracticeB1() {
+      hidePad('b1');
       const m = parseMathVal(document.getElementById('q3_m').value);
       const c = parseMathVal(document.getElementById('q3_c').value);
       const fb = document.getElementById('fb_b1');
@@ -892,6 +1261,7 @@
     }
 
     function checkPracticeB2() {
+      hidePad('b2');
       const m = parseMathVal(document.getElementById('q4_m').value);
       const c = parseMathVal(document.getElementById('q4_c').value);
       const fb = document.getElementById('fb_b2');
