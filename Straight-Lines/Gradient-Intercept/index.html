@@ -412,6 +412,75 @@
       display: block;
     }
 
+    /* Slide 7 Homework Callout Card */
+    .hw-hero-card {
+      background: linear-gradient(135deg, #0f172a 0%, #172554 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 16px;
+      padding: 2.2rem 2.5rem;
+      max-width: 920px;
+      width: 100%;
+      margin: 0 auto;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+      text-align: center;
+    }
+
+    .hw-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: #ffffff;
+      border: 2px solid #4ade80;
+      padding: 1.05rem 2rem;
+      border-radius: 12px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 25px -5px rgba(22, 163, 74, 0.45);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      margin: 0.3rem auto;
+    }
+
+    .hw-link-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -5px rgba(74, 222, 128, 0.5);
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .hw-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: left;
+      margin-top: 0.4rem;
+    }
+
+    .hw-step-box {
+      background-color: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+
+    .hw-step-num {
+      display: inline-block;
+      background-color: #fbbf24;
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+
     .math-expr {
       font-family: "Georgia", serif;
       font-style: italic;
@@ -582,7 +651,6 @@
 
         <div class="canvas-container">
           <svg viewBox="0 0 340 300">
-            <!-- Grid -->
             <g stroke="#334155" stroke-width="1">
               <line x1="40" y1="20" x2="40" y2="270"/><line x1="90" y1="20" x2="90" y2="270"/>
               <line x1="140" y1="20" x2="140" y2="270"/><line x1="190" y1="20" x2="190" y2="270"/>
@@ -591,17 +659,13 @@
               <line x1="20" y1="130" x2="310" y2="130"/><line x1="20" y1="175" x2="310" y2="175"/>
               <line x1="20" y1="220" x2="310" y2="220"/><line x1="20" y1="265" x2="310" y2="265"/>
             </g>
-            <!-- Rise & Run dashed legs -->
             <line x1="90" y1="220" x2="240" y2="220" stroke="#4ade80" stroke-width="3" stroke-dasharray="6"/>
             <line x1="240" y1="220" x2="240" y2="40" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6"/>
-            <!-- Main Line -->
             <line x1="65" y1="250" x2="265" y2="10" stroke="#fbbf24" stroke-width="3.5"/>
-            <!-- Points -->
             <circle cx="90" cy="220" r="6" fill="#fbbf24"/>
             <text x="45" y="242" fill="#f8fafc" font-size="14" font-weight="bold">A(1, -2)</text>
             <circle cx="240" cy="40" r="6" fill="#fbbf24"/>
             <text x="248" y="42" fill="#f8fafc" font-size="14" font-weight="bold">B(4, 7)</text>
-            <!-- Labels -->
             <text x="140" y="242" fill="#4ade80" font-size="14" font-weight="bold">Run = 4 - 1 = 3</text>
             <text x="248" y="135" fill="#38bdf8" font-size="14" font-weight="bold">Rise = 9</text>
           </svg>
@@ -895,8 +959,52 @@
       </div>
     </div>
 
+    <!-- SLIDE 7: Homework Activity & Toddle Submission -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-title">7. Homework: Interactive Gradient Quiz</div>
+        <div class="slide-tag">Independent Practice</div>
+      </div>
+      <div class="slide-content">
+        <div class="hw-hero-card">
+          <div>
+            <div style="color: #fbbf24; font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em;">
+              Homework Assignment
+            </div>
+            <h2 style="font-size: 2rem; color: #f8fafc; margin-top: 0.35rem;">
+              Complete the Interactive Gradient Match-Up Quiz
+            </h2>
+            <p style="font-size: 1.18rem; color: #cbd5e1; margin-top: 0.5rem;">
+              Click the link below to open the quiz, match all 10 gradients using the on-screen working pad, and submit your score to <strong>Toddle</strong>.
+            </p>
+          </div>
+
+          <div>
+            <a href="https://ricardo64.github.io/IB-Maths/Straight-Lines/Gradient-Intercept/match-up.html" target="_blank" rel="noopener noreferrer" class="hw-link-btn">
+              Graphs of Straight Lines: Match-up &rarr;
+            </a>
+          </div>
+
+          <div class="hw-steps-grid">
+            <div class="hw-step-box">
+              <div class="hw-step-num">Step 1</div>
+              <p>Open <strong>Graphs of Straight Lines: Match-up</strong> and drag each gradient tile into Questions 1&ndash;10.</p>
+            </div>
+            <div class="hw-step-box">
+              <div class="hw-step-num">Step 2</div>
+              <p>Click <strong>Check Answers</strong>, enter your <strong>full name</strong>, and download your proof PNG (or take a screenshot).</p>
+            </div>
+            <div class="hw-step-box">
+              <div class="hw-step-num">Step 3</div>
+              <p>Upload your verified results image to today&rsquo;s <strong>Toddle</strong> homework assignment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Navigation & Counter -->
-    <div class="slide-counter"><span id="currentSlide">1</span> / 6</div>
+    <div class="slide-counter"><span id="currentSlide">1</span> / 7</div>
     <div class="controls">
       <button class="nav-btn" onclick="prevSlide()">Previous</button>
       <button class="nav-btn" onclick="nextSlide()">Next</button>
@@ -906,13 +1014,12 @@
 
   <script>
     let current = 1;
-    const total = 6;
+    const total = 7;
 
     function showSlide(n) {
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       document.getElementById(`slide-${n}`).classList.add('active');
       document.getElementById('currentSlide').textContent = n;
-      // Ensure canvases on newly visible slide have accurate bounding dimensions
       setTimeout(resizeAllPads, 50);
     }
 
@@ -930,7 +1037,6 @@
       }
     }
 
-    // Hide/Show Sketchpad Helpers
     function hidePad(padKey) {
       const box = document.getElementById(`pad-${padKey}`);
       const reopenBtn = document.getElementById(`reopen-${padKey}`);
@@ -963,7 +1069,7 @@
       if (e.key === 'ArrowLeft') prevSlide();
     });
 
-    // --- Interactive Sketchpad Factory (Mouse, Touch & Apple Pencil Ready) ---
+    // --- Interactive Sketchpad Factory ---
     const pads = {};
 
     function createSketchpad(padKey) {
@@ -1045,7 +1151,6 @@
         ctx.clearRect(0, 0, rect.width, rect.height);
       }
 
-      // Toolbar button handlers
       container.querySelectorAll('.sp-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1127,7 +1232,6 @@
 
     window.addEventListener('resize', resizeAllPads);
 
-    // Initialize all 7 sketchpads across Slides 2, 4, 5, and 6
     ['s2', 'ex1', 'ex2', 'a1', 'a2', 'b1', 'b2'].forEach(createSketchpad);
 
     // --- Slide 3 Interactive Explorer ---
@@ -1192,7 +1296,7 @@
 
     initExplorerGrid();
 
-    // --- Answer Checkers (Auto-hide working pad on check) ---
+    // --- Answer Checkers ---
     function parseMathVal(str) {
       if (!str) return NaN;
       const clean = str.trim().replace('−', '-');
