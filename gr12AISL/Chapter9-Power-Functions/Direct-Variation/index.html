@@ -1,1 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 12 Maths AISL – Starter &amp; Direct Variation</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --primary-soft: #eff6ff;
+      --emerald: #047857;
+      --emerald-soft: #ecfdf5;
+      --emerald-border: #6ee7b7;
+      --indigo: #4338ca;
+      --indigo-soft: #eef2ff;
+      --red: #dc2626;
+      --red-soft: #fef2f2;
+      --amber-soft: #fffbeb;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --border-light: #e2e8f0;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Header Bar */
+    .topbar {
+      background-color: var(--navy);
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #ffffff;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .counter-pill {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-header {
+      background-color: #1e293b;
+      border-color: #334155;
+      color: #f1f5f9;
+      padding: 0.42rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-header:hover {
+      background-color: #334155;
+    }
+
+    .btn-download {
+      background-color: #059669;
+      color: #ffffff;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .btn-download:hover {
+      background-color: #047857;
+    }
+
+    /* Main Stage */
+    .stage {
+      flex: 1;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem;
+    }
+
+    .slide {
+      display: none;
+      background-color: var(--card);
+      border: 1px solid var(--border-light);
+      border-top: 7px solid var(--primary);
+      border-radius: 16px;
+      padding: 1.75rem 2.1rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+      animation: slideIn 0.2s ease-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide.sol-theme { border-top-color: #059669; }
+    .slide.ch9-theme { border-top-color: var(--indigo); }
+    .slide.ext-theme { border-top-color: var(--red); }
+    .slide.hw-theme { border-top-color: #d97706; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.24rem 0.75rem;
+      border-radius: 999px;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+
+    .tag.sol {
+      background-color: var(--emerald-soft);
+      color: var(--emerald);
+      border-color: var(--emerald-border);
+    }
+
+    .tag.ch9 {
+      background-color: var(--indigo-soft);
+      color: var(--indigo);
+      border-color: #c7d2fe;
+    }
+
+    .tag.ext {
+      background-color: var(--red-soft);
+      color: var(--red);
+      border-color: #fecaca;
+    }
+
+    .tag.hw {
+      background-color: var(--amber-soft);
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    .meta-right {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    h2.slide-heading {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--navy);
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    h2.slide-heading.ch9-title { color: var(--primary); }
+    h2.slide-heading.ext-title { color: var(--red); letter-spacing: 0.02em; }
+
+    /* Top-right diagram layout for Starter & Solution slides */
+    .starter-layout {
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    @media (max-width: 840px) {
+      .starter-layout {
+        grid-template-columns: 1fr;
+      }
+      .slide {
+        padding: 1.35rem 1.25rem;
+      }
+    }
+
+    .diagram-box {
+      align-self: start;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 0.95rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .diagram-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      align-self: start;
+    }
+
+    .btn-pdf-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.72rem 1rem;
+      border-radius: 12px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(29, 78, 216, 0.22);
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-pdf-download:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-pdf-print {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.45rem 0.75rem;
+      border-radius: 9px;
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .btn-pdf-print:hover {
+      background-color: #e2e8f0;
+      color: var(--navy);
+    }
+
+    /* Natural Prose & Native CSS Math Formatting */
+    .content-flow {
+      font-size: 1.12rem;
+      color: var(--text);
+    }
+
+    .content-flow p {
+      margin-bottom: 0.85rem;
+      line-height: 1.65;
+    }
+
+    .content-flow p:last-child {
+      margin-bottom: 0;
+    }
+
+    .underline-accent {
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-color: #3b82f6;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .part-label {
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-right: 0.25rem;
+    }
+
+    .badge-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+
+    /* Native HTML/CSS Math Typography */
+    .math-var {
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-style: italic;
+      font-size: 1.08em;
+    }
+
+    .math-rm {
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-style: normal;
+      font-size: 1.06em;
+    }
+
+    .math-display {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      margin: 0.7rem 0 1rem 0;
+      text-align: center;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-size: 1.38rem;
+      color: var(--navy);
+    }
+
+    .math-line {
+      text-align: center;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-size: 1.28rem;
+      margin: 0.55rem 0;
+      color: var(--navy);
+    }
+
+    /* Vertical Fractions */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 0.22em;
+      font-size: 0.92em;
+      line-height: 1.15;
+    }
+
+    .frac > span:first-child {
+      padding: 0 0.28em 0.14em 0.28em;
+    }
+
+    .frac > span:last-child {
+      border-top: 1.5px solid currentColor;
+      padding: 0.14em 0.28em 0 0.28em;
+    }
+
+    /* Cube Root Styling */
+    .cuberoot {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+    .cuberoot-index {
+      font-size: 0.65em;
+      margin-right: -0.22em;
+      margin-bottom: 0.75em;
+      font-weight: 700;
+    }
+    .radicand {
+      border-top: 1.5px solid currentColor;
+      padding: 0.08em 0.2em 0 0.15em;
+      display: inline-block;
+    }
+
+    /* Callout & Question Cards */
+    .question-card {
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-card.neutral {
+      background-color: #f8fafc;
+      border-color: var(--border-light);
+    }
+
+    .question-card.challenge {
+      background-color: var(--red-soft);
+      border-color: #fecaca;
+    }
+
+    .step-card {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .step-card.highlight {
+      background-color: var(--emerald-soft);
+      border-color: var(--emerald-border);
+    }
+
+    .step-title {
+      font-weight: 800;
+      color: var(--emerald);
+      margin-bottom: 0.35rem;
+    }
+
+    .concept-callout {
+      background-color: #fefce8;
+      border: 2px solid var(--red);
+      border-radius: 14px;
+      padding: 1.35rem 1.6rem;
+      margin: 1.25rem 0;
+    }
+
+    .concept-formula-bar {
+      background-color: #ffffff;
+      border: 1px solid #fde047;
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      margin-top: 0.85rem;
+      text-align: center;
+      font-size: 1.32rem;
+      font-weight: 700;
+    }
+
+    /* Interactive Working Pad & Solution Reveal */
+    .controls-bar {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .btn-work {
+      background-color: #e2e8f0;
+      color: var(--navy);
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .btn-work:hover {
+      background-color: #cbd5e1;
+    }
+
+    .btn-reveal {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(29, 78, 216, 0.25);
+    }
+    .btn-reveal:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-reveal.red {
+      background-color: var(--red);
+      box-shadow: 0 2px 5px rgba(220, 38, 38, 0.25);
+    }
+    .btn-reveal.red:hover {
+      background-color: #b91c1c;
+    }
+
+    .working-pad {
+      margin-top: 0.85rem;
+      border: 2px solid #94a3b8;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .working-pad.collapsed {
+      display: none;
+    }
+
+    .pad-toolbar {
+      background-color: #f1f5f9;
+      border-bottom: 1px solid var(--border);
+      padding: 0.45rem 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .pad-label-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .pad-title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #475569;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background-color: #e2e8f0;
+      padding: 2px;
+      border-radius: 7px;
+    }
+
+    .mode-btn {
+      padding: 0.22rem 0.65rem;
+      border-radius: 5px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: transparent;
+      color: #475569;
+    }
+    .mode-btn.active {
+      background-color: #ffffff;
+      color: var(--navy);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .pen-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pen-tools.hidden {
+      display: none;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px #94a3b8;
+    }
+    .swatch.active {
+      box-shadow: 0 0 0 2px var(--navy);
+      transform: scale(1.08);
+    }
+
+    .btn-tool {
+      padding: 0.24rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-tool:hover {
+      background-color: #e2e8f0;
+    }
+
+    .btn-tool.clear {
+      background-color: var(--red-soft);
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+
+    canvas.pad-canvas {
+      display: block;
+      width: 100%;
+      height: 220px;
+      cursor: crosshair;
+      touch-action: none;
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+        linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    canvas.pad-canvas.hidden {
+      display: none;
+    }
+
+    textarea.pad-notes {
+      display: block;
+      width: 100%;
+      height: 220px;
+      padding: 0.9rem 1rem;
+      border: none;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.98rem;
+      color: var(--navy);
+      resize: vertical;
+      outline: none;
+    }
+    textarea.pad-notes.hidden {
+      display: none;
+    }
+
+    /* Revealed Solution Panel */
+    .solution-panel {
+      display: none;
+      margin-top: 1rem;
+      background-color: var(--emerald-soft);
+      border: 1px solid var(--emerald-border);
+      border-left: 7px solid #059669;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      font-size: 1.08rem;
+      color: var(--navy);
+    }
+
+    .solution-panel.visible {
+      display: block;
+    }
+
+    .sol-divider {
+      border: none;
+      border-top: 1px solid #a7f3d0;
+      margin: 0.85rem 0;
+    }
+
+    /* Slide 9: Practice & Homework */
+    .practice-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      background-color: #fef9c3;
+      border: 2px solid var(--navy);
+      border-radius: 14px;
+      padding: 1.15rem 1.5rem;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: none;
+      margin-bottom: 1.65rem;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+      transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    }
+
+    .practice-banner:hover {
+      background-color: #fde047;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
+    }
+
+    .practice-banner:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .practice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .hw-heading {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .hw-pill-banner {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: #fde047;
+      border: 2px solid var(--navy);
+      border-radius: 14px;
+      padding: 0.75rem 1.25rem;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+      transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    }
+
+    .hw-pill-banner:hover {
+      background-color: #facc15;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
+    }
+
+    .hw-pill-banner:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .hw-icon-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      background-color: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 7px;
+      color: var(--navy);
+    }
+
+    .hw-open-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-left: 0.2rem;
+    }
+
+    .hw-creds-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 0.6rem 0.95rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+
+    .cred-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.28rem 0.6rem;
+    }
+
+    .cred-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+    }
+
+    .btn-copy-cred {
+      background-color: var(--primary-soft);
+      border: 1px solid #bfdbfe;
+      color: var(--primary-dark);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.18rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .btn-copy-cred:hover {
+      background-color: #dbeafe;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table.hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.96rem;
+      text-align: left;
+    }
+
+    table.hw-table th {
+      background-color: #f1f5f9;
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0.75rem 0.95rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.hw-table td {
+      padding: 0.8rem 0.95rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    table.hw-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .link-look {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .count-badge {
+      display: inline-block;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    /* Attempt-Based Solution Unlocker on Slide 9 */
+    .unlock-card {
+      background-color: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 6px solid var(--primary);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 1.65rem;
+    }
+
+    .unlock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .unlock-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .unlock-hint {
+      font-size: 0.92rem;
+      color: #475569;
+      margin-bottom: 1rem;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .attempt-field {
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+
+    .attempt-field.full-span {
+      grid-column: 1 / -1;
+    }
+
+    .attempt-field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .attempt-field input {
+      width: 100%;
+      padding: 0.45rem 0.65rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--navy);
+      outline: none;
+    }
+
+    .attempt-field input:focus {
+      border-color: var(--primary);
+    }
+
+    .field-feedback {
+      font-size: 0.78rem;
+      font-weight: 700;
+      min-height: 1.1em;
+    }
+
+    .fb-ok { color: #047857; }
+    .fb-review { color: #b45309; }
+
+    .attempt-error {
+      display: none;
+      background-color: var(--red-soft);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+    }
+
+    .attempt-error.visible {
+      display: block;
+    }
+
+    .btn-unlock {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(29, 78, 216, 0.24);
+    }
+
+    .btn-unlock:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .receipt-box {
+      display: none;
+      margin-top: 1.1rem;
+      background-color: var(--emerald-soft);
+      border: 1.5px solid var(--emerald-border);
+      border-left: 6px solid #059669;
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    .receipt-box.visible {
+      display: block;
+    }
+
+    .receipt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid #a7f3d0;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .receipt-badge {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #065f46;
+    }
+
+    .receipt-time {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #047857;
+      background-color: #ffffff;
+      border: 1px solid #a7f3d0;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .receipt-summary {
+      font-size: 0.9rem;
+      color: var(--navy);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+
+    .btn-unlocked-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: #059669;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 0.65rem 1.2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(5, 150, 105, 0.25);
+    }
+
+    .btn-unlocked-pdf:hover {
+      background-color: #047857;
+    }
+
+    /* Footer Navigation */
+    .bottombar {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border-light);
+      padding: 0.75rem 1.25rem;
+      position: sticky;
+      bottom: 0;
+      z-index: 30;
+    }
+
+    .bottombar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .btn-nav {
+      background-color: var(--navy);
+      color: #ffffff;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .btn-nav.next {
+      background-color: var(--primary);
+    }
+    .btn-nav:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+    .btn-nav:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    .dots-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .dot-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background-color: #f8fafc;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .dot-btn:hover {
+      background-color: #e2e8f0;
+    }
+    .dot-btn.active {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">IB</span>
+        <div>
+          <div class="brand-title">Grade 12 Maths AISL</div>
+          <div class="brand-sub">Starter: Optimisation &bull; Chapter 9: Direct Variation</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span id="slideCounter" class="counter-pill">Slide 1 of 9</span>
+        <button type="button" class="btn-header" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+          &#x26F6; Fullscreen
+        </button>
+        <button type="button" class="btn-download" onclick="downloadCleanHTML()" title="Download standalone index.html for GitHub Pages">
+          &#x2B07; Download index.html
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Presentation Stage -->
+  <main class="stage">
+
+    <!-- SLIDE 1: Starter – Optimisation Question 1 -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-meta">
+        <span class="tag">Starter &ndash; Optimisation</span>
+        <span class="meta-right">Recap Question 1 of 2</span>
+      </div>
+      <h2 class="slide-heading">Question 1</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <p>
+            A juice manufacturer is designing a new <span class="underline-accent">open-topped</span> cylindrical glass to hold a volume of 500 cm<sup>3</sup>. The glass has a radius of <span class="math-var">r</span> cm and a height of <span class="math-var">h</span> cm.
+          </p>
+
+          <p><span class="part-label">(a)</span> Show that the total surface area, <span class="math-var">A</span>, of the glass is given by:</p>
+          <div class="math-display">
+            <span class="math-var">A</span> = &pi;<span class="math-var">r</span><sup>2</sup> + <span class="frac"><span>1000</span><span><span class="math-var">r</span></span></span>
+          </div>
+
+          <p><span class="part-label">(b)</span> Using your GDC make a sketch of function <span class="math-var">A</span> for the domain 0 &le; <span class="math-var">r</span> &le; 10.</p>
+          <p><span class="part-label">(c)</span> Calculate the value of <span class="math-var">r</span> that minimizes the surface area of the glass.</p>
+        </div>
+
+        <!-- Top-Right SVG Diagram: Open-Topped Cylindrical Glass -->
+        <div class="diagram-box">
+          <svg viewBox="0 0 240 230" role="img" aria-label="Open-topped cylindrical glass diagram">
+            <defs>
+              <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55" />
+                <stop offset="50%" stop-color="#e0f2fe" stop-opacity="0.3" />
+                <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.55" />
+              </linearGradient>
+            </defs>
+            <path d="M 55 44 L 55 174 A 60 17 0 0 0 175 174 L 175 44 Z" fill="url(#glassGrad)" stroke="#0369a1" stroke-width="2.2" />
+            <ellipse cx="115" cy="44" rx="60" ry="17" fill="#f0f9ff" stroke="#0369a1" stroke-width="2.2" />
+            <path d="M 55 174 A 60 17 0 0 1 175 174" fill="none" stroke="#0369a1" stroke-width="1.5" stroke-dasharray="4,4" />
+            <line x1="115" y1="44" x2="175" y2="44" stroke="#dc2626" stroke-width="2.2" />
+            <circle cx="115" cy="44" r="3.5" fill="#dc2626" />
+            <text x="145" y="36" text-anchor="middle" font-size="13.5" font-style="italic" font-weight="700" fill="#dc2626">r cm</text>
+            <line x1="192" y1="44" x2="192" y2="174" stroke="#1e293b" stroke-width="1.6" />
+            <line x1="186" y1="44" x2="198" y2="44" stroke="#1e293b" stroke-width="1.6" />
+            <line x1="186" y1="174" x2="198" y2="174" stroke="#1e293b" stroke-width="1.6" />
+            <text x="202" y="114" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">h cm</text>
+            <text x="115" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">Open Top &bull; V = 500 cm&sup3;</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Interactive Working Pad -->
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-s1')">&#9998; Toggle Working Box</button>
+        </div>
+        <span class="meta-right">Full worked solution is on Slide 3</span>
+      </div>
+
+      <div id="work-s1" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-s1', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-s1', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-s1', '#1d4ed8', 2.8, this)" title="Blue"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-s1', '#dc2626', 2.8, this)" title="Red"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-s1', '#15803d', 2.8, this)" title="Green"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-s1', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-s1')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Starter – Optimisation Question 2 -->
+    <section class="slide" data-slide="2">
+      <div class="slide-meta">
+        <span class="tag">Starter &ndash; Optimisation</span>
+        <span class="meta-right">Recap Question 2 of 2</span>
+      </div>
+      <h2 class="slide-heading">Question 2</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <p>
+            A rectangular garden is to be fenced against a long straight brick wall. The garden is formed by using 40 m of fencing for the three remaining sides, as shown in the diagram below. Let the length of the two sides perpendicular to the wall be <span class="math-var">x</span> m.
+          </p>
+
+          <p><span class="part-label">(a)</span> Show that the area, <span class="math-var">A</span>, of the garden can be expressed as:</p>
+          <div class="math-display">
+            <span class="math-var">A</span> = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
+          </div>
+
+          <p><span class="part-label">(b)</span> Find the dimensions of the garden (the values of the two different side lengths) that will result in the maximum possible area.</p>
+        </div>
+
+        <!-- Top-Right SVG Diagram: Fenced Garden -->
+        <div class="diagram-box">
+          <svg viewBox="0 0 280 205" role="img" aria-label="Rectangular fenced garden against a long straight brick wall">
+            <rect x="16" y="24" width="248" height="18" rx="2" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5" />
+            <line x1="16" y1="33" x2="264" y2="33" stroke="#fecaca" stroke-width="1.2" stroke-dasharray="14,10" />
+            <text x="140" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">Long Straight Brick Wall</text>
+            <rect x="44" y="42" width="192" height="116" fill="#dcfce7" stroke="#15803d" stroke-width="2.5" stroke-dasharray="7,3" />
+            <text x="140" y="105" text-anchor="middle" font-size="13.5" font-weight="700" fill="#166534">Area = A m&sup2;</text>
+            <text x="37" y="105" text-anchor="end" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
+            <text x="243" y="105" text-anchor="start" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
+            <text x="140" y="182" text-anchor="middle" font-size="13.5" font-weight="700" fill="#15803d">(40 &minus; 2x) m</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Interactive Working Pad -->
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-s2')">&#9998; Toggle Working Box</button>
+        </div>
+        <span class="meta-right">Full worked solution is on Slide 4</span>
+      </div>
+
+      <div id="work-s2" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-s2', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-s2', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-s2', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-s2', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-s2', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-s2', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-s2')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Starter – Worked Solution for Question 1 -->
+    <section class="slide sol-theme" data-slide="3">
+      <div class="slide-meta">
+        <span class="tag sol">Starter &ndash; Worked Solution</span>
+        <span class="meta-right">Solution 1 of 2</span>
+      </div>
+      <h2 class="slide-heading">Solution: Question 1 (Cylindrical Glass)</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <div class="step-card">
+            <div class="step-title">(a) Expressing <span class="math-var">A</span> in terms of <span class="math-var">r</span>:</div>
+            <p>
+              Volume of cylinder: <span class="math-var">V</span> = &pi;<span class="math-var">r</span><sup>2</sup><span class="math-var">h</span> = 500, so <span class="math-var">h</span> = <span class="frac"><span>500</span><span>&pi;<span class="math-var">r</span><sup>2</sup></span></span>.
+            </p>
+            <p>Total surface area (one circular base plus the curved side):</p>
+            <div class="math-line">
+              <span class="math-var">A</span> = &pi;<span class="math-var">r</span><sup>2</sup> + 2&pi;<span class="math-var">rh</span> = &pi;<span class="math-var">r</span><sup>2</sup> + 2&pi;<span class="math-var">r</span><span class="frac"><span>500</span><span>&pi;<span class="math-var">r</span><sup>2</sup></span></span> = &pi;<span class="math-var">r</span><sup>2</sup> + <span class="frac"><span>1000</span><span><span class="math-var">r</span></span></span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-title">(b) GDC Sketch for 0 &le; <span class="math-var">r</span> &le; 10:</div>
+            <p>
+              There is a vertical asymptote at <span class="math-var">r</span> = 0. The curve decreases steeply to a local minimum and then rises smoothly as <span class="math-var">r</span> increases toward 10.
+            </p>
+          </div>
+
+          <div class="step-card highlight">
+            <div class="step-title">(c) Value of <span class="math-var">r</span> that minimizes <span class="math-var">A</span>:</div>
+            <p>Using GDC <strong>Minimum</strong> (or setting d<span class="math-var">A</span>/d<span class="math-var">r</span> = 0):</p>
+            <div class="math-line">
+              2&pi;<span class="math-var">r</span> &minus; <span class="frac"><span>1000</span><span><span class="math-var">r</span><sup>2</sup></span></span> = 0 &nbsp;&rArr;&nbsp; <span class="math-var">r</span><sup>3</sup> = <span class="frac"><span>500</span><span>&pi;</span></span> &nbsp;&rArr;&nbsp; <span class="math-var">r</span> = <span class="cuberoot"><span class="cuberoot-index">3</span>&radic;<span class="radicand"><span class="frac"><span>500</span><span>&pi;</span></span></span></span> &approx; <strong>5.42 cm</strong> (3 s.f.)
+            </div>
+          </div>
+        </div>
+
+        <!-- Top-Right GDC Curve Sketch SVG -->
+        <div class="diagram-box">
+          <svg viewBox="0 0 260 225" role="img" aria-label="GDC curve sketch showing minimum at (5.42, 277)">
+            <line x1="36" y1="55" x2="240" y2="55" stroke="#e2e8f0" stroke-width="1" />
+            <line x1="36" y1="98" x2="240" y2="98" stroke="#e2e8f0" stroke-width="1" />
+            <line x1="36" y1="142" x2="240" y2="142" stroke="#e2e8f0" stroke-width="1" />
+            <line x1="36" y1="185" x2="244" y2="185" stroke="#1e293b" stroke-width="2" />
+            <line x1="36" y1="185" x2="36" y2="18" stroke="#1e293b" stroke-width="2" />
+            <text x="242" y="202" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">r</text>
+            <text x="22" y="25" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">A</text>
+            <text x="30" y="201" font-size="11" fill="#475569">0</text>
+            <text x="226" y="201" font-size="11" fill="#475569">10</text>
+            <path d="M 48 25 Q 68 138 138 140 T 232 86" fill="none" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round" />
+            <line x1="140" y1="140" x2="140" y2="185" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3" />
+            <circle cx="140" cy="140" r="4.8" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+            <rect x="84" y="106" width="112" height="22" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" />
+            <text x="140" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">Min (5.42, 277)</text>
+          </svg>
+          <div class="diagram-caption">GDC Window: <span class="math-var">r</span> &isin; [0, 10], <span class="math-var">A</span> &isin; [0, 600]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Starter – Worked Solution for Question 2 -->
+    <section class="slide sol-theme" data-slide="4">
+      <div class="slide-meta">
+        <span class="tag sol">Starter &ndash; Worked Solution</span>
+        <span class="meta-right">Solution 2 of 2</span>
+      </div>
+      <h2 class="slide-heading">Solution: Question 2 (Fenced Garden)</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <div class="step-card">
+            <div class="step-title">(a) Expressing area <span class="math-var">A</span> in terms of <span class="math-var">x</span>:</div>
+            <p>
+              Total fencing available for the three sides is 40 m. Since the two sides perpendicular to the wall each have length <span class="math-var">x</span> m, the remaining side parallel to the brick wall has length (40 &minus; 2<span class="math-var">x</span>) m.
+            </p>
+            <div class="math-line">
+              <span class="math-var">A</span> = <span class="math-var">x</span>(40 &minus; 2<span class="math-var">x</span>) = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
+            </div>
+          </div>
+
+          <div class="step-card highlight">
+            <div class="step-title">(b) Dimensions for Maximum Area:</div>
+            <p>Using the axis of symmetry (or GDC <strong>Maximum</strong> / d<span class="math-var">A</span>/d<span class="math-var">x</span> = 40 &minus; 4<span class="math-var">x</span> = 0):</p>
+            <div class="math-line">
+              <span class="math-var">x</span> = &minus;<span class="frac"><span><span class="math-var">b</span></span><span>2<span class="math-var">a</span></span></span> = &minus;<span class="frac"><span>40</span><span>2(&minus;2)</span></span> = <strong>10 m</strong>
+            </div>
+            <p>The side parallel to the wall is 40 &minus; 2(10) = <strong>20 m</strong>.</p>
+            <p><strong>Dimensions: 10 m &times; 20 m</strong> (Maximum Area = 200 m<sup>2</sup>)</p>
+          </div>
+        </div>
+
+        <!-- Top-Right Parabola SVG Sketch -->
+        <div class="diagram-col">
+          <div class="diagram-box">
+            <svg viewBox="0 0 260 225" role="img" aria-label="Parabola sketch showing maximum at (10, 200)">
+              <line x1="36" y1="185" x2="244" y2="185" stroke="#1e293b" stroke-width="2" />
+              <line x1="36" y1="185" x2="36" y2="18" stroke="#1e293b" stroke-width="2" />
+              <text x="242" y="202" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">x</text>
+              <text x="22" y="25" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">A</text>
+              <text x="30" y="201" font-size="11" fill="#475569">0</text>
+              <text x="128" y="201" font-size="11" font-weight="700" fill="#dc2626">10</text>
+              <text x="224" y="201" font-size="11" fill="#475569">20</text>
+              <path d="M 36 185 Q 134 -62 232 185" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+              <line x1="134" y1="62" x2="134" y2="185" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3" />
+              <circle cx="134" cy="62" r="4.8" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+              <rect x="78" y="28" width="112" height="22" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" />
+              <text x="134" y="43" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">Max (10, 200)</text>
+            </svg>
+            <div class="diagram-caption">Domain: 0 &lt; <span class="math-var">x</span> &lt; 20</div>
+          </div>
+
+          <a href="./Starter_Optimisation_Questions_and_Solutions.pdf" download="Starter_Optimisation_Questions_and_Solutions.pdf" class="btn-pdf-download" title="Download PDF containing Starter Questions 1 &amp; 2 and their full worked solutions">
+            &#x1F4C4; Download Starter Questions &amp; Solutions (PDF)
+          </a>
+          <button type="button" class="btn-pdf-print" onclick="printStarterSheet()" title="Open formatted print/save-as-PDF sheet">
+            &#x1F5A8; Open Printable Worksheet View
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Chapter 9 – Direct Variation (Page 448) -->
+    <section class="slide ch9-theme" data-slide="5">
+      <div class="slide-meta">
+        <span class="tag ch9">Chapter 9 &bull; Direct Variation</span>
+        <span class="meta-right">Page 448</span>
+      </div>
+      <h2 class="slide-heading ch9-title">Chapter 9 &ndash; Direct Variation</h2>
+
+      <div class="content-flow">
+        <p>
+          In Chapter 5, <em>Linear functions</em>, we looked at Direct Variation. We will start by looking further into this.
+        </p>
+
+        <div class="concept-callout">
+          <p>
+            The symbol for variation is <strong style="color:#dc2626; font-size:1.35em;">&prop;</strong> and it stands for <strong>&ldquo;= <span class="math-var">k</span> &times; &hellip;&rdquo;</strong> (that is, <span class="math-var">k</span> multiplied by the variable which follows).
+          </p>
+          <div class="concept-formula-bar">
+            For direct variation: &nbsp;&nbsp; <span style="color:#4338ca;"><span class="math-var">y</span> &prop; <span class="math-var">x</span><sup><span class="math-var">n</span></sup></span> &nbsp;&nbsp; or &nbsp;&nbsp; <span style="color:#047857;"><span class="math-var">y</span> = <span class="math-var">kx</span><sup><span class="math-var">n</span></sup></span>
+          </div>
+        </div>
+
+        <p>
+          <strong>Variation provides an alternative to the use of functions when representing real-life situations.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Example 1 -->
+    <section class="slide ch9-theme" data-slide="6">
+      <div class="slide-meta">
+        <span class="tag ch9">Direct Variation &ndash; Worked Example</span>
+        <span class="meta-right">Example 1 of 2</span>
+      </div>
+      <h2 class="slide-heading">Example 1</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          The distance, <span class="math-var">d</span> metres, that a rock falls varies directly with the square of the time taken, <span class="math-var">t</span> seconds.
+        </p>
+        <p>
+          <span class="badge-letter">a</span> If the rock falls 6 metres in 2 seconds, write an equation for <span class="math-var">d</span> in terms of <span class="math-var">t</span>.
+        </p>
+        <p>
+          <span class="badge-letter">b</span> Find the distance the rock has fallen after 5 seconds.
+        </p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-ex1')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-ex1" class="btn-reveal" onclick="toggleSolutionReveal('work-ex1', 'sol-ex1', 'btn-sol-ex1')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-ex1" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-ex1', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-ex1', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-ex1', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-ex1', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-ex1', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-ex1', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-ex1')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-ex1" class="solution-panel content-flow">
+        <div class="step-title">(a) Equation for <span class="math-var">d</span> in terms of <span class="math-var">t</span>:</div>
+        <p>Since <span class="math-var">d</span> varies directly with the square of <span class="math-var">t</span>, we write <span class="math-var">d</span> &prop; <span class="math-var">t</span><sup>2</sup>, so <span class="math-var">d</span> = <span class="math-var">kt</span><sup>2</sup>.</p>
+        <p>Substituting <span class="math-var">d</span> = 6 and <span class="math-var">t</span> = 2:</p>
+        <div class="math-line">
+          6 = <span class="math-var">k</span>(2)<sup>2</sup> &nbsp;&rArr;&nbsp; 6 = 4<span class="math-var">k</span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = <span class="frac"><span>6</span><span>4</span></span> = 1.5
+        </div>
+        <p><strong>Equation: &nbsp; <span class="math-var">d</span> = 1.5<span class="math-var">t</span><sup>2</sup></strong></p>
+
+        <hr class="sol-divider" />
+
+        <div class="step-title">(b) Distance fallen after 5 seconds:</div>
+        <p>Substituting <span class="math-var">t</span> = 5 into <span class="math-var">d</span> = 1.5<span class="math-var">t</span><sup>2</sup>:</p>
+        <div class="math-line">
+          <span class="math-var">d</span> = 1.5(5)<sup>2</sup> = 1.5 &times; 25 = <strong>37.5 metres</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Example 2 -->
+    <section class="slide ch9-theme" data-slide="7">
+      <div class="slide-meta">
+        <span class="tag ch9">Direct Variation &ndash; Worked Example</span>
+        <span class="meta-right">Example 2 of 2</span>
+      </div>
+      <h2 class="slide-heading">Example 2</h2>
+
+      <div class="question-card neutral content-flow">
+        <p>
+          The volume <span class="math-var">V</span> of a <span style="color:#dc2626; font-weight:700;">cube (shape)</span> is directly proportional to the <span style="color:#1d4ed8; font-weight:700;">cube (power)</span> of its side length <span class="math-var">x</span>.
+        </p>
+        <p>
+          <span class="part-label">(a)</span> Write an equation for <span class="math-var">V</span> in terms of <span class="math-var">x</span>, and identify the constant of proportionality <span class="math-var">k</span>, given that when <span class="math-var">x</span> = 4 the volume is 512 cm<sup>3</sup>.
+        </p>
+        <p>
+          <span class="part-label">(b)</span> Find the side length of a cube whose volume is 1000 cm<sup>3</sup>.
+        </p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-ex2')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-ex2" class="btn-reveal" onclick="toggleSolutionReveal('work-ex2', 'sol-ex2', 'btn-sol-ex2')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-ex2" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-ex2', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-ex2', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-ex2', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-ex2', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-ex2', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-ex2', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-ex2')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-ex2" class="solution-panel content-flow">
+        <div class="step-title">(a) Equation and constant of proportionality <span class="math-var">k</span>:</div>
+        <p>Since <span class="math-var">V</span> &prop; <span class="math-var">x</span><sup>3</sup>, we have <span class="math-var">V</span> = <span class="math-var">kx</span><sup>3</sup>. Substituting <span class="math-var">V</span> = 512 and <span class="math-var">x</span> = 4:</p>
+        <div class="math-line">
+          512 = <span class="math-var">k</span>(4)<sup>3</sup> &nbsp;&rArr;&nbsp; 512 = 64<span class="math-var">k</span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = <span class="frac"><span>512</span><span>64</span></span> = <strong>8</strong>
+        </div>
+        <p><strong>Equation: &nbsp; <span class="math-var">V</span> = 8<span class="math-var">x</span><sup>3</sup></strong> &nbsp; (Constant of proportionality <span class="math-var">k</span> = 8)</p>
+
+        <hr class="sol-divider" />
+
+        <div class="step-title">(b) Side length when <span class="math-var">V</span> = 1000 cm<sup>3</sup>:</div>
+        <div class="math-line">
+          1000 = 8<span class="math-var">x</span><sup>3</sup> &nbsp;&rArr;&nbsp; <span class="math-var">x</span><sup>3</sup> = <span class="frac"><span>1000</span><span>8</span></span> = 125 &nbsp;&rArr;&nbsp; <span class="math-var">x</span> = <span class="cuberoot"><span class="cuberoot-index">3</span>&radic;<span class="radicand">125</span></span> = <strong>5</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: EXTENSION! -->
+    <section class="slide ext-theme" data-slide="8">
+      <div class="slide-meta">
+        <span class="tag ext">Challenge Problem</span>
+        <span class="meta-right">Extension</span>
+      </div>
+      <h2 class="slide-heading ext-title">EXTENSION!</h2>
+
+      <div class="question-card challenge content-flow">
+        <p style="font-size:0.95rem; font-weight:700; color:#64748b;">
+          Continuing from Example 2 (<span class="math-var">V</span> = <span class="math-var">kx</span><sup>3</sup>):
+        </p>
+        <p>
+          <strong>(c)</strong> If the side length of the cube is increased by 20%, by what percentage does the volume increase?
+        </p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-ext')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-ext" class="btn-reveal red" onclick="toggleSolutionReveal('work-ext', 'sol-ext', 'btn-sol-ext')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-ext" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-ext', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-ext', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-ext', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-ext', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-ext', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-ext', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-ext')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-ext" class="solution-panel content-flow">
+        <div class="step-title">Percentage Increase in Volume:</div>
+        <p>Increasing side length <span class="math-var">x</span> by 20% multiplies <span class="math-var">x</span> by a scale factor of 1.2, so <span class="math-var">x</span><sub>new</sub> = 1.2<span class="math-var">x</span>.</p>
+        <div class="math-line">
+          <span class="math-var">V</span><sub>new</sub> = <span class="math-var">k</span>(1.2<span class="math-var">x</span>)<sup>3</sup> = 1.2<sup>3</sup> &middot; <span class="math-var">kx</span><sup>3</sup> = 1.728<span class="math-var">V</span>
+        </div>
+        <p><strong>Since 1.728 = 1 + 0.728, the volume increases by <u>72.8%</u>.</strong></p>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Practice Questions & Homework Task -->
+    <section class="slide hw-theme" data-slide="9">
+      <div class="slide-meta">
+        <span class="tag hw">Independent Practice &amp; Homework</span>
+        <span class="meta-right">End of Lesson</span>
+      </div>
+      <h2 class="slide-heading">Practice Questions &amp; Homework Task</h2>
+
+      <a href="./04 Direct proportion Questions.pdf" target="_blank" rel="noopener noreferrer" class="practice-banner" title="Open 04 Direct proportion Questions.pdf in a new tab">
+        <span>&#x1F4C4; Direct proportion Practice Questions</span>
+        <span class="practice-pill">Open Questions PDF &#x2197;</span>
+      </a>
+
+      <!-- Attempt-Based Solution Unlocker -->
+      <div class="unlock-card">
+        <div class="unlock-header">
+          <span class="unlock-title">&#x1F513; Check Answers &amp; Unlock Worked Solutions</span>
+          <span class="meta-right">Screenshot receipt to submit your attempt</span>
+        </div>
+        <p class="unlock-hint">
+          Complete the worksheet in your notebook first, then enter your name and numerical answers below. <strong>Any genuine numerical attempt unlocks the Worked Solutions PDF</strong>—even if one or more answers need review.
+        </p>
+
+        <div class="attempt-grid">
+          <div class="attempt-field full-span">
+            <label for="stuName">Student Name</label>
+            <input type="text" id="stuName" placeholder="Enter your full name" />
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ1b">Q1(b): Taxi fare for 40 km ($ AUD)</label>
+            <input type="number" step="any" id="ansQ1b" placeholder="e.g. 65" />
+            <span class="field-feedback" id="fbQ1b"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ2b">Q2(b): Distance after 5 s (m)</label>
+            <input type="number" step="any" id="ansQ2b" placeholder="e.g. 45" />
+            <span class="field-feedback" id="fbQ2b"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ2c">Q2(c): Time to roll 26.01 m (s)</label>
+            <input type="number" step="any" id="ansQ2c" placeholder="e.g. 3.2" />
+            <span class="field-feedback" id="fbQ2c"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ3">Q3: Volume for r = 5 cm (cm&sup3;)</label>
+            <input type="number" step="any" id="ansQ3" placeholder="e.g. 520" />
+            <span class="field-feedback" id="fbQ3"></span>
+          </div>
+        </div>
+
+        <div id="attemptError" class="attempt-error"></div>
+
+        <button type="button" class="btn-unlock" onclick="verifyAndUnlockSolutions()">
+          Check Attempt &amp; Unlock Worked Solutions
+        </button>
+
+        <div id="receiptBox" class="receipt-box">
+          <div class="receipt-top">
+            <span class="receipt-badge">&#x2705; Attempt Recorded &mdash; Worked Solutions Unlocked</span>
+            <span class="receipt-time" id="receiptTimestamp"></span>
+          </div>
+          <div class="receipt-summary" id="receiptSummary"></div>
+          <a href="./04 Direct proportion Solutions.pdf" target="_blank" rel="noopener noreferrer" class="btn-unlocked-pdf">
+            &#x1F4D6; Open Worked Solutions PDF &#x2197;
+          </a>
+        </div>
+      </div>
+
+      <div class="hw-heading">Homework Task</div>
+
+      <a href="https://app.myimaths.com/1789-lesson/direct-proportion" target="_blank" rel="noopener noreferrer" class="hw-pill-banner" title="Open MyiMaths Direct Proportion Lesson in a new tab">
+        <span>MyiMaths &ndash; Direct Proportion Lesson</span>
+        <span class="hw-icon-chip" title="Online Lesson">&#128202;</span>
+        <span>and Task</span>
+        <span class="hw-icon-chip" title="Online Homework">&#128221;</span>
+        <span class="hw-open-badge">Open MyiMaths &#x2197;</span>
+      </a>
+
+      <div class="hw-creds-bar">
+        <strong>School Login:</strong>
+        <span class="cred-chip">
+          <span>Username: <span class="cred-code">bavarian</span></span>
+          <button type="button" class="btn-copy-cred" onclick="copyLoginDetail('bavarian', this)">Copy</button>
+        </span>
+        <span class="cred-chip">
+          <span>Password: <span class="cred-code">circle11</span></span>
+          <button type="button" class="btn-copy-cred" onclick="copyLoginDetail('circle11', this)">Copy</button>
+        </span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Task or activity</th>
+              <th>Type</th>
+              <th>Created</th>
+              <th>Completed</th>
+              <th>Start</th>
+              <th>Due</th>
+              <th>Pass mark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="link-look">Direct proportion</span></td>
+              <td>Online Homework</td>
+              <td>21/11/26</td>
+              <td><span class="count-badge">0/17</span></td>
+              <td>23/11/26</td>
+              <td><span class="link-look">27/11/26</span></td>
+              <td><span class="link-look">70%</span></td>
+            </tr>
+            <tr>
+              <td><span class="link-look">Direct proportion</span></td>
+              <td>Online Lesson</td>
+              <td>21/11/26</td>
+              <td><span class="count-badge">0/17</span></td>
+              <td>23/11/26</td>
+              <td><span class="link-look">28/11/26</span></td>
+              <td>&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Footer -->
+  <footer class="bottombar">
+    <div class="bottombar-inner">
+      <button type="button" id="prevBtn" class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+      <div id="dotsRow" class="dots-row"></div>
+      <button type="button" id="nextBtn" class="btn-nav next" onclick="changeSlide(1)">Next &rarr;</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    // Build numbered slide jump buttons
+    const dotsRow = document.getElementById('dotsRow');
+    for (let i = 1; i <= totalSlides; i++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = i;
+      btn.className = 'dot-btn' + (i === 1 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to slide ' + i);
+      btn.onclick = () => goToSlide(i);
+      dotsRow.appendChild(btn);
+    }
+
+    function goToSlide(n) {
+      if (n < 1 || n > totalSlides) return;
+      slides[currentSlide - 1].classList.remove('active');
+      dotsRow.children[currentSlide - 1].classList.remove('active');
+
+      currentSlide = n;
+      slides[currentSlide - 1].classList.add('active');
+      dotsRow.children[currentSlide - 1].classList.add('active');
+
+      document.getElementById('slideCounter').textContent = 'Slide ' + currentSlide + ' of ' + totalSlides;
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+      resizeActiveCanvases();
+    }
+
+    function changeSlide(delta) {
+      goToSlide(currentSlide + delta);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.target && e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
+    });
+
+    // Collapsible Working Box & Auto-Collapse on Reveal Solution
+    function toggleWorkingPad(workId) {
+      const pad = document.getElementById(workId);
+      pad.classList.toggle('collapsed');
+      if (!pad.classList.contains('collapsed')) {
+        resizePadCanvas(pad);
+      }
+    }
+
+    function toggleSolutionReveal(workId, solId, btnId) {
+      const pad = document.getElementById(workId);
+      const sol = document.getElementById(solId);
+      const btn = document.getElementById(btnId);
+
+      const willShow = !sol.classList.contains('visible');
+      if (willShow) {
+        sol.classList.add('visible');
+        pad.classList.add('collapsed');
+        btn.textContent = 'Hide Solution';
+      } else {
+        sol.classList.remove('visible');
+        pad.classList.remove('collapsed');
+        resizePadCanvas(pad);
+        btn.textContent = 'Reveal Solution';
+      }
+    }
+
+    function setPadMode(workId, mode, clickedBtn) {
+      const pad = document.getElementById(workId);
+      const canvas = pad.querySelector('.pad-canvas');
+      const notes = pad.querySelector('.pad-notes');
+      const penTools = pad.querySelector('.pen-tools');
+
+      pad.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      if (mode === 'draw') {
+        canvas.classList.remove('hidden');
+        notes.classList.add('hidden');
+        penTools.classList.remove('hidden');
+        resizePadCanvas(pad);
+      } else {
+        canvas.classList.add('hidden');
+        notes.classList.remove('hidden');
+        penTools.classList.add('hidden');
+        notes.focus();
+      }
+    }
+
+    // Drawing Canvas Setup
+    const pads = {};
+
+    function initPads() {
+      document.querySelectorAll('.working-pad').forEach(pad => {
+        const id = pad.id;
+        const canvas = pad.querySelector('.pad-canvas');
+        const ctx = canvas.getContext('2d');
+        pads[id] = {
+          canvas,
+          ctx,
+          drawing: false,
+          color: '#1d4ed8',
+          width: 2.8
+        };
+
+        const getCoords = (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const cx = e.touches ? e.touches[0].clientX : e.clientX;
+          const cy = e.touches ? e.touches[0].clientY : e.clientY;
+          return { x: cx - rect.left, y: cy - rect.top };
+        };
+
+        const start = (e) => {
+          e.preventDefault();
+          pads[id].drawing = true;
+          const pt = getCoords(e);
+          ctx.beginPath();
+          ctx.moveTo(pt.x, pt.y);
+        };
+
+        const move = (e) => {
+          if (!pads[id].drawing) return;
+          e.preventDefault();
+          const pt = getCoords(e);
+          ctx.strokeStyle = pads[id].color;
+          ctx.lineWidth = pads[id].width;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.lineTo(pt.x, pt.y);
+          ctx.stroke();
+        };
+
+        const stop = () => {
+          pads[id].drawing = false;
+        };
+
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mousemove', move);
+        window.addEventListener('mouseup', stop);
+        canvas.addEventListener('touchstart', start, { passive: false });
+        canvas.addEventListener('touchmove', move, { passive: false });
+        canvas.addEventListener('touchend', stop);
+      });
+      resizeActiveCanvases();
+    }
+
+    function resizePadCanvas(pad) {
+      const state = pads[pad.id];
+      if (!state) return;
+      const rect = state.canvas.getBoundingClientRect();
+      if (rect.width <= 0) return;
+
+      const temp = document.createElement('canvas');
+      temp.width = state.canvas.width;
+      temp.height = state.canvas.height;
+      temp.getContext('2d').drawImage(state.canvas, 0, 0);
+
+      state.canvas.width = rect.width;
+      state.canvas.height = 220;
+      state.ctx.drawImage(temp, 0, 0);
+    }
+
+    function resizeActiveCanvases() {
+      const active = slides[currentSlide - 1];
+      active.querySelectorAll('.working-pad:not(.collapsed)').forEach(resizePadCanvas);
+    }
+
+    function setPen(workId, color, width, btnEl) {
+      const state = pads[workId];
+      if (!state) return;
+      state.color = color;
+      state.width = width;
+      const toolbar = btnEl.closest('.pen-tools');
+      toolbar.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      if (btnEl.classList.contains('swatch')) btnEl.classList.add('active');
+    }
+
+    function clearPad(workId) {
+      const state = pads[workId];
+      if (!state) return;
+      state.ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
+      const notes = document.getElementById(workId).querySelector('.pad-notes');
+      if (notes) notes.value = '';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Export standalone index.html reset cleanly to Slide 1 with no duplicate nodes
+    function downloadCleanHTML() {
+      const savedSlide = currentSlide;
+      goToSlide(1);
+      // Clear dynamically generated jump dots before serializing so load rebuilds them cleanly
+      const dots = document.getElementById('dotsRow');
+      const savedDotsHTML = dots.innerHTML;
+      dots.innerHTML = '';
+
+      const htmlSource = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+      // Restore current UI state
+      dots.innerHTML = savedDotsHTML;
+      goToSlide(savedSlide);
+
+      const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Attempt-based Solution Checker on Slide 9
+    function verifyAndUnlockSolutions() {
+      const nameInput = document.getElementById('stuName');
+      const errBox = document.getElementById('attemptError');
+      const receiptBox = document.getElementById('receiptBox');
+
+      const studentName = nameInput.value.trim();
+      const rawQ1b = document.getElementById('ansQ1b').value.trim();
+      const rawQ2b = document.getElementById('ansQ2b').value.trim();
+      const rawQ2c = document.getElementById('ansQ2c').value.trim();
+      const rawQ3  = document.getElementById('ansQ3').value.trim();
+
+      if (!studentName) {
+        errBox.textContent = 'Please enter your name before unlocking the worked solutions.';
+        errBox.classList.add('visible');
+        nameInput.focus();
+        return;
+      }
+
+      if (rawQ1b === '' || rawQ2b === '' || rawQ2c === '' || rawQ3 === '') {
+        errBox.textContent = 'Please enter a numerical attempt for all four questions (Q1b, Q2b, Q2c, and Q3) to unlock the solutions.';
+        errBox.classList.add('visible');
+        return;
+      }
+
+      const v1 = parseFloat(rawQ1b);
+      const v2 = parseFloat(rawQ2b);
+      const v3 = parseFloat(rawQ2c);
+      const v4 = parseFloat(rawQ3);
+
+      if ([v1, v2, v3, v4].some(v => Number.isNaN(v))) {
+        errBox.textContent = 'Please make sure every answer box contains a valid number.';
+        errBox.classList.add('visible');
+        return;
+      }
+
+      errBox.classList.remove('visible');
+
+      const checks = [
+        { id: 'fbQ1b', label: 'Q1(b)', entered: v1, unit: '$', ok: Math.abs(v1 - 70) <= 0.1, target: '70' },
+        { id: 'fbQ2b', label: 'Q2(b)', entered: v2, unit: ' m', ok: Math.abs(v2 - 56.25) <= 0.15, target: '56.25' },
+        { id: 'fbQ2c', label: 'Q2(c)', entered: v3, unit: ' s', ok: Math.abs(v3 - 3.4) <= 0.05, target: '3.4' },
+        { id: 'fbQ3',  label: 'Q3',    entered: v4, unit: ' cm³', ok: v4 >= 523 && v4 <= 524.2, target: '523.6 (or 524)' }
+      ];
+
+      let score = 0;
+      const summaryItems = [];
+
+      checks.forEach(item => {
+        const fbEl = document.getElementById(item.id);
+        if (item.ok) {
+          score++;
+          fbEl.textContent = '✓ Correct';
+          fbEl.className = 'field-feedback fb-ok';
+          summaryItems.push(`<strong>${item.label}:</strong> ${item.entered} (✓)`);
+        } else {
+          fbEl.textContent = '✗ Review method in solutions (target: ' + item.target + ')';
+          fbEl.className = 'field-feedback fb-review';
+          summaryItems.push(`<strong>${item.label}:</strong> ${item.entered} (✗ Review)`);
+        }
+      });
+
+      const now = new Date();
+      const stamp = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+                    ' at ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      document.getElementById('receiptTimestamp').textContent = stamp;
+      document.getElementById('receiptSummary').innerHTML =
+        `<strong>Student:</strong> ${studentName.replace(/</g, '&lt;')} &nbsp;|&nbsp; <strong>Initial Score:</strong> ${score} / 4<br>` +
+        `<strong>Recorded Attempts:</strong> ${summaryItems.join(' &bull; ')}<br>` +
+        `<span style="font-size:0.82rem;color:#065f46;">Take a screenshot of this confirmation box to upload as evidence of your attempt, then open the Worked Solutions PDF below to check your working.</span>`;
+
+      receiptBox.classList.add('visible');
+    }
+
+    function copyLoginDetail(text, btnEl) {
+      const tempInput = document.createElement('textarea');
+      tempInput.value = text;
+      tempInput.style.position = 'fixed';
+      tempInput.style.opacity = '0';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        const originalText = btnEl.textContent;
+        btnEl.textContent = 'Copied!';
+        setTimeout(() => {
+          btnEl.textContent = originalText;
+        }, 1500);
+      } catch (e) {}
+      document.body.removeChild(tempInput);
+    }
+
+    function printStarterSheet() {
+      const win = window.open('', '_blank', 'width=850,height=900');
+      if (!win) return;
+      win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Starter – Optimisation: Questions &amp; Solutions</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #0f172a; line-height: 1.55; max-width: 780px; margin: 28px auto; padding: 0 20px; }
+    h1 { font-size: 1.45rem; border-bottom: 3px solid #1d4ed8; padding-bottom: 8px; margin-bottom: 18px; }
+    h2 { font-size: 1.15rem; color: #1e3a8a; margin-top: 20px; margin-bottom: 8px; }
+    .box { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; }
+    .sol { background: #ecfdf5; border: 1px solid #6ee7b7; border-left: 5px solid #059669; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; }
+    .sol-title { font-weight: 700; color: #047857; margin-bottom: 6px; }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body>
+  <button class="no-print" onclick="window.print()" style="float:right;padding:8px 14px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">Print / Save as PDF</button>
+  <h1>Grade 12 Maths AISL &mdash; Starter: Optimisation</h1>
+  <h2>Question 1</h2>
+  <div class="box">
+    <p>A juice manufacturer is designing a new <strong>open-topped</strong> cylindrical glass to hold a volume of 500 cm<sup>3</sup>. The glass has a radius of <i>r</i> cm and a height of <i>h</i> cm.</p>
+    <p><strong>(a)</strong> Show that the total surface area, <i>A</i>, of the glass is given by: &nbsp; <strong><i>A</i> = &pi;<i>r</i><sup>2</sup> + 1000/<i>r</i></strong></p>
+    <p><strong>(b)</strong> Using your GDC make a sketch of function <i>A</i> for the domain 0 &le; <i>r</i> &le; 10.</p>
+    <p><strong>(c)</strong> Calculate the value of <i>r</i> that minimizes the surface area of the glass.</p>
+  </div>
+  <div class="sol">
+    <div class="sol-title">Worked Solution &ndash; Question 1</div>
+    <p><strong>(a)</strong> <i>V</i> = &pi;<i>r</i><sup>2</sup><i>h</i> = 500 &rArr; <i>h</i> = 500 / (&pi;<i>r</i><sup>2</sup>).<br>
+    <i>A</i> = &pi;<i>r</i><sup>2</sup> + 2&pi;<i>rh</i> = &pi;<i>r</i><sup>2</sup> + 2&pi;<i>r</i>(500 / &pi;<i>r</i><sup>2</sup>) = &pi;<i>r</i><sup>2</sup> + 1000/<i>r</i>.</p>
+    <p><strong>(b)</strong> Vertical asymptote at <i>r</i> = 0; decreases to a local minimum at (5.42, 277) and rises for larger <i>r</i>.</p>
+    <p><strong>(c)</strong> d<i>A</i>/d<i>r</i> = 2&pi;<i>r</i> &minus; 1000/<i>r</i><sup>2</sup> = 0 &rArr; <i>r</i><sup>3</sup> = 500/&pi; &rArr; <strong><i>r</i> &approx; 5.42 cm</strong> (3 s.f.).</p>
+  </div>
+  <h2>Question 2</h2>
+  <div class="box">
+    <p>A rectangular garden is to be fenced against a long straight brick wall using 40 m of fencing for the three remaining sides. Let the length of the two sides perpendicular to the wall be <i>x</i> m.</p>
+    <p><strong>(a)</strong> Show that the area, <i>A</i>, of the garden can be expressed as: &nbsp; <strong><i>A</i> = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup></strong></p>
+    <p><strong>(b)</strong> Find the dimensions of the garden that will result in the maximum possible area.</p>
+  </div>
+  <div class="sol">
+    <div class="sol-title">Worked Solution &ndash; Question 2</div>
+    <p><strong>(a)</strong> Two sides perpendicular to wall = <i>x</i> m each; parallel side = (40 &minus; 2<i>x</i>) m. &nbsp; <i>A</i> = <i>x</i>(40 &minus; 2<i>x</i>) = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup>.</p>
+    <p><strong>(b)</strong> <i>x</i> = &minus;40 / (2 &times; &minus;2) = 10 m; parallel side = 40 &minus; 2(10) = 20 m. &nbsp; <strong>Dimensions: 10 m &times; 20 m</strong> (Max Area = 200 m<sup>2</sup>).</p>
+  </div>
+</body>
+</html>`);
+      win.document.close();
+    }
+
+    window.addEventListener('resize', resizeActiveCanvases);
+    window.addEventListener('load', () => {
+      goToSlide(1);
+      initPads();
+    });
+  </script>
+</body>
+</html>
