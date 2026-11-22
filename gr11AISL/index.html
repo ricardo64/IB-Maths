@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 11 - IB DP Maths AI SL</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 3rem;
+    }
+
+    .nav-back {
+      display: inline-block;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover {
+      color: #38bdf8;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #0284c7;
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+      box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
+    }
+
+    .card-topic {
+      font-size: 0.82rem;
+      color: #fbbf24;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      align-self: flex-start;
+      background-color: #0284c7;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .card:hover .btn {
+      background-color: #0369a1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div><a href="../" class="nav-back">&larr; Back to All Year Groups</a></div>
+    <span class="badge">Grade 11 &bull; IB DP Maths AI SL</span>
+    <h1>Year 1 Interactive Lessons</h1>
+    <p>Select a topic below to launch the interactive presentation or quiz.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Chapter 4: 3D Coordinates -->
+    <a href="./Chapter4-CoordGeom-Lines-Voronoi/3d-coordinates/" class="card">
+      <div>
+        <div class="card-topic">Chapter 4 &bull; Lesson 1</div>
+        <div class="card-title">3D Coordinate Systems &amp; Midpoints</div>
+        <div class="card-desc">Interactive 2D/3D midpoint calculations, 3D point plotting animations, video walkthroughs, and real-world ski lift exam practice.</div>
+      </div>
+      <div class="btn">Open Presentation &rarr;</div>
+    </a>
+
+    <!-- Chapter 4: Distance Between 2 Points -->
+    <a href="./Chapter4-CoordGeom-Lines-Voronoi/Distance-Between-2-Points/" class="card">
+      <div>
+        <div class="card-topic">Chapter 4 &bull; Lesson 2</div>
+        <div class="card-title">Distance Between Two Points (2D &amp; 3D)</div>
+        <div class="card-desc">Interactive horizontal/vertical distance scaffolds, Pythagoras' Theorem derivations, student sketchpads, and 3D cuboid applications.</div>
+      </div>
+      <div class="btn">Open Presentation &rarr;</div>
+    </a>
+
+    <!-- Chapter 4: Straight Lines -->
+    <a href="./Chapter4-CoordGeom-Lines-Voronoi/Straight-Lines/" class="card">
+      <div>
+        <div class="card-topic">Chapter 4 &bull; Lesson 3</div>
+        <div class="card-title">Equations of Straight Lines</div>
+        <div class="card-desc">Gradient calculations, forms of linear equations, parallel and perpendicular lines, and interactive coordinate geometry practice.</div>
+      </div>
+      <div class="btn">Open Presentation &rarr;</div>
+    </a>
+
+    <!-- Chapter 3: Statistics Quiz -->
+    <a href="./Chapter3-DescriptiveStatistics/Statistics-Quiz/" class="card">
+      <div>
+        <div class="card-topic">Chapter 3 &bull; Review</div>
+        <div class="card-title">Descriptive Statistics Quiz</div>
+        <div class="card-desc">Interactive self-checking quiz covering measures of central tendency, dispersion, box plots, and cumulative frequency.</div>
+      </div>
+      <div class="btn">Launch Quiz &rarr;</div>
+    </a>
+  </main>
+
+</body>
+</html>
