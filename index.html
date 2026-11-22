@@ -52,12 +52,51 @@
       margin-bottom: 1rem;
     }
 
+    .container {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      color: #f8fafc;
+      font-weight: 700;
+    }
+
+    .year-pill {
+      background-color: #1e293b;
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .year-pill.g12 {
+      border-color: #34d399;
+      color: #34d399;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
       width: 100%;
-      max-width: 900px;
     }
 
     .card {
@@ -79,8 +118,13 @@
       box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
     }
 
+    .card.g12:hover {
+      border-color: #34d399;
+      box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.2);
+    }
+
     .card-topic {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #fbbf24;
       font-weight: 600;
       text-transform: uppercase;
@@ -89,7 +133,7 @@
     }
 
     .card-title {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #f8fafc;
       margin-bottom: 0.6rem;
@@ -98,7 +142,7 @@
     .card-desc {
       font-size: 0.95rem;
       color: #94a3b8;
-      line-height: 1.4;
+      line-height: 1.45;
       margin-bottom: 1.5rem;
     }
 
@@ -116,6 +160,14 @@
     .card:hover .btn {
       background-color: #0369a1;
     }
+
+    .card.g12 .btn {
+      background-color: #059669;
+    }
+
+    .card.g12:hover .btn {
+      background-color: #047857;
+    }
   </style>
 </head>
 <body>
@@ -123,30 +175,81 @@
   <header>
     <span class="badge">IB DP Mathematics AI SL</span>
     <h1>Interactive Lesson Presentations</h1>
-    <p>Select a topic to launch the interactive presentation deck.</p>
+    <p>Select a year group and topic to launch the interactive presentation deck.</p>
   </header>
 
-  <main class="grid">
-    <!-- Lesson 1 Card -->
-    <a href="./3d-coordinates/" class="card">
-      <div>
-        <div class="card-topic">Lesson 1</div>
-        <div class="card-title">3D Coordinate Systems & Midpoints</div>
-        <div class="card-desc">Interactive 2D/3D midpoint calculations, 3D point plotting animations, video walkthroughs, and real-world ski lift exam practice.</div>
-      </div>
-      <div class="btn">Open Presentation &rarr;</div>
-    </a>
+  <main class="container">
 
-   <a href="./Distance-Between-2-Points/" class="card">
-      <div>
-        <div class="card-topic">Lesson 2</div>
-        <div class="card-title">Distance Between Two Points (2D & 3D)</div>
-        <div class="card-desc">
-          Interactive horizontal/vertical distance scaffolds, Pythagoras' Theorem derivations, student sketchpads, 3D cuboid tool storage applications, and formula summaries.
-        </div>
+    <!-- Grade 11 Section -->
+    <section>
+      <div class="section-header">
+        <span class="year-pill">Grade 11</span>
+        <h2>IB Maths AI SL &mdash; Year 1</h2>
       </div>
-      <div class="btn">Open Presentation &rarr;</div>
-    </a>
+
+      <div class="grid">
+        <!-- Chapter 4: 3D Coordinates -->
+        <a href="./gr11AISL/Chapter4-CoordGeom-Lines-Voronoi/3d-coordinates/" class="card">
+          <div>
+            <div class="card-topic">Chapter 4 &bull; Lesson 1</div>
+            <div class="card-title">3D Coordinate Systems &amp; Midpoints</div>
+            <div class="card-desc">Interactive 2D/3D midpoint calculations, 3D point plotting animations, video walkthroughs, and real-world ski lift exam practice.</div>
+          </div>
+          <div class="btn">Open Presentation &rarr;</div>
+        </a>
+
+        <!-- Chapter 4: Distance Between 2 Points -->
+        <a href="./gr11AISL/Chapter4-CoordGeom-Lines-Voronoi/Distance-Between-2-Points/" class="card">
+          <div>
+            <div class="card-topic">Chapter 4 &bull; Lesson 2</div>
+            <div class="card-title">Distance Between Two Points (2D &amp; 3D)</div>
+            <div class="card-desc">Interactive horizontal/vertical distance scaffolds, Pythagoras' Theorem derivations, student sketchpads, and 3D cuboid applications.</div>
+          </div>
+          <div class="btn">Open Presentation &rarr;</div>
+        </a>
+
+        <!-- Chapter 4: Straight Lines -->
+        <a href="./gr11AISL/Chapter4-CoordGeom-Lines-Voronoi/Straight-Lines/" class="card">
+          <div>
+            <div class="card-topic">Chapter 4 &bull; Lesson 3</div>
+            <div class="card-title">Equations of Straight Lines</div>
+            <div class="card-desc">Gradient calculations, forms of linear equations, parallel and perpendicular lines, and interactive coordinate geometry practice.</div>
+          </div>
+          <div class="btn">Open Presentation &rarr;</div>
+        </a>
+
+        <!-- Chapter 3: Statistics Quiz -->
+        <a href="./gr11AISL/Chapter3-DescriptiveStatistics/Statistics-Quiz/" class="card">
+          <div>
+            <div class="card-topic">Chapter 3 &bull; Review</div>
+            <div class="card-title">Descriptive Statistics Quiz</div>
+            <div class="card-desc">Interactive self-checking quiz covering measures of central tendency, dispersion, box plots, and cumulative frequency.</div>
+          </div>
+          <div class="btn">Launch Quiz &rarr;</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Grade 12 Section -->
+    <section>
+      <div class="section-header">
+        <span class="year-pill g12">Grade 12</span>
+        <h2>IB Maths AI SL &mdash; Year 2</h2>
+      </div>
+
+      <div class="grid">
+        <!-- Chapter 9: Direct Proportion -->
+        <a href="./gr12AISL/" class="card g12">
+          <div>
+            <div class="card-topic">Chapter 9 &bull; Direct Variation</div>
+            <div class="card-title">Direct Proportion &amp; Power Models</div>
+            <div class="card-desc">Optimisation starter, direct variation with powers ($y = kx^n$), interactive working pads, MyiMaths integration, and attempt-gated solutions.</div>
+          </div>
+          <div class="btn">Open Presentation &rarr;</div>
+        </a>
+      </div>
+    </section>
+
   </main>
 
 </body>
