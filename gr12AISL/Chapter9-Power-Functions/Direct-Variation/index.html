@@ -250,6 +250,45 @@
     h2.slide-heading.ch9-title { color: var(--primary); }
     h2.slide-heading.ext-title { color: var(--red); letter-spacing: 0.02em; }
 
+    .heading-with-action {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.95rem;
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .heading-with-action h2.slide-heading {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .btn-handout-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.9rem;
+      border-radius: 9px;
+      background-color: var(--indigo-soft);
+      border: 1.5px solid #a5b4fc;
+      color: var(--indigo);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(67, 56, 202, 0.12);
+      transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-handout-link:hover {
+      background-color: var(--indigo);
+      color: #ffffff;
+      border-color: var(--indigo);
+      transform: translateY(-1px);
+    }
+
     /* Top-right diagram layout for Starter & Solution slides */
     .starter-layout {
       display: grid;
@@ -1463,7 +1502,12 @@
         <span class="tag ch9">Chapter 9 &bull; Direct Variation</span>
         <span class="meta-right">Page 448</span>
       </div>
-      <h2 class="slide-heading ch9-title">Chapter 9 &ndash; Direct Variation</h2>
+      <div class="heading-with-action">
+        <a href="./03_Direct_Variation_Handout_2026.docx" download="03_Direct_Variation_Handout_2026.docx" class="btn-handout-link" title="Download Student Guided Notes Handout (.docx)">
+          &#x1F4E5; Download Handout
+        </a>
+        <h2 class="slide-heading ch9-title">Chapter 9 &ndash; Direct Variation</h2>
+      </div>
 
       <div class="content-flow">
         <p>
