@@ -1216,7 +1216,7 @@
       </div>
 
       <div class="topbar-actions">
-        <span id="slideCounter" class="counter-pill">Slide 1 of 9</span>
+        <span id="slideCounter" class="counter-pill">Slide 1 of 8</span>
         <button type="button" class="btn-header" onclick="toggleFullscreen()" title="Toggle Fullscreen">
           &#x26F6; Fullscreen
         </button>
@@ -1234,7 +1234,7 @@
     <section class="slide active" data-slide="1">
       <div class="slide-meta">
         <span class="tag">Starter &ndash; Optimisation</span>
-        <span class="meta-right">Recap Question 1 of 2</span>
+        <span class="meta-right">Recap Question</span>
       </div>
       <h2 class="slide-heading">Question 1</h2>
 
@@ -1283,7 +1283,7 @@
         <div class="controls-left">
           <button type="button" class="btn-work" onclick="toggleWorkingPad('work-s1')">&#9998; Toggle Working Box</button>
         </div>
-        <span class="meta-right">Full worked solution is on Slide 3</span>
+        <span class="meta-right">Full worked solution is on Slide 2</span>
       </div>
 
       <div id="work-s1" class="working-pad">
@@ -1308,78 +1308,11 @@
       </div>
     </section>
 
-    <!-- SLIDE 2: Starter – Optimisation Question 2 -->
-    <section class="slide" data-slide="2">
-      <div class="slide-meta">
-        <span class="tag">Starter &ndash; Optimisation</span>
-        <span class="meta-right">Recap Question 2 of 2</span>
-      </div>
-      <h2 class="slide-heading">Question 2</h2>
-
-      <div class="starter-layout">
-        <div class="content-flow">
-          <p>
-            A rectangular garden is to be fenced against a long straight brick wall. The garden is formed by using 40 m of fencing for the three remaining sides, as shown in the diagram below. Let the length of the two sides perpendicular to the wall be <span class="math-var">x</span> m.
-          </p>
-
-          <p><span class="part-label">(a)</span> Show that the area, <span class="math-var">A</span>, of the garden can be expressed as:</p>
-          <div class="math-display">
-            <span class="math-var">A</span> = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
-          </div>
-
-          <p><span class="part-label">(b)</span> Find the dimensions of the garden (the values of the two different side lengths) that will result in the maximum possible area.</p>
-        </div>
-
-        <!-- Top-Right SVG Diagram: Fenced Garden -->
-        <div class="diagram-box">
-          <svg viewBox="0 0 280 205" role="img" aria-label="Rectangular fenced garden against a long straight brick wall">
-            <rect x="16" y="24" width="248" height="18" rx="2" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5" />
-            <line x1="16" y1="33" x2="264" y2="33" stroke="#fecaca" stroke-width="1.2" stroke-dasharray="14,10" />
-            <text x="140" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">Long Straight Brick Wall</text>
-            <rect x="44" y="42" width="192" height="116" fill="#dcfce7" stroke="#15803d" stroke-width="2.5" stroke-dasharray="7,3" />
-            <text x="140" y="105" text-anchor="middle" font-size="13.5" font-weight="700" fill="#166534">Area = A m&sup2;</text>
-            <text x="37" y="105" text-anchor="end" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
-            <text x="243" y="105" text-anchor="start" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
-            <text x="140" y="182" text-anchor="middle" font-size="13.5" font-weight="700" fill="#15803d">(40 &minus; 2x) m</text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Interactive Working Pad -->
-      <div class="controls-bar">
-        <div class="controls-left">
-          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-s2')">&#9998; Toggle Working Box</button>
-        </div>
-        <span class="meta-right">Full worked solution is on Slide 4</span>
-      </div>
-
-      <div id="work-s2" class="working-pad">
-        <div class="pad-toolbar">
-          <div class="pad-label-group">
-            <span class="pad-title">Working Pad</span>
-            <div class="mode-switch">
-              <button type="button" class="mode-btn active" onclick="setPadMode('work-s2', 'draw', this)">Pen</button>
-              <button type="button" class="mode-btn" onclick="setPadMode('work-s2', 'text', this)">Notes</button>
-            </div>
-          </div>
-          <div class="pen-tools">
-            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-s2', '#1d4ed8', 2.8, this)"></button>
-            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-s2', '#dc2626', 2.8, this)"></button>
-            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-s2', '#15803d', 2.8, this)"></button>
-            <button type="button" class="btn-tool" onclick="setPen('work-s2', '#ffffff', 22, this)">Eraser</button>
-            <button type="button" class="btn-tool clear" onclick="clearPad('work-s2')">Clear</button>
-          </div>
-        </div>
-        <canvas class="pad-canvas"></canvas>
-        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
-      </div>
-    </section>
-
-    <!-- SLIDE 3: Starter – Worked Solution for Question 1 -->
-    <section class="slide sol-theme" data-slide="3">
+    <!-- SLIDE 2: Starter – Worked Solution for Question 1 -->
+    <section class="slide sol-theme" data-slide="2">
       <div class="slide-meta">
         <span class="tag sol">Starter &ndash; Worked Solution</span>
-        <span class="meta-right">Solution 1 of 2</span>
+        <span class="meta-right">Worked Solution</span>
       </div>
       <h2 class="slide-heading">Solution: Question 1 (Cylindrical Glass)</h2>
 
@@ -1413,7 +1346,8 @@
         </div>
 
         <!-- Top-Right GDC Curve Sketch SVG -->
-        <div class="diagram-box">
+        <div class="diagram-col">
+          <div class="diagram-box">
           <svg viewBox="0 0 260 225" role="img" aria-label="GDC curve sketch showing minimum at (5.42, 277)">
             <line x1="36" y1="55" x2="240" y2="55" stroke="#e2e8f0" stroke-width="1" />
             <line x1="36" y1="98" x2="240" y2="98" stroke="#e2e8f0" stroke-width="1" />
@@ -1432,61 +1366,8 @@
           </svg>
           <div class="diagram-caption">GDC Window: <span class="math-var">r</span> &isin; [0, 10], <span class="math-var">A</span> &isin; [0, 600]</div>
         </div>
-      </div>
-    </section>
 
-    <!-- SLIDE 4: Starter – Worked Solution for Question 2 -->
-    <section class="slide sol-theme" data-slide="4">
-      <div class="slide-meta">
-        <span class="tag sol">Starter &ndash; Worked Solution</span>
-        <span class="meta-right">Solution 2 of 2</span>
-      </div>
-      <h2 class="slide-heading">Solution: Question 2 (Fenced Garden)</h2>
-
-      <div class="starter-layout">
-        <div class="content-flow">
-          <div class="step-card">
-            <div class="step-title">(a) Expressing area <span class="math-var">A</span> in terms of <span class="math-var">x</span>:</div>
-            <p>
-              Total fencing available for the three sides is 40 m. Since the two sides perpendicular to the wall each have length <span class="math-var">x</span> m, the remaining side parallel to the brick wall has length (40 &minus; 2<span class="math-var">x</span>) m.
-            </p>
-            <div class="math-line">
-              <span class="math-var">A</span> = <span class="math-var">x</span>(40 &minus; 2<span class="math-var">x</span>) = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
-            </div>
-          </div>
-
-          <div class="step-card highlight">
-            <div class="step-title">(b) Dimensions for Maximum Area:</div>
-            <p>Using the axis of symmetry (or GDC <strong>Maximum</strong> / d<span class="math-var">A</span>/d<span class="math-var">x</span> = 40 &minus; 4<span class="math-var">x</span> = 0):</p>
-            <div class="math-line">
-              <span class="math-var">x</span> = &minus;<span class="frac"><span><span class="math-var">b</span></span><span>2<span class="math-var">a</span></span></span> = &minus;<span class="frac"><span>40</span><span>2(&minus;2)</span></span> = <strong>10 m</strong>
-            </div>
-            <p>The side parallel to the wall is 40 &minus; 2(10) = <strong>20 m</strong>.</p>
-            <p><strong>Dimensions: 10 m &times; 20 m</strong> (Maximum Area = 200 m<sup>2</sup>)</p>
-          </div>
-        </div>
-
-        <!-- Top-Right Parabola SVG Sketch -->
-        <div class="diagram-col">
-          <div class="diagram-box">
-            <svg viewBox="0 0 260 225" role="img" aria-label="Parabola sketch showing maximum at (10, 200)">
-              <line x1="36" y1="185" x2="244" y2="185" stroke="#1e293b" stroke-width="2" />
-              <line x1="36" y1="185" x2="36" y2="18" stroke="#1e293b" stroke-width="2" />
-              <text x="242" y="202" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">x</text>
-              <text x="22" y="25" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">A</text>
-              <text x="30" y="201" font-size="11" fill="#475569">0</text>
-              <text x="128" y="201" font-size="11" font-weight="700" fill="#dc2626">10</text>
-              <text x="224" y="201" font-size="11" fill="#475569">20</text>
-              <path d="M 36 185 Q 134 -62 232 185" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
-              <line x1="134" y1="62" x2="134" y2="185" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3" />
-              <circle cx="134" cy="62" r="4.8" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-              <rect x="78" y="28" width="112" height="22" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" />
-              <text x="134" y="43" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">Max (10, 200)</text>
-            </svg>
-            <div class="diagram-caption">Domain: 0 &lt; <span class="math-var">x</span> &lt; 20</div>
-          </div>
-
-          <a href="./Starter_Optimisation_Questions_and_Solutions.pdf" download="Starter_Optimisation_Questions_and_Solutions.pdf" class="btn-pdf-download" title="Download PDF containing Starter Questions 1 &amp; 2 and their full worked solutions">
+          <a href="./Starter_Optimisation_Questions_and_Solutions.pdf" target="_blank" rel="noopener noreferrer" download="Starter_Optimisation_Questions_and_Solutions.pdf" class="btn-pdf-download" title="Download PDF containing Starter Questions &amp; Solutions">
             &#x1F4C4; Download Starter Questions &amp; Solutions (PDF)
           </a>
           <button type="button" class="btn-pdf-print" onclick="printStarterSheet()" title="Open formatted print/save-as-PDF sheet">
@@ -1496,14 +1377,14 @@
       </div>
     </section>
 
-    <!-- SLIDE 5: Chapter 9 – Direct Variation (Page 448) -->
-    <section class="slide ch9-theme" data-slide="5">
+    <!-- SLIDE 3: Chapter 9 – Direct Variation (Page 448) -->
+    <section class="slide ch9-theme" data-slide="3">
       <div class="slide-meta">
         <span class="tag ch9">Chapter 9 &bull; Direct Variation</span>
         <span class="meta-right">Page 448</span>
       </div>
       <div class="heading-with-action">
-        <a href="./03_Direct_Variation_Handout_2026.docx" download="03_Direct_Variation_Handout_2026.docx" class="btn-handout-link" title="Download Student Guided Notes Handout (.docx)">
+        <a href="./03_Direct_Variation_Handout_2026_Formatted.docx" target="_blank" rel="noopener noreferrer" download="03_Direct_Variation_Handout_2026_Formatted.docx" class="btn-handout-link" title="Download Student Guided Notes Handout (.docx)">
           &#x1F4E5; Download Handout
         </a>
         <h2 class="slide-heading ch9-title">Chapter 9 &ndash; Direct Variation</h2>
@@ -1529,8 +1410,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 6: Example 1 -->
-    <section class="slide ch9-theme" data-slide="6">
+    <!-- SLIDE 4: Example 1 -->
+    <section class="slide ch9-theme" data-slide="4">
       <div class="slide-meta">
         <span class="tag ch9">Direct Variation &ndash; Worked Example</span>
         <span class="meta-right">Example 1 of 2</span>
@@ -1596,8 +1477,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 7: Example 2 -->
-    <section class="slide ch9-theme" data-slide="7">
+    <!-- SLIDE 5: Example 2 -->
+    <section class="slide ch9-theme" data-slide="5">
       <div class="slide-meta">
         <span class="tag ch9">Direct Variation &ndash; Worked Example</span>
         <span class="meta-right">Example 2 of 2</span>
@@ -1661,8 +1542,8 @@
       </div>
     </section>
 
-    <!-- SLIDE 8: EXTENSION! -->
-    <section class="slide ext-theme" data-slide="8">
+    <!-- SLIDE 6: EXTENSION! -->
+    <section class="slide ext-theme" data-slide="6">
       <div class="slide-meta">
         <span class="tag ext">Challenge Problem</span>
         <span class="meta-right">Extension</span>
@@ -1716,13 +1597,13 @@
       </div>
     </section>
 
-    <!-- SLIDE 9: Practice Questions & Homework Task -->
-    <section class="slide hw-theme" data-slide="9">
+    <!-- SLIDE 7: Practice Questions & Answer Checker -->
+    <section class="slide ch9-theme" data-slide="7">
       <div class="slide-meta">
-        <span class="tag hw">Independent Practice &amp; Homework</span>
-        <span class="meta-right">End of Lesson</span>
+        <span class="tag ch9">Independent Practice</span>
+        <span class="meta-right">Worksheet &amp; Self-Check</span>
       </div>
-      <h2 class="slide-heading">Practice Questions &amp; Homework Task</h2>
+      <h2 class="slide-heading">Direct Proportion Practice Questions</h2>
 
       <a href="./04 Direct proportion Questions.pdf" target="_blank" rel="noopener noreferrer" class="practice-banner" title="Open 04 Direct proportion Questions.pdf in a new tab">
         <span>&#x1F4C4; Direct proportion Practice Questions</span>
@@ -1730,7 +1611,7 @@
       </a>
 
       <!-- Attempt-Based Solution Unlocker -->
-      <div class="unlock-card">
+      <div class="unlock-card" style="margin-bottom: 0;">
         <div class="unlock-header">
           <span class="unlock-title">&#x1F513; Check Answers &amp; Unlock Worked Solutions</span>
           <span class="meta-right">Screenshot receipt to submit your attempt</span>
@@ -1783,8 +1664,15 @@
           </a>
         </div>
       </div>
+    </section>
 
-      <div class="hw-heading">Homework Task</div>
+    <!-- SLIDE 8: Homework Task -->
+    <section class="slide hw-theme" data-slide="8">
+      <div class="slide-meta">
+        <span class="tag hw">Homework</span>
+        <span class="meta-right">End of Lesson</span>
+      </div>
+      <h2 class="slide-heading">Homework Task</h2>
 
       <a href="https://app.myimaths.com/1789-lesson/direct-proportion" target="_blank" rel="noopener noreferrer" class="hw-pill-banner" title="Open MyiMaths Direct Proportion Lesson in a new tab">
         <span>MyiMaths &ndash; Direct Proportion Lesson</span>
@@ -2203,17 +2091,6 @@
     <i>A</i> = &pi;<i>r</i><sup>2</sup> + 2&pi;<i>rh</i> = &pi;<i>r</i><sup>2</sup> + 2&pi;<i>r</i>(500 / &pi;<i>r</i><sup>2</sup>) = &pi;<i>r</i><sup>2</sup> + 1000/<i>r</i>.</p>
     <p><strong>(b)</strong> Vertical asymptote at <i>r</i> = 0; decreases to a local minimum at (5.42, 277) and rises for larger <i>r</i>.</p>
     <p><strong>(c)</strong> d<i>A</i>/d<i>r</i> = 2&pi;<i>r</i> &minus; 1000/<i>r</i><sup>2</sup> = 0 &rArr; <i>r</i><sup>3</sup> = 500/&pi; &rArr; <strong><i>r</i> &approx; 5.42 cm</strong> (3 s.f.).</p>
-  </div>
-  <h2>Question 2</h2>
-  <div class="box">
-    <p>A rectangular garden is to be fenced against a long straight brick wall using 40 m of fencing for the three remaining sides. Let the length of the two sides perpendicular to the wall be <i>x</i> m.</p>
-    <p><strong>(a)</strong> Show that the area, <i>A</i>, of the garden can be expressed as: &nbsp; <strong><i>A</i> = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup></strong></p>
-    <p><strong>(b)</strong> Find the dimensions of the garden that will result in the maximum possible area.</p>
-  </div>
-  <div class="sol">
-    <div class="sol-title">Worked Solution &ndash; Question 2</div>
-    <p><strong>(a)</strong> Two sides perpendicular to wall = <i>x</i> m each; parallel side = (40 &minus; 2<i>x</i>) m. &nbsp; <i>A</i> = <i>x</i>(40 &minus; 2<i>x</i>) = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup>.</p>
-    <p><strong>(b)</strong> <i>x</i> = &minus;40 / (2 &times; &minus;2) = 10 m; parallel side = 40 &minus; 2(10) = 20 m. &nbsp; <strong>Dimensions: 10 m &times; 20 m</strong> (Max Area = 200 m<sup>2</sup>).</p>
   </div>
 </body>
 </html>`);
