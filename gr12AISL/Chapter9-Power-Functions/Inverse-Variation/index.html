@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 12 Maths AISL – Starter &amp; Inverse Variation</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --primary-soft: #eff6ff;
+      --emerald: #047857;
+      --emerald-soft: #ecfdf5;
+      --emerald-border: #6ee7b7;
+      --indigo: #4338ca;
+      --indigo-soft: #eef2ff;
+      --red: #dc2626;
+      --red-soft: #fef2f2;
+      --amber-soft: #fffbeb;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --border-light: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Header Bar */
+    .topbar {
+      background-color: var(--navy);
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #ffffff;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .counter-pill {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-header {
+      background-color: #1e293b;
+      border-color: #334155;
+      color: #f1f5f9;
+      padding: 0.42rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-header:hover {
+      background-color: #334155;
+    }
+
+    .btn-download {
+      background-color: #059669;
+      color: #ffffff;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .btn-download:hover {
+      background-color: #047857;
+    }
+
+    /* Main Stage */
+    .stage {
+      flex: 1;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem;
+    }
+
+    .slide {
+      display: none;
+      background-color: var(--card);
+      border: 1px solid var(--border-light);
+      border-top: 7px solid var(--primary);
+      border-radius: 16px;
+      padding: 1.75rem 2.1rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+      animation: slideIn 0.2s ease-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide.sol-theme { border-top-color: #059669; }
+    .slide.ch9-theme { border-top-color: var(--indigo); }
+    .slide.ext-theme { border-top-color: var(--red); }
+    .slide.hw-theme { border-top-color: #d97706; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.24rem 0.75rem;
+      border-radius: 999px;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+
+    .tag.sol {
+      background-color: var(--emerald-soft);
+      color: var(--emerald);
+      border-color: var(--emerald-border);
+    }
+
+    .tag.ch9 {
+      background-color: var(--indigo-soft);
+      color: var(--indigo);
+      border-color: #c7d2fe;
+    }
+
+    .tag.ext {
+      background-color: var(--red-soft);
+      color: var(--red);
+      border-color: #fecaca;
+    }
+
+    .tag.hw {
+      background-color: var(--amber-soft);
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    .meta-right {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    h2.slide-heading {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--navy);
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    h2.slide-heading.ch9-title { color: var(--primary); }
+    h2.slide-heading.ext-title { color: var(--red); letter-spacing: 0.02em; }
+
+    .heading-with-action {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.95rem;
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .heading-with-action h2.slide-heading {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .btn-handout-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.9rem;
+      border-radius: 9px;
+      background-color: var(--indigo-soft);
+      border: 1.5px solid #a5b4fc;
+      color: var(--indigo);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(67, 56, 202, 0.12);
+      transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-handout-link:hover {
+      background-color: var(--indigo);
+      color: #ffffff;
+      border-color: var(--indigo);
+      transform: translateY(-1px);
+    }
+
+    /* Top-right diagram layout for Starter & Solution slides */
+    .starter-layout {
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    @media (max-width: 840px) {
+      .starter-layout {
+        grid-template-columns: 1fr;
+      }
+      .slide {
+        padding: 1.35rem 1.25rem;
+      }
+    }
+
+    .diagram-box {
+      align-self: start;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 0.95rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .diagram-box svg {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .diagram-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      align-self: start;
+    }
+
+    .btn-pdf-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.72rem 1rem;
+      border-radius: 12px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(29, 78, 216, 0.22);
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-pdf-download:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-pdf-print {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.45rem 0.75rem;
+      border-radius: 9px;
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .btn-pdf-print:hover {
+      background-color: #e2e8f0;
+      color: var(--navy);
+    }
+
+    /* Natural Prose & Native CSS Math Formatting */
+    .content-flow {
+      font-size: 1.12rem;
+      color: var(--text);
+    }
+
+    .content-flow p {
+      margin-bottom: 0.85rem;
+      line-height: 1.65;
+    }
+
+    .content-flow p:last-child {
+      margin-bottom: 0;
+    }
+
+    .underline-accent {
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-color: #3b82f6;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .part-label {
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-right: 0.25rem;
+    }
+
+    .badge-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+
+    /* Native HTML/CSS Math Typography */
+    .math-var {
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-style: italic;
+      font-size: 1.08em;
+    }
+
+    .math-rm {
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-style: normal;
+      font-size: 1.06em;
+    }
+
+    .math-display {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      margin: 0.7rem 0 1rem 0;
+      text-align: center;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-size: 1.38rem;
+      color: var(--navy);
+    }
+
+    .math-line {
+      text-align: center;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-size: 1.28rem;
+      margin: 0.55rem 0;
+      color: var(--navy);
+    }
+
+    /* Vertical Fractions */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 0.22em;
+      font-size: 0.92em;
+      line-height: 1.15;
+    }
+
+    .frac > span:first-child {
+      padding: 0 0.28em 0.14em 0.28em;
+    }
+
+    .frac > span:last-child {
+      border-top: 1.5px solid currentColor;
+      padding: 0.14em 0.28em 0 0.28em;
+    }
+
+    /* Cube Root Styling */
+    .cuberoot {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+    .cuberoot-index {
+      font-size: 0.65em;
+      margin-right: -0.22em;
+      margin-bottom: 0.75em;
+      font-weight: 700;
+    }
+    .radicand {
+      border-top: 1.5px solid currentColor;
+      padding: 0.08em 0.2em 0 0.15em;
+      display: inline-block;
+    }
+
+    /* Callout & Question Cards */
+    .question-card {
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-card.neutral {
+      background-color: #f8fafc;
+      border-color: var(--border-light);
+    }
+
+    .question-card.challenge {
+      background-color: var(--red-soft);
+      border-color: #fecaca;
+    }
+
+    .step-card {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .step-card.highlight {
+      background-color: var(--emerald-soft);
+      border-color: var(--emerald-border);
+    }
+
+    .step-title {
+      font-weight: 800;
+      color: var(--emerald);
+      margin-bottom: 0.35rem;
+    }
+
+    .concept-callout {
+      background-color: #fefce8;
+      border: 2px solid var(--red);
+      border-radius: 14px;
+      padding: 1.35rem 1.6rem;
+      margin: 1.25rem 0;
+    }
+
+    .concept-formula-bar {
+      background-color: #ffffff;
+      border: 1px solid #fde047;
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      margin-top: 0.85rem;
+      text-align: center;
+      font-size: 1.32rem;
+      font-weight: 700;
+    }
+
+    /* Interactive Working Pad & Solution Reveal */
+    .controls-bar {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .btn-work {
+      background-color: #e2e8f0;
+      color: var(--navy);
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .btn-work:hover {
+      background-color: #cbd5e1;
+    }
+
+    .btn-reveal {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(29, 78, 216, 0.25);
+    }
+    .btn-reveal:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-reveal.red {
+      background-color: var(--red);
+      box-shadow: 0 2px 5px rgba(220, 38, 38, 0.25);
+    }
+    .btn-reveal.red:hover {
+      background-color: #b91c1c;
+    }
+
+    .working-pad {
+      margin-top: 0.85rem;
+      border: 2px solid #94a3b8;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .working-pad.collapsed {
+      display: none;
+    }
+
+    .pad-toolbar {
+      background-color: #f1f5f9;
+      border-bottom: 1px solid var(--border);
+      padding: 0.45rem 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .pad-label-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .pad-title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #475569;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background-color: #e2e8f0;
+      padding: 2px;
+      border-radius: 7px;
+    }
+
+    .mode-btn {
+      padding: 0.22rem 0.65rem;
+      border-radius: 5px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: transparent;
+      color: #475569;
+    }
+    .mode-btn.active {
+      background-color: #ffffff;
+      color: var(--navy);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .pen-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pen-tools.hidden {
+      display: none;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px #94a3b8;
+    }
+    .swatch.active {
+      box-shadow: 0 0 0 2px var(--navy);
+      transform: scale(1.08);
+    }
+
+    .btn-tool {
+      padding: 0.24rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-tool:hover {
+      background-color: #e2e8f0;
+    }
+
+    .btn-tool.clear {
+      background-color: var(--red-soft);
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+
+    canvas.pad-canvas {
+      display: block;
+      width: 100%;
+      height: 220px;
+      cursor: crosshair;
+      touch-action: none;
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+        linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    canvas.pad-canvas.hidden {
+      display: none;
+    }
+
+    textarea.pad-notes {
+      display: block;
+      width: 100%;
+      height: 220px;
+      padding: 0.9rem 1rem;
+      border: none;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.98rem;
+      color: var(--navy);
+      resize: vertical;
+      outline: none;
+    }
+    textarea.pad-notes.hidden {
+      display: none;
+    }
+
+    /* Revealed Solution Panel */
+    .solution-panel {
+      display: none;
+      margin-top: 1rem;
+      background-color: var(--emerald-soft);
+      border: 1px solid var(--emerald-border);
+      border-left: 7px solid #059669;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      font-size: 1.08rem;
+      color: var(--navy);
+    }
+
+    .solution-panel.visible {
+      display: block;
+    }
+
+    .sol-divider {
+      border: none;
+      border-top: 1px solid #a7f3d0;
+      margin: 0.85rem 0;
+    }
+
+    /* Slide 5 & 11: Practice & Homework */
+    .practice-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      background-color: #fef9c3;
+      border: 2px solid var(--navy);
+      border-radius: 14px;
+      padding: 1.15rem 1.5rem;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: none;
+      margin-bottom: 1.65rem;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+      transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    }
+
+    .practice-banner:hover {
+      background-color: #fde047;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
+    }
+
+    .practice-banner:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .practice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .hw-heading {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .hw-pill-banner {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: #fde047;
+      border: 2px solid var(--navy);
+      border-radius: 14px;
+      padding: 0.75rem 1.25rem;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+      transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    }
+
+    .hw-pill-banner:hover {
+      background-color: #facc15;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
+    }
+
+    .hw-pill-banner:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .hw-icon-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      background-color: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 7px;
+      color: var(--navy);
+    }
+
+    .hw-open-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-left: 0.2rem;
+    }
+
+    .hw-creds-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 0.6rem 0.95rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+
+    .cred-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.28rem 0.6rem;
+    }
+
+    .cred-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+    }
+
+    .btn-copy-cred {
+      background-color: var(--primary-soft);
+      border: 1px solid #bfdbfe;
+      color: var(--primary-dark);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.18rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .btn-copy-cred:hover {
+      background-color: #dbeafe;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table.hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.96rem;
+      text-align: left;
+    }
+
+    table.hw-table th {
+      background-color: #f1f5f9;
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0.75rem 0.95rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.hw-table td {
+      padding: 0.8rem 0.95rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    table.hw-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .link-look {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .count-badge {
+      display: inline-block;
+      background-color: var(--navy);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    /* Attempt-Based Solution Unlocker on Slide 5 */
+    .unlock-card {
+      background-color: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 6px solid var(--primary);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 1.65rem;
+    }
+
+    .unlock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .unlock-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .unlock-hint {
+      font-size: 0.92rem;
+      color: #475569;
+      margin-bottom: 1rem;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .attempt-field {
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+
+    .attempt-field.full-span {
+      grid-column: 1 / -1;
+    }
+
+    .attempt-field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .attempt-field input {
+      width: 100%;
+      padding: 0.45rem 0.65rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--navy);
+      outline: none;
+    }
+
+    .attempt-field input:focus {
+      border-color: var(--primary);
+    }
+
+    .field-feedback {
+      font-size: 0.78rem;
+      font-weight: 700;
+      min-height: 1.1em;
+    }
+
+    .fb-ok { color: #047857; }
+    .fb-review { color: #b45309; }
+
+    .attempt-error {
+      display: none;
+      background-color: var(--red-soft);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+    }
+
+    .attempt-error.visible {
+      display: block;
+    }
+
+    .btn-unlock {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(29, 78, 216, 0.24);
+    }
+
+    .btn-unlock:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .receipt-box {
+      display: none;
+      margin-top: 1.1rem;
+      background-color: var(--emerald-soft);
+      border: 1.5px solid var(--emerald-border);
+      border-left: 6px solid #059669;
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    .receipt-box.visible {
+      display: block;
+    }
+
+    .receipt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid #a7f3d0;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .receipt-badge {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #065f46;
+    }
+
+    .receipt-time {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #047857;
+      background-color: #ffffff;
+      border: 1px solid #a7f3d0;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .receipt-summary {
+      font-size: 0.9rem;
+      color: var(--navy);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+
+    .btn-unlocked-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: #059669;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 0.65rem 1.2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(5, 150, 105, 0.25);
+    }
+
+    .btn-unlocked-pdf:hover {
+      background-color: #047857;
+    }
+
+    /* Footer Navigation */
+    .bottombar {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border-light);
+      padding: 0.75rem 1.25rem;
+      position: sticky;
+      bottom: 0;
+      z-index: 30;
+    }
+
+    .bottombar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .btn-nav {
+      background-color: var(--navy);
+      color: #ffffff;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .btn-nav.next {
+      background-color: var(--primary);
+    }
+    .btn-nav:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+    .btn-nav:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    .dots-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .dot-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background-color: #f8fafc;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .dot-btn:hover {
+      background-color: #e2e8f0;
+    }
+    .dot-btn.active {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">IB</span>
+        <div>
+          <div class="brand-title">Grade 12 Maths AISL</div>
+          <div class="brand-sub">Starter: Optimisation &bull; Chapter 9: Inverse Variation</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span id="slideCounter" class="counter-pill">Slide 1 of 11</span>
+        <button type="button" class="btn-header" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+          &#x26F6; Fullscreen
+        </button>
+        <button type="button" class="btn-download" onclick="downloadCleanHTML()" title="Download standalone index.html for GitHub Pages">
+          &#x2B07; Download index.html
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Presentation Stage -->
+  <main class="stage">
+
+    <!-- SLIDE 1: Starter – Optimisation Question (Fenced Garden) -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-meta">
+        <span class="tag">Starter &ndash; Optimisation</span>
+        <span class="meta-right">Recap Question</span>
+      </div>
+      <h2 class="slide-heading">Starter: Fenced Rectangular Garden</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <p>
+            A rectangular garden is to be fenced against a long straight brick wall. The garden is formed by using 40 m of fencing for the <span class="underline-accent">three remaining sides</span>, as shown in the diagram. Let the length of the two sides perpendicular to the wall be <span class="math-var">x</span> m.
+          </p>
+
+          <p><span class="part-label">(a)</span> Show that the area, <span class="math-var">A</span>, of the garden can be expressed as:</p>
+          <div class="math-display">
+            <span class="math-var">A</span> = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
+          </div>
+
+          <p><span class="part-label">(b)</span> Find the dimensions of the garden (the values of the two different side lengths) that will result in the maximum possible area.</p>
+        </div>
+
+        <!-- Top-Right SVG Diagram + Student PDF Download -->
+        <div class="diagram-col">
+          <div class="diagram-box">
+            <svg viewBox="0 0 280 200" role="img" aria-label="Rectangular garden fenced on three sides against a brick wall">
+              <rect x="16" y="24" width="248" height="20" rx="2" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5" />
+              <line x1="16" y1="34" x2="264" y2="34" stroke="#fecaca" stroke-width="1.2" stroke-dasharray="14,10" />
+              <text x="140" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">Long Straight Brick Wall</text>
+              <rect x="46" y="44" width="188" height="114" fill="#dcfce7" stroke="#15803d" stroke-width="2.5" stroke-dasharray="7,3" />
+              <text x="140" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="#166534">Area = A m&sup2;</text>
+              <text x="38" y="106" text-anchor="end" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
+              <text x="242" y="106" text-anchor="start" font-size="13.5" font-style="italic" font-weight="700" fill="#1e293b">x m</text>
+              <text x="140" y="182" text-anchor="middle" font-size="13.5" font-weight="700" fill="#15803d">(40 &minus; 2x) m</text>
+            </svg>
+            <div class="diagram-caption">Total Fencing = 40 m (3 sides)</div>
+          </div>
+
+          <a href="./Starter_Fenced_Garden_Question.pdf" target="_blank" rel="noopener noreferrer" download="Starter_Fenced_Garden_Question.pdf" class="btn-pdf-download" title="Download Student Starter Question Worksheet (PDF)">
+            &#x1F4C4; Download Starter Question (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Working Pad -->
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-s1')">&#9998; Toggle Working Box</button>
+        </div>
+        <span class="meta-right">Full worked solution &amp; markscheme PDF are on Slide 2</span>
+      </div>
+
+      <div id="work-s1" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-s1', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-s1', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-s1', '#1d4ed8', 2.8, this)" title="Blue"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-s1', '#dc2626', 2.8, this)" title="Red"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-s1', '#15803d', 2.8, this)" title="Green"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-s1', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-s1')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Starter – Worked Solution for Fenced Garden + PDF Download -->
+    <section class="slide sol-theme" data-slide="2">
+      <div class="slide-meta">
+        <span class="tag sol">Starter &ndash; Worked Solution</span>
+        <span class="meta-right">Worked Solution &amp; Markscheme</span>
+      </div>
+      <h2 class="slide-heading">Solution: Starter (Fenced Garden)</h2>
+
+      <div class="starter-layout">
+        <div class="content-flow">
+          <div class="step-card">
+            <div class="step-title">(a) Expressing area <span class="math-var">A</span> in terms of <span class="math-var">x</span>:</div>
+            <p>
+              Total fencing available for the three sides is 40 m. Since the two sides perpendicular to the wall each have length <span class="math-var">x</span> m, the remaining side parallel to the brick wall has length (40 &minus; 2<span class="math-var">x</span>) m.
+            </p>
+            <div class="math-line">
+              <span class="math-var">A</span> = <span class="math-var">x</span>(40 &minus; 2<span class="math-var">x</span>) = 40<span class="math-var">x</span> &minus; 2<span class="math-var">x</span><sup>2</sup>
+            </div>
+          </div>
+
+          <div class="step-card highlight">
+            <div class="step-title">(b) Dimensions for Maximum Area:</div>
+            <p>Using the axis of symmetry (or GDC <strong>Maximum</strong> / d<span class="math-var">A</span>/d<span class="math-var">x</span> = 40 &minus; 4<span class="math-var">x</span> = 0):</p>
+            <div class="math-line">
+              <span class="math-var">x</span> = &minus;<span class="frac"><span><span class="math-var">b</span></span><span>2<span class="math-var">a</span></span></span> = &minus;<span class="frac"><span>40</span><span>2(&minus;2)</span></span> = <strong>10 m</strong>
+            </div>
+            <p>The side parallel to the wall is 40 &minus; 2(10) = <strong>20 m</strong>.</p>
+            <p><strong>Dimensions: 10 m &times; 20 m</strong> (Maximum Area = 200 m<sup>2</sup>)</p>
+          </div>
+        </div>
+
+        <!-- Top-Right Parabola SVG Sketch + PDF Download -->
+        <div class="diagram-col">
+          <div class="diagram-box">
+            <svg viewBox="0 0 260 225" role="img" aria-label="Parabola sketch showing maximum at (10, 200)">
+              <line x1="36" y1="185" x2="244" y2="185" stroke="#1e293b" stroke-width="2" />
+              <line x1="36" y1="185" x2="36" y2="18" stroke="#1e293b" stroke-width="2" />
+              <text x="242" y="202" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">x</text>
+              <text x="22" y="25" font-size="12.5" font-style="italic" font-weight="700" fill="#1e293b">A</text>
+              <text x="30" y="201" font-size="11" fill="#475569">0</text>
+              <text x="128" y="201" font-size="11" font-weight="700" fill="#dc2626">10</text>
+              <text x="224" y="201" font-size="11" fill="#475569">20</text>
+              <path d="M 36 185 Q 134 -62 232 185" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+              <line x1="134" y1="62" x2="134" y2="185" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3" />
+              <circle cx="134" cy="62" r="4.8" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+              <rect x="78" y="28" width="112" height="22" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" />
+              <text x="134" y="43" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">Max (10, 200)</text>
+            </svg>
+            <div class="diagram-caption">Domain: 0 &lt; <span class="math-var">x</span> &lt; 20</div>
+          </div>
+
+          <a href="./Starter_Fenced_Garden_Optimisation.pdf" target="_blank" rel="noopener noreferrer" download="Starter_Fenced_Garden_Optimisation.pdf" class="btn-pdf-download" title="Download PDF containing Starter Question &amp; Markscheme">
+            &#x1F4C4; Download Starter Question &amp; Markscheme (PDF)
+          </a>
+          <button type="button" class="btn-pdf-print" onclick="printStarterSheet()" title="Open formatted print/save-as-PDF sheet">
+            &#x1F5A8; Open Printable Worksheet View
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Chapter 9 – Inverse Variation (Page 448) -->
+    <section class="slide ch9-theme" data-slide="3">
+      <div class="slide-meta">
+        <span class="tag ch9">Chapter 9 &bull; Inverse Variation</span>
+        <span class="meta-right">Page 448</span>
+      </div>
+      <div class="heading-with-action">
+        <a href="./Inverse_Variation_Handout_2026.docx" target="_blank" rel="noopener noreferrer" download="Inverse_Variation_Handout_2026.docx" class="btn-handout-link" title="Download Student Guided Notes Handout (.docx)">
+          &#x1F4E5; Download Handout
+        </a>
+        <h2 class="slide-heading ch9-title">Chapter 9 &ndash; Inverse Variation</h2>
+      </div>
+
+      <div class="content-flow">
+        <p>
+          When one quantity increases at the same rate that another decreases, the two variables are <strong>inversely proportional</strong> (or vary inversely).
+        </p>
+
+        <div class="concept-callout">
+          <p>
+            The symbol for variation is <strong style="color:#dc2626; font-size:1.35em;">&prop;</strong> and it stands for <strong>&ldquo;= <span class="math-var">k</span> &times; &hellip;&rdquo;</strong> (that is, <span class="math-var">k</span> multiplied by the expression which follows).
+          </p>
+          <div class="concept-formula-bar">
+            For inverse variation: &nbsp;&nbsp;
+            <span style="color:#4338ca;"><span class="math-var">y</span> &prop; <span class="frac"><span>1</span><span><span class="math-var">x</span><sup><span class="math-var">n</span></sup></span></span></span>
+            &nbsp;&nbsp; or &nbsp;&nbsp;
+            <span style="color:#047857;"><span class="math-var">y</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">x</span><sup><span class="math-var">n</span></sup></span></span></span>
+          </div>
+        </div>
+
+        <p>
+          <strong>Note:</strong> Multiplying both sides by <span class="math-var">x</span><sup><span class="math-var">n</span></sup> gives the constant product <span class="math-var">y</span> &middot; <span class="math-var">x</span><sup><span class="math-var">n</span></sup> = <span class="math-var">k</span>, which is useful for checking values quickly.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Example 15 (Page 449) -->
+    <section class="slide ch9-theme" data-slide="4">
+      <div class="slide-meta">
+        <span class="tag ch9">Inverse Variation &ndash; Worked Example</span>
+        <span class="meta-right">Page 449</span>
+      </div>
+      <h2 class="slide-heading">Example 15</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          The number of hours <span class="math-var">N</span> taken to build a wall varies inversely with the number of people <span class="math-var">x</span> who are available to work on it.
+        </p>
+        <p>
+          <span class="badge-letter">a</span> When three people are available the wall takes two hours to build. Find the time it takes to build the wall when four people are available to work on it.
+        </p>
+        <p>
+          <span class="badge-letter">b</span> Given it takes three hours to build the wall, state how many people worked on it.
+        </p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-ex15')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-ex15" class="btn-reveal" onclick="toggleSolutionReveal('work-ex15', 'sol-ex15', 'btn-sol-ex15')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-ex15" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-ex15', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-ex15', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-ex15', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-ex15', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-ex15', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-ex15', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-ex15')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-ex15" class="solution-panel content-flow">
+        <div class="step-title">(a) Time taken when 4 people are available:</div>
+        <p>Since <span class="math-var">N</span> varies inversely with <span class="math-var">x</span>, we write <span class="math-var">N</span> &prop; <span class="frac"><span>1</span><span><span class="math-var">x</span></span></span>, so <span class="math-var">N</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">x</span></span></span>.</p>
+        <p>Substituting <span class="math-var">x</span> = 3 and <span class="math-var">N</span> = 2:</p>
+        <div class="math-line">
+          2 = <span class="frac"><span><span class="math-var">k</span></span><span>3</span></span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = 6 &nbsp;&rArr;&nbsp; <span class="math-var">N</span> = <span class="frac"><span>6</span><span><span class="math-var">x</span></span></span>
+        </div>
+        <p>When <span class="math-var">x</span> = 4:</p>
+        <div class="math-line">
+          <span class="math-var">N</span> = <span class="frac"><span>6</span><span>4</span></span> = <strong>1.5 hours</strong> (1 hour 30 minutes)
+        </div>
+
+        <hr class="sol-divider" />
+
+        <div class="step-title">(b) Number of people when <span class="math-var">N</span> = 3 hours:</div>
+        <div class="math-line">
+          3 = <span class="frac"><span>6</span><span><span class="math-var">x</span></span></span> &nbsp;&rArr;&nbsp; <span class="math-var">x</span> = <span class="frac"><span>6</span><span>3</span></span> = <strong>2 people</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Classwork Worksheet Overview & Self-Check Unlocker -->
+    <section class="slide ch9-theme" data-slide="5">
+      <div class="slide-meta">
+        <span class="tag ch9">Classwork &bull; IB Style Questions</span>
+        <span class="meta-right">Worksheet &amp; Self-Check</span>
+      </div>
+      <h2 class="slide-heading">Classwork: IB Style Inverse Variation Questions</h2>
+
+      <a href="./Inverse_Variation_Practice_Questions.pdf" target="_blank" rel="noopener noreferrer" class="practice-banner" title="Open Inverse_Variation_Practice_Questions.pdf in a new tab">
+        <span>&#x1F4C4; IB Style Inverse Variation Practice Worksheet (5 Questions)</span>
+        <span class="practice-pill">Open Questions PDF &#x2197;</span>
+      </a>
+
+      <p style="font-size:0.96rem; color:#475569; margin-bottom:1rem;">
+        <em>Teacher Note:</em> Individual slides for <strong>Questions 1 to 5</strong> (each with its own collapsible working pad and solution reveal) follow on <strong>Slides 6–10</strong> if you want to model or review any question on the board.
+      </p>
+
+      <!-- Attempt-Based Solution Unlocker -->
+      <div class="unlock-card" style="margin-bottom: 0;">
+        <div class="unlock-header">
+          <span class="unlock-title">&#x1F513; Student Self-Check &amp; Unlock Worked Solutions PDF</span>
+          <span class="meta-right">Screenshot receipt to submit your attempt</span>
+        </div>
+        <p class="unlock-hint">
+          Complete the 5 questions on the worksheet first, then enter your name and key numerical answers below. <strong>Any genuine numerical attempt unlocks the full Worked Solutions PDF.</strong>
+        </p>
+
+        <div class="attempt-grid">
+          <div class="attempt-field full-span">
+            <label for="stuName">Student Name</label>
+            <input type="text" id="stuName" placeholder="Enter your full name" />
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ1b">Q1(b): Sound intensity at 10 m (W m<sup>&minus;2</sup>)</label>
+            <input type="number" step="any" id="ansQ1b" placeholder="e.g. 0.12" />
+            <span class="field-feedback" id="fbQ1b"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ2b">Q2(b): Pressure at 30 cm&sup3; (kPa)</label>
+            <input type="number" step="any" id="ansQ2b" placeholder="e.g. 180" />
+            <span class="field-feedback" id="fbQ2b"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ3b">Q3(b): Field strength at 8000 km (N kg<sup>&minus;1</sup>)</label>
+            <input type="number" step="any" id="ansQ3b" placeholder="e.g. 6.27" />
+            <span class="field-feedback" id="fbQ3b"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ4a">Q4(a): Brightness at 2.4 m (lux)</label>
+            <input type="number" step="any" id="ansQ4a" placeholder="e.g. 125" />
+            <span class="field-feedback" id="fbQ4a"></span>
+          </div>
+          <div class="attempt-field">
+            <label for="ansQ5a">Q5(a): Frequency at 50 cm (Hz)</label>
+            <input type="number" step="any" id="ansQ5a" placeholder="e.g. 286" />
+            <span class="field-feedback" id="fbQ5a"></span>
+          </div>
+        </div>
+
+        <div id="attemptError" class="attempt-error"></div>
+
+        <button type="button" class="btn-unlock" onclick="verifyAndUnlockSolutions()">
+          Check Attempt &amp; Unlock Worked Solutions
+        </button>
+
+        <div id="receiptBox" class="receipt-box">
+          <div class="receipt-top">
+            <span class="receipt-badge">&#x2705; Attempt Recorded &mdash; Worked Solutions Unlocked</span>
+            <span class="receipt-time" id="receiptTimestamp"></span>
+          </div>
+          <div class="receipt-summary" id="receiptSummary"></div>
+          <a href="./Inverse_Variation_Practice_Solutions.pdf" target="_blank" rel="noopener noreferrer" class="btn-unlocked-pdf">
+            &#x1F4D6; Open Worked Solutions PDF &#x2197;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Practice Question 1 -->
+    <section class="slide ch9-theme" data-slide="6">
+      <div class="slide-meta">
+        <span class="tag ch9">Classwork &bull; IB Style Practice</span>
+        <span class="meta-right">Question 1 of 5 &bull; [5 marks]</span>
+      </div>
+      <h2 class="slide-heading">Question 1 &mdash; Sound Intensity &amp; Distance</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          The sound intensity, <span class="math-var">I</span> (in W&thinsp;m<sup>&minus;2</sup>), measured from an outdoor concert speaker is inversely proportional to the square of the distance, <span class="math-var">d</span> metres, from the speaker. At a distance of 4 metres, the sound intensity is 0.75&nbsp;W&thinsp;m<sup>&minus;2</sup>.
+        </p>
+        <p><span class="badge-letter">a</span> Find an equation for <span class="math-var">I</span> in terms of <span class="math-var">d</span>. <em>[2]</em></p>
+        <p><span class="badge-letter">b</span> Calculate the sound intensity at a distance of 10 metres from the speaker. <em>[1]</em></p>
+        <p><span class="badge-letter">c</span> Safety regulations state that the sound intensity must not exceed 0.12&nbsp;W&thinsp;m<sup>&minus;2</sup>. Find the minimum distance from the speaker where audience members can safely stand. <em>[2]</em></p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-q1')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-q1" class="btn-reveal" onclick="toggleSolutionReveal('work-q1', 'sol-q1', 'btn-sol-q1')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-q1" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-q1', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-q1', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-q1', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-q1', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-q1', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-q1', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-q1')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-q1" class="solution-panel content-flow">
+        <div class="step-title">(a) Equation for <span class="math-var">I</span> in terms of <span class="math-var">d</span>:</div>
+        <p><span class="math-var">I</span> &prop; <span class="frac"><span>1</span><span><span class="math-var">d</span><sup>2</sup></span></span> &rArr; <span class="math-var">I</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">d</span><sup>2</sup></span></span>. Substituting <span class="math-var">I</span> = 0.75 and <span class="math-var">d</span> = 4:</p>
+        <div class="math-line">
+          0.75 = <span class="frac"><span><span class="math-var">k</span></span><span>4<sup>2</sup></span></span> = <span class="frac"><span><span class="math-var">k</span></span><span>16</span></span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = 12 &nbsp;&rArr;&nbsp; <strong><span class="math-var">I</span> = <span class="frac"><span>12</span><span><span class="math-var">d</span><sup>2</sup></span></span></strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(b) Sound intensity at <span class="math-var">d</span> = 10 m:</div>
+        <div class="math-line">
+          <span class="math-var">I</span> = <span class="frac"><span>12</span><span>10<sup>2</sup></span></span> = <span class="frac"><span>12</span><span>100</span></span> = <strong>0.12 W&thinsp;m<sup>&minus;2</sup></strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(c) Minimum safe distance when <span class="math-var">I</span> = 0.12 W&thinsp;m<sup>&minus;2</sup>:</div>
+        <div class="math-line">
+          0.12 = <span class="frac"><span>12</span><span><span class="math-var">d</span><sup>2</sup></span></span> &nbsp;&rArr;&nbsp; <span class="math-var">d</span><sup>2</sup> = <span class="frac"><span>12</span><span>0.12</span></span> = 100 &nbsp;&rArr;&nbsp; <span class="math-var">d</span> = <strong>10 m</strong> (since <span class="math-var">d</span> &gt; 0)
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Practice Question 2 -->
+    <section class="slide ch9-theme" data-slide="7">
+      <div class="slide-meta">
+        <span class="tag ch9">Classwork &bull; IB Style Practice</span>
+        <span class="meta-right">Question 2 of 5 &bull; [5 marks]</span>
+      </div>
+      <h2 class="slide-heading">Question 2 &mdash; Boyle&rsquo;s Law: Gas Pressure &amp; Volume</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          At a constant temperature, the pressure <span class="math-var">P</span> (in kPa) of a fixed mass of gas in a syringe varies inversely with its volume <span class="math-var">V</span> (in cm<sup>3</sup>). When the volume of the gas is 45&nbsp;cm<sup>3</sup>, the pressure is 120&nbsp;kPa.
+        </p>
+        <p><span class="badge-letter">a</span> Write down an equation expressing <span class="math-var">P</span> in terms of <span class="math-var">V</span>. <em>[2]</em></p>
+        <p><span class="badge-letter">b</span> Find the pressure when the gas is compressed to a volume of 30&nbsp;cm<sup>3</sup>. <em>[1]</em></p>
+        <p><span class="badge-letter">c</span> Determine the volume of the gas when the pressure drops to 75&nbsp;kPa. <em>[2]</em></p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-q2')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-q2" class="btn-reveal" onclick="toggleSolutionReveal('work-q2', 'sol-q2', 'btn-sol-q2')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-q2" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-q2', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-q2', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-q2', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-q2', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-q2', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-q2', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-q2')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-q2" class="solution-panel content-flow">
+        <div class="step-title">(a) Equation for <span class="math-var">P</span> in terms of <span class="math-var">V</span>:</div>
+        <div class="math-line">
+          <span class="math-var">P</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">V</span></span></span> &nbsp;&rArr;&nbsp; 120 = <span class="frac"><span><span class="math-var">k</span></span><span>45</span></span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = 5400 &nbsp;&rArr;&nbsp; <strong><span class="math-var">P</span> = <span class="frac"><span>5400</span><span><span class="math-var">V</span></span></span></strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(b) Pressure when <span class="math-var">V</span> = 30 cm<sup>3</sup>:</div>
+        <div class="math-line">
+          <span class="math-var">P</span> = <span class="frac"><span>5400</span><span>30</span></span> = <strong>180 kPa</strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(c) Volume when <span class="math-var">P</span> = 75 kPa:</div>
+        <div class="math-line">
+          75 = <span class="frac"><span>5400</span><span><span class="math-var">V</span></span></span> &nbsp;&rArr;&nbsp; <span class="math-var">V</span> = <span class="frac"><span>5400</span><span>75</span></span> = <strong>72 cm<sup>3</sup></strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Practice Question 3 -->
+    <section class="slide ch9-theme" data-slide="8">
+      <div class="slide-meta">
+        <span class="tag ch9">Classwork &bull; IB Style Practice</span>
+        <span class="meta-right">Question 3 of 5 &bull; [5 marks]</span>
+      </div>
+      <h2 class="slide-heading">Question 3 &mdash; Gravitational Field Strength</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          The gravitational field strength, <span class="math-var">g</span> (in N&thinsp;kg<sup>&minus;1</sup>), of a planet is inversely proportional to the square of the distance, <span class="math-var">r</span> (in km), from the centre of the planet. On the surface of the planet, where <span class="math-var">r</span> = 6400&nbsp;km, the gravitational field strength is 9.8&nbsp;N&thinsp;kg<sup>&minus;1</sup>.
+        </p>
+        <p><span class="badge-letter">a</span> Find the constant of proportionality <span class="math-var">k</span>, giving your answer in standard form <span class="math-var">a</span> &times; 10<sup><span class="math-var">n</span></sup> correct to 3 significant figures. <em>[2]</em></p>
+        <p><span class="badge-letter">b</span> Calculate the gravitational field strength experienced by a satellite orbiting at a distance of 8000&nbsp;km from the centre of the planet. <em>[3]</em></p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-q3')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-q3" class="btn-reveal" onclick="toggleSolutionReveal('work-q3', 'sol-q3', 'btn-sol-q3')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-q3" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-q3', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-q3', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-q3', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-q3', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-q3', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-q3', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-q3')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-q3" class="solution-panel content-flow">
+        <div class="step-title">(a) Constant of proportionality <span class="math-var">k</span>:</div>
+        <div class="math-line">
+          <span class="math-var">g</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">r</span><sup>2</sup></span></span> &nbsp;&rArr;&nbsp; <span class="math-var">k</span> = 9.8 &times; 6400<sup>2</sup> = 401&thinsp;408&thinsp;000 = <strong>4.01 &times; 10<sup>8</sup></strong> (3 s.f.)
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(b) Gravitational field strength at <span class="math-var">r</span> = 8000 km:</div>
+        <p>Using the full unrounded value of <span class="math-var">k</span>:</p>
+        <div class="math-line">
+          <span class="math-var">g</span> = <span class="frac"><span>401&thinsp;408&thinsp;000</span><span>8000<sup>2</sup></span></span> = 6.272 &approx; <strong>6.27 N&thinsp;kg<sup>&minus;1</sup></strong> (3 s.f.)
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Practice Question 4 -->
+    <section class="slide ch9-theme" data-slide="9">
+      <div class="slide-meta">
+        <span class="tag ch9">Classwork &bull; IB Style Practice</span>
+        <span class="meta-right">Question 4 of 5 &bull; [5 marks]</span>
+      </div>
+      <h2 class="slide-heading">Question 4 &mdash; Illumination &amp; Lamp Distance</h2>
+
+      <div class="question-card content-flow">
+        <p>
+          The brightness <span class="math-var">B</span> (in lux) on a desk surface varies inversely with the square of the height <span class="math-var">h</span> (in metres) of a lamp above the desk. When the lamp is 1.5&nbsp;m above the desk, the brightness is 320&nbsp;lux.
+        </p>
+        <p><span class="badge-letter">a</span> Find the brightness on the desk when the lamp is raised to a height of 2.4&nbsp;m. <em>[3]</em></p>
+        <p><span class="badge-letter">b</span> Find the height to which the lamp must be lowered to achieve a brightness of 500&nbsp;lux. <em>[2]</em></p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-q4')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-q4" class="btn-reveal" onclick="toggleSolutionReveal('work-q4', 'sol-q4', 'btn-sol-q4')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-q4" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-q4', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-q4', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-q4', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-q4', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-q4', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-q4', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-q4')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-q4" class="solution-panel content-flow">
+        <div class="step-title">(a) Brightness when <span class="math-var">h</span> = 2.4 m:</div>
+        <p><span class="math-var">B</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">h</span><sup>2</sup></span></span> &rArr; <span class="math-var">k</span> = 320 &times; 1.5<sup>2</sup> = 320 &times; 2.25 = 720, so <span class="math-var">B</span> = <span class="frac"><span>720</span><span><span class="math-var">h</span><sup>2</sup></span></span>.</p>
+        <div class="math-line">
+          <span class="math-var">B</span> = <span class="frac"><span>720</span><span>2.4<sup>2</sup></span></span> = <span class="frac"><span>720</span><span>5.76</span></span> = <strong>125 lux</strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(b) Height required for <span class="math-var">B</span> = 500 lux:</div>
+        <div class="math-line">
+          500 = <span class="frac"><span>720</span><span><span class="math-var">h</span><sup>2</sup></span></span> &nbsp;&rArr;&nbsp; <span class="math-var">h</span><sup>2</sup> = <span class="frac"><span>720</span><span>500</span></span> = 1.44 &nbsp;&rArr;&nbsp; <span class="math-var">h</span> = &radic;1.44 = <strong>1.2 m</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Practice Question 5 -->
+    <section class="slide ext-theme" data-slide="10">
+      <div class="slide-meta">
+        <span class="tag ext">Classwork &bull; IB Style Practice</span>
+        <span class="meta-right">Question 5 of 5 &bull; [6 marks]</span>
+      </div>
+      <h2 class="slide-heading">Question 5 &mdash; Guitar String Vibration Frequency</h2>
+
+      <div class="question-card challenge content-flow">
+        <p>
+          For a guitar string under constant tension, the frequency of vibration, <span class="math-var">f</span> (in Hz), is inversely proportional to the vibrating length of the string, <span class="math-var">L</span> (in cm). A string of length 65&nbsp;cm vibrates at a frequency of 220&nbsp;Hz.
+        </p>
+        <p><span class="badge-letter">a</span> Find the frequency when a musician presses the string so that its vibrating length is 50&nbsp;cm. <em>[3]</em></p>
+        <p><span class="badge-letter">b</span> Calculate the percentage increase in frequency when the vibrating length is reduced by 20%. <em>[3]</em></p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button type="button" class="btn-work" onclick="toggleWorkingPad('work-q5')">&#9998; Toggle Working Box</button>
+          <button type="button" id="btn-sol-q5" class="btn-reveal red" onclick="toggleSolutionReveal('work-q5', 'sol-q5', 'btn-sol-q5')">Reveal Solution</button>
+        </div>
+      </div>
+
+      <div id="work-q5" class="working-pad">
+        <div class="pad-toolbar">
+          <div class="pad-label-group">
+            <span class="pad-title">Working Pad (Collapses on Reveal Solution)</span>
+            <div class="mode-switch">
+              <button type="button" class="mode-btn active" onclick="setPadMode('work-q5', 'draw', this)">Pen</button>
+              <button type="button" class="mode-btn" onclick="setPadMode('work-q5', 'text', this)">Notes</button>
+            </div>
+          </div>
+          <div class="pen-tools">
+            <button type="button" class="swatch active" style="background:#1d4ed8" onclick="setPen('work-q5', '#1d4ed8', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#dc2626" onclick="setPen('work-q5', '#dc2626', 2.8, this)"></button>
+            <button type="button" class="swatch" style="background:#15803d" onclick="setPen('work-q5', '#15803d', 2.8, this)"></button>
+            <button type="button" class="btn-tool" onclick="setPen('work-q5', '#ffffff', 22, this)">Eraser</button>
+            <button type="button" class="btn-tool clear" onclick="clearPad('work-q5')">Clear</button>
+          </div>
+        </div>
+        <canvas class="pad-canvas"></canvas>
+        <textarea class="pad-notes hidden" placeholder="Type your step-by-step working here..."></textarea>
+      </div>
+
+      <div id="sol-q5" class="solution-panel content-flow">
+        <div class="step-title">(a) Frequency when <span class="math-var">L</span> = 50 cm:</div>
+        <p><span class="math-var">f</span> = <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">L</span></span></span> &rArr; <span class="math-var">k</span> = 220 &times; 65 = 14&thinsp;300, so <span class="math-var">f</span> = <span class="frac"><span>14&thinsp;300</span><span><span class="math-var">L</span></span></span>.</p>
+        <div class="math-line">
+          <span class="math-var">f</span> = <span class="frac"><span>14&thinsp;300</span><span>50</span></span> = <strong>286 Hz</strong>
+        </div>
+        <hr class="sol-divider" />
+        <div class="step-title">(b) Percentage increase in frequency when <span class="math-var">L</span> is reduced by 20%:</div>
+        <p>Reducing <span class="math-var">L</span> by 20% gives <span class="math-var">L</span><sub>new</sub> = 0.8<span class="math-var">L</span>:</p>
+        <div class="math-line">
+          <span class="math-var">f</span><sub>new</sub> = <span class="frac"><span><span class="math-var">k</span></span><span>0.8<span class="math-var">L</span></span></span> = <span class="frac"><span>1</span><span>0.8</span></span> &middot; <span class="frac"><span><span class="math-var">k</span></span><span><span class="math-var">L</span></span></span> = 1.25<span class="math-var">f</span>
+        </div>
+        <p><strong>Since 1.25 = 1 + 0.25, the frequency increases by <u>25%</u>.</strong></p>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Homework Task (MyiMaths) -->
+    <section class="slide hw-theme" data-slide="11">
+      <div class="slide-meta">
+        <span class="tag hw">Homework</span>
+        <span class="meta-right">End of Lesson</span>
+      </div>
+      <h2 class="slide-heading">Homework Task</h2>
+
+      <a href="https://app.myimaths.com/1790-lesson/inverse-proportion" target="_blank" rel="noopener noreferrer" class="hw-pill-banner" title="Open MyiMaths Inverse Proportion Lesson in a new tab">
+        <span>MyiMaths &ndash; Inverse Proportion Lesson</span>
+        <span class="hw-icon-chip" title="Online Lesson">&#128202;</span>
+        <span>and Task</span>
+        <span class="hw-icon-chip" title="Online Homework">&#128221;</span>
+        <span class="hw-open-badge">Open MyiMaths &#x2197;</span>
+      </a>
+
+      <div class="hw-creds-bar">
+        <strong>School Login:</strong>
+        <span class="cred-chip">
+          <span>Username: <span class="cred-code">bavarian</span></span>
+          <button type="button" class="btn-copy-cred" onclick="copyLoginDetail('bavarian', this)">Copy</button>
+        </span>
+        <span class="cred-chip">
+          <span>Password: <span class="cred-code">circle11</span></span>
+          <button type="button" class="btn-copy-cred" onclick="copyLoginDetail('circle11', this)">Copy</button>
+        </span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="hw-table">
+          <thead>
+            <tr>
+              <th>Task or activity</th>
+              <th>Type</th>
+              <th>Created</th>
+              <th>Completed</th>
+              <th>Start</th>
+              <th>Due</th>
+              <th>Pass mark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="link-look">Inverse proportion</span> <span style="font-size:0.82rem; color:#64748b;">(Optional)</span></td>
+              <td>Online Lesson</td>
+              <td>23/11/26</td>
+              <td><span class="count-badge">0/17</span></td>
+              <td>25/11/26</td>
+              <td><span class="link-look">29/11/26</span></td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td><span class="link-look">Inverse proportion</span></td>
+              <td>Online Homework</td>
+              <td>23/11/26</td>
+              <td><span class="count-badge">0/17</span></td>
+              <td>25/11/26</td>
+              <td><span class="link-look">29/11/26</span></td>
+              <td><span class="link-look">70%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.9rem; color:#64748b; font-weight:600;">
+        Note: The Online Lesson is optional; the Online Homework Task (70% pass mark) is due on 29/11/26.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Footer -->
+  <footer class="bottombar">
+    <div class="bottombar-inner">
+      <button type="button" id="prevBtn" class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+      <div id="dotsRow" class="dots-row"></div>
+      <button type="button" id="nextBtn" class="btn-nav next" onclick="changeSlide(1)">Next &rarr;</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    // Build numbered slide jump buttons
+    const dotsRow = document.getElementById('dotsRow');
+    for (let i = 1; i <= totalSlides; i++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = i;
+      btn.className = 'dot-btn' + (i === 1 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to slide ' + i);
+      btn.onclick = () => goToSlide(i);
+      dotsRow.appendChild(btn);
+    }
+
+    function goToSlide(n) {
+      if (n < 1 || n > totalSlides) return;
+      slides[currentSlide - 1].classList.remove('active');
+      dotsRow.children[currentSlide - 1].classList.remove('active');
+
+      currentSlide = n;
+      slides[currentSlide - 1].classList.add('active');
+      dotsRow.children[currentSlide - 1].classList.add('active');
+
+      document.getElementById('slideCounter').textContent = 'Slide ' + currentSlide + ' of ' + totalSlides;
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+      resizeActiveCanvases();
+    }
+
+    function changeSlide(delta) {
+      goToSlide(currentSlide + delta);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
+    });
+
+    // Collapsible Working Box & Auto-Collapse on Reveal Solution
+    function toggleWorkingPad(workId) {
+      const pad = document.getElementById(workId);
+      pad.classList.toggle('collapsed');
+      if (!pad.classList.contains('collapsed')) {
+        resizePadCanvas(pad);
+      }
+    }
+
+    function toggleSolutionReveal(workId, solId, btnId) {
+      const pad = document.getElementById(workId);
+      const sol = document.getElementById(solId);
+      const btn = document.getElementById(btnId);
+
+      const willShow = !sol.classList.contains('visible');
+      if (willShow) {
+        sol.classList.add('visible');
+        pad.classList.add('collapsed');
+        btn.textContent = 'Hide Solution';
+      } else {
+        sol.classList.remove('visible');
+        pad.classList.remove('collapsed');
+        resizePadCanvas(pad);
+        btn.textContent = 'Reveal Solution';
+      }
+    }
+
+    function setPadMode(workId, mode, clickedBtn) {
+      const pad = document.getElementById(workId);
+      const canvas = pad.querySelector('.pad-canvas');
+      const notes = pad.querySelector('.pad-notes');
+      const penTools = pad.querySelector('.pen-tools');
+
+      pad.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      if (mode === 'draw') {
+        canvas.classList.remove('hidden');
+        notes.classList.add('hidden');
+        penTools.classList.remove('hidden');
+        resizePadCanvas(pad);
+      } else {
+        canvas.classList.add('hidden');
+        notes.classList.remove('hidden');
+        penTools.classList.add('hidden');
+        notes.focus();
+      }
+    }
+
+    // Drawing Canvas Setup
+    const pads = {};
+
+    function initPads() {
+      document.querySelectorAll('.working-pad').forEach(pad => {
+        const id = pad.id;
+        const canvas = pad.querySelector('.pad-canvas');
+        const ctx = canvas.getContext('2d');
+        pads[id] = {
+          canvas,
+          ctx,
+          drawing: false,
+          color: '#1d4ed8',
+          width: 2.8
+        };
+
+        const getCoords = (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const cx = e.touches ? e.touches[0].clientX : e.clientX;
+          const cy = e.touches ? e.touches[0].clientY : e.clientY;
+          return { x: cx - rect.left, y: cy - rect.top };
+        };
+
+        const start = (e) => {
+          e.preventDefault();
+          pads[id].drawing = true;
+          const pt = getCoords(e);
+          ctx.beginPath();
+          ctx.moveTo(pt.x, pt.y);
+        };
+
+        const move = (e) => {
+          if (!pads[id].drawing) return;
+          e.preventDefault();
+          const pt = getCoords(e);
+          ctx.strokeStyle = pads[id].color;
+          ctx.lineWidth = pads[id].width;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.lineTo(pt.x, pt.y);
+          ctx.stroke();
+        };
+
+        const stop = () => {
+          pads[id].drawing = false;
+        };
+
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mousemove', move);
+        window.addEventListener('mouseup', stop);
+        canvas.addEventListener('touchstart', start, { passive: false });
+        canvas.addEventListener('touchmove', move, { passive: false });
+        canvas.addEventListener('touchend', stop);
+      });
+      resizeActiveCanvases();
+    }
+
+    function resizePadCanvas(pad) {
+      const state = pads[pad.id];
+      if (!state) return;
+      const rect = state.canvas.getBoundingClientRect();
+      if (rect.width <= 0) return;
+
+      const temp = document.createElement('canvas');
+      temp.width = state.canvas.width;
+      temp.height = state.canvas.height;
+      temp.getContext('2d').drawImage(state.canvas, 0, 0);
+
+      state.canvas.width = rect.width;
+      state.canvas.height = 220;
+      state.ctx.drawImage(temp, 0, 0);
+    }
+
+    function resizeActiveCanvases() {
+      const active = slides[currentSlide - 1];
+      active.querySelectorAll('.working-pad:not(.collapsed)').forEach(resizePadCanvas);
+    }
+
+    function setPen(workId, color, width, btnEl) {
+      const state = pads[workId];
+      if (!state) return;
+      state.color = color;
+      state.width = width;
+      const toolbar = btnEl.closest('.pen-tools');
+      toolbar.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      if (btnEl.classList.contains('swatch')) btnEl.classList.add('active');
+    }
+
+    function clearPad(workId) {
+      const state = pads[workId];
+      if (!state) return;
+      state.ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
+      const notes = document.getElementById(workId).querySelector('.pad-notes');
+      if (notes) notes.value = '';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Export standalone index.html reset cleanly to Slide 1 with no duplicate nodes
+    function downloadCleanHTML() {
+      const savedSlide = currentSlide;
+      goToSlide(1);
+      const dots = document.getElementById('dotsRow');
+      const savedDotsHTML = dots.innerHTML;
+      dots.innerHTML = '';
+
+      const htmlSource = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+      dots.innerHTML = savedDotsHTML;
+      goToSlide(savedSlide);
+
+      const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Attempt-based Solution Checker on Slide 5
+    function verifyAndUnlockSolutions() {
+      const nameInput = document.getElementById('stuName');
+      const errBox = document.getElementById('attemptError');
+      const receiptBox = document.getElementById('receiptBox');
+
+      const studentName = nameInput.value.trim();
+      const rawQ1b = document.getElementById('ansQ1b').value.trim();
+      const rawQ2b = document.getElementById('ansQ2b').value.trim();
+      const rawQ3b = document.getElementById('ansQ3b').value.trim();
+      const rawQ4a = document.getElementById('ansQ4a').value.trim();
+      const rawQ5a = document.getElementById('ansQ5a').value.trim();
+
+      if (!studentName) {
+        errBox.textContent = 'Please enter your name before unlocking the worked solutions.';
+        errBox.classList.add('visible');
+        nameInput.focus();
+        return;
+      }
+
+      if (rawQ1b === '' || rawQ2b === '' || rawQ3b === '' || rawQ4a === '' || rawQ5a === '') {
+        errBox.textContent = 'Please enter a numerical attempt for all five questions (Q1b, Q2b, Q3b, Q4a, and Q5a) to unlock the solutions.';
+        errBox.classList.add('visible');
+        return;
+      }
+
+      const v1 = parseFloat(rawQ1b);
+      const v2 = parseFloat(rawQ2b);
+      const v3 = parseFloat(rawQ3b);
+      const v4 = parseFloat(rawQ4a);
+      const v5 = parseFloat(rawQ5a);
+
+      if ([v1, v2, v3, v4, v5].some(v => Number.isNaN(v))) {
+        errBox.textContent = 'Please make sure every answer box contains a valid number.';
+        errBox.classList.add('visible');
+        return;
+      }
+
+      errBox.classList.remove('visible');
+
+      const checks = [
+        { id: 'fbQ1b', label: 'Q1(b)', entered: v1, ok: Math.abs(v1 - 0.12) <= 0.005, target: '0.12' },
+        { id: 'fbQ2b', label: 'Q2(b)', entered: v2, ok: Math.abs(v2 - 180) <= 0.5, target: '180' },
+        { id: 'fbQ3b', label: 'Q3(b)', entered: v3, ok: Math.abs(v3 - 6.272) <= 0.03, target: '6.27' },
+        { id: 'fbQ4a', label: 'Q4(a)', entered: v4, ok: Math.abs(v4 - 125) <= 0.5, target: '125' },
+        { id: 'fbQ5a', label: 'Q5(a)', entered: v5, ok: Math.abs(v5 - 286) <= 0.5, target: '286' }
+      ];
+
+      let score = 0;
+      const summaryItems = [];
+
+      checks.forEach(item => {
+        const fbEl = document.getElementById(item.id);
+        if (item.ok) {
+          score++;
+          fbEl.textContent = '✓ Correct';
+          fbEl.className = 'field-feedback fb-ok';
+          summaryItems.push(`<strong>${item.label}:</strong> ${item.entered} (✓)`);
+        } else {
+          fbEl.textContent = '✗ Review method in solutions (target: ' + item.target + ')';
+          fbEl.className = 'field-feedback fb-review';
+          summaryItems.push(`<strong>${item.label}:</strong> ${item.entered} (✗ Review)`);
+        }
+      });
+
+      const now = new Date();
+      const stamp = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+                    ' at ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      document.getElementById('receiptTimestamp').textContent = stamp;
+      document.getElementById('receiptSummary').innerHTML =
+        `<strong>Student:</strong> ${studentName.replace(/</g, '&lt;')} &nbsp;|&nbsp; <strong>Initial Score:</strong> ${score} / 5<br>` +
+        `<strong>Recorded Attempts:</strong> ${summaryItems.join(' &bull; ')}<br>` +
+        `<span style="font-size:0.82rem;color:#065f46;">Take a screenshot of this confirmation box to upload as evidence of your attempt, then open the Worked Solutions PDF below to check your working.</span>`;
+
+      receiptBox.classList.add('visible');
+    }
+
+    function copyLoginDetail(text, btnEl) {
+      const tempInput = document.createElement('textarea');
+      tempInput.value = text;
+      tempInput.style.position = 'fixed';
+      tempInput.style.opacity = '0';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        const originalText = btnEl.textContent;
+        btnEl.textContent = 'Copied!';
+        setTimeout(() => {
+          btnEl.textContent = originalText;
+        }, 1500);
+      } catch (e) {}
+      document.body.removeChild(tempInput);
+    }
+
+    function printStarterSheet() {
+      const win = window.open('', '_blank', 'width=850,height=900');
+      if (!win) return;
+      win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Starter – Optimisation: Fenced Garden</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #0f172a; line-height: 1.55; max-width: 780px; margin: 28px auto; padding: 0 20px; }
+    h1 { font-size: 1.45rem; border-bottom: 3px solid #1d4ed8; padding-bottom: 8px; margin-bottom: 18px; }
+    h2 { font-size: 1.15rem; color: #1e3a8a; margin-top: 20px; margin-bottom: 8px; }
+    .box { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; }
+    .sol { background: #ecfdf5; border: 1px solid #6ee7b7; border-left: 5px solid #059669; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; }
+    .sol-title { font-weight: 700; color: #047857; margin-bottom: 6px; }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body>
+  <button class="no-print" onclick="window.print()" style="float:right;padding:8px 14px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">Print / Save as PDF</button>
+  <h1>Grade 12 Maths AISL &mdash; Starter: Optimisation</h1>
+  <h2>Starter Question: Fenced Rectangular Garden</h2>
+  <div class="box">
+    <p>A rectangular garden is to be fenced against a long straight brick wall using 40 m of fencing for the three remaining sides. Let the length of the two sides perpendicular to the wall be <i>x</i> m.</p>
+    <p><strong>(a)</strong> Show that the area, <i>A</i>, of the garden can be expressed as: &nbsp; <strong><i>A</i> = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup></strong></p>
+    <p><strong>(b)</strong> Find the dimensions of the garden that will result in the maximum possible area.</p>
+  </div>
+  <div class="sol">
+    <div class="sol-title">Worked Solution &amp; Markscheme</div>
+    <p><strong>(a)</strong> Two sides perpendicular to wall = <i>x</i> m each; parallel side = (40 &minus; 2<i>x</i>) m. &nbsp; <i>A</i> = <i>x</i>(40 &minus; 2<i>x</i>) = 40<i>x</i> &minus; 2<i>x</i><sup>2</sup>.</p>
+    <p><strong>(b)</strong> <i>x</i> = &minus;40 / (2 &times; &minus;2) = 10 m; parallel side = 40 &minus; 2(10) = 20 m. &nbsp; <strong>Dimensions: 10 m &times; 20 m</strong> (Max Area = 200 m<sup>2</sup>).</p>
+  </div>
+</body>
+</html>`);
+      win.document.close();
+    }
+
+    window.addEventListener('resize', resizeActiveCanvases);
+    window.addEventListener('load', () => {
+      goToSlide(1);
+      initPads();
+    });
+  </script>
+</body>
+</html>
