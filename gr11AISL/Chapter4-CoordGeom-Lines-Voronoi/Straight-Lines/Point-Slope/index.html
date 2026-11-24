@@ -1,1 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>IB Maths AI SL - Lesson 4: Point-Slope Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      padding: 0.6rem;
+    }
+
+    .presentation {
+      width: 98vw;
+      max-width: 1600px;
+      height: 100%;
+      max-height: 940px;
+      position: relative;
+      background-color: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slides-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 1.4rem 2.4rem 1rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .slide-title {
+      font-size: clamp(1.5rem, 2.3vw, 2.05rem);
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .slide-tag {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fbbf24;
+      background-color: #0f172a;
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      white-space: nowrap;
+    }
+
+    .handout-link {
+      color: #38bdf8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .handout-link:hover {
+      color: #fbbf24;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: #cbd5e1;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1.5rem;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      align-items: stretch;
+    }
+
+    .card {
+      background-color: #0f172a;
+      padding: 1.1rem 1.35rem;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      font-size: 1.06rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+
+    .roadmap-card {
+      background: linear-gradient(180deg, #0f172a 0%, #162033 100%);
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .roadmap-card.highlight {
+      border-color: #38bdf8;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.18);
+    }
+
+    .formula-pill {
+      background-color: #1e293b;
+      border: 2px solid #fbbf24;
+      color: #fbbf24;
+      font-family: "Georgia", serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5rem;
+      border-radius: 10px;
+      margin: 0.45rem 0;
+    }
+
+    .canvas-container {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      background-color: #0f172a;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.85rem;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.45rem;
+      gap: 0.6rem;
+    }
+
+    .input-box {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border: 2px solid #334155;
+      padding: 0.4rem 0.68rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 205px;
+      text-align: center;
+      outline: none;
+      font-weight: 600;
+    }
+
+    .input-box:focus {
+      border-color: #38bdf8;
+    }
+
+    .select-box {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border: 2px solid #334155;
+      padding: 0.4rem 0.68rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      width: 205px;
+      outline: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #0284c7;
+      color: #f8fafc;
+      border: none;
+      padding: 0.52rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      margin-top: 0.55rem;
+      transition: background-color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #0369a1;
+    }
+
+    .feedback-msg {
+      margin-top: 0.48rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .feedback-msg.success {
+      background-color: rgba(21, 128, 61, 0.35);
+      color: #4ade80;
+      border: 1px solid #22c55e;
+    }
+
+    .feedback-msg.error {
+      background-color: rgba(127, 29, 29, 0.35);
+      color: #f87171;
+      border: 1px solid #ef4444;
+    }
+
+    .reveal-box {
+      background-color: #15803d;
+      color: #f8fafc;
+      padding: 0.52rem 0.9rem;
+      border-radius: 8px;
+      border: 2px solid #22c55e;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.98rem;
+      user-select: none;
+      transition: all 0.25s ease;
+      margin-top: 0.5rem;
+    }
+
+    .reveal-box:hover {
+      background-color: #166534;
+    }
+
+    .reveal-content {
+      display: none;
+      margin-top: 0.45rem;
+      padding: 0.55rem 0.75rem;
+      background-color: #0f172a;
+      border-radius: 8px;
+      border: 1px dashed #4ade80;
+      color: #e2e8f0;
+      text-align: left;
+      font-weight: normal;
+      font-size: 0.96rem;
+      line-height: 1.48;
+    }
+
+    .reveal-box.revealed {
+      background-color: #0f172a;
+      border-color: #4ade80;
+      cursor: pointer;
+    }
+
+    .reveal-box.revealed .reveal-header {
+      color: #4ade80;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .reveal-box.revealed .reveal-content {
+      display: block;
+    }
+
+    /* Inline Collapsible Sketchpad Styles */
+    .sketchpad-box {
+      margin-top: 0.45rem;
+      background-color: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 10px;
+      padding: 0.42rem 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+
+    .sketchpad-box.hidden {
+      display: none;
+    }
+
+    .sketchpad-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.28rem;
+    }
+
+    .sketchpad-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fbbf24;
+    }
+
+    .sketch-btns {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .sp-btn {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      padding: 0.2rem 0.45rem;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .sp-btn.active {
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 1.5px rgba(251, 191, 36, 0.4);
+    }
+
+    .sp-btn.clear-btn {
+      background-color: #7f1d1d;
+      border-color: #ef4444;
+      color: #fff;
+    }
+
+    .sp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .sp-canvas-wrap {
+      width: 100%;
+      height: 122px;
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 7px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to right, rgba(51, 65, 85, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(51, 65, 85, 0.35) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .sp-canvas-wrap.compact {
+      height: 94px;
+    }
+
+    .sp-canvas-wrap.tall {
+      height: 165px;
+    }
+
+    .sp-canvas-wrap.xlarge {
+      height: 215px;
+    }
+
+    .sp-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .reopen-pad-btn {
+      display: none;
+      margin-top: 0.4rem;
+      background-color: transparent;
+      color: #94a3b8;
+      border: 1px dashed #475569;
+      padding: 0.26rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+
+    .reopen-pad-btn.visible {
+      display: block;
+    }
+
+    .math-expr {
+      font-family: "Georgia", serif;
+      font-style: italic;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 0.95em;
+      line-height: 1.05;
+      margin: 0 3px;
+    }
+
+    .frac .num {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 3px 2px 3px;
+    }
+
+    .frac .den {
+      padding: 2px 3px 0 3px;
+    }
+
+    /* Dedicated High-Visibility Bottom Navigation Bar */
+    .bottom-nav-bar {
+      width: 100%;
+      background-color: #0f172a;
+      border-top: 2px solid #334155;
+      padding: 0.65rem 2.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .slide-counter {
+      color: #e2e8f0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      background-color: #1e293b;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #475569;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.9rem;
+    }
+
+    .nav-btn {
+      background-color: #334155;
+      color: #f8fafc;
+      border: 2px solid #64748b;
+      padding: 0.65rem 1.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.08rem;
+      min-width: 130px;
+      transition: background-color 0.2s, transform 0.1s;
+      touch-action: manipulation;
+    }
+
+    .nav-btn:hover {
+      background-color: #475569;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.97);
+    }
+
+    .nav-btn.next-primary {
+      background-color: #0284c7;
+      border-color: #38bdf8;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.45);
+    }
+
+    .nav-btn.next-primary:hover {
+      background-color: #0369a1;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation">
+    <div class="slides-wrapper">
+
+      <!-- SLIDE 1: Starter Question -->
+      <div class="slide active" id="slide-1">
+        <div class="slide-header">
+          <div class="slide-title">1. Starter Question: Distance &amp; Gradient</div>
+          <div class="slide-tag">Warm-Up</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <p style="font-size: 1.15rem; margin-bottom: 0.4rem;">
+                The points <strong>A(3, &minus;2)</strong> and <strong>B(9, 7)</strong> lie on a straight line.
+              </p>
+              <ul style="margin-left: 1.3rem; margin-bottom: 0.45rem; line-height: 1.55;">
+                <li><strong>(a)</strong> Calculate the distance between points A and B.</li>
+                <li><strong>(b)</strong> Find the gradient of the line passing through A and B.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-s1" data-compact="true"></div>
+              <button class="reopen-pad-btn" id="reopen-s1" onclick="showPad('s1')">Show Working Pad</button>
+
+              <div class="input-row">
+                <label for="s1_d">(a) Distance <span class="math-expr">d</span> (2 d.p.) =</label>
+                <input type="text" id="s1_d" class="input-box" placeholder="e.g. 10.82">
+              </div>
+              <div class="input-row">
+                <label for="s1_m">(b) Gradient <span class="math-expr">m</span> =</label>
+                <input type="text" id="s1_m" class="input-box" placeholder="e.g. 3/2 or 1.5">
+              </div>
+              <button class="submit-btn" onclick="checkSlide1()">Check Starter Answers</button>
+              <div id="fb1"></div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 's1')">
+              <span class="reveal-header">Reveal Full Starter Solutions</span>
+              <div class="reveal-content">
+                <strong>(a) Distance:</strong> <span class="math-expr">d</span> = &radic;<span style="text-decoration: overline;">(9 &minus; 3)<sup>2</sup> + (7 &minus; (&minus;2))<sup>2</sup></span> = &radic;<span style="text-decoration: overline;">6<sup>2</sup> + 9<sup>2</sup></span> = &radic;<span style="text-decoration: overline;">117</span> = <strong>3&radic;13 &approx; 10.82</strong><br>
+                <strong>(b) Gradient:</strong> <span class="math-expr">m</span> = <span class="frac"><span class="num">7 &minus; (&minus;2)</span><span class="den">9 &minus; 3</span></span> = <span class="frac"><span class="num">9</span><span class="den">6</span></span> = <strong><span class="frac"><span class="num">3</span><span class="den">2</span></span></strong> (or 1.5)
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <svg viewBox="0 0 340 290" style="max-height: 100%; width: auto;">
+              <g stroke="#334155" stroke-width="1">
+                <line x1="30" y1="20" x2="30" y2="265"/><line x1="80" y1="20" x2="80" y2="265"/>
+                <line x1="130" y1="20" x2="130" y2="265"/><line x1="180" y1="20" x2="180" y2="265"/>
+                <line x1="230" y1="20" x2="230" y2="265"/><line x1="280" y1="20" x2="280" y2="265"/>
+                <line x1="20" y1="40" x2="310" y2="40"/><line x1="20" y1="85" x2="310" y2="85"/>
+                <line x1="20" y1="130" x2="310" y2="130"/><line x1="20" y1="175" x2="310" y2="175"/>
+                <line x1="20" y1="220" x2="310" y2="220"/><line x1="20" y1="265" x2="310" y2="265"/>
+              </g>
+              <line x1="70" y1="220" x2="260" y2="220" stroke="#4ade80" stroke-width="3" stroke-dasharray="6"/>
+              <line x1="260" y1="220" x2="260" y2="50" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6"/>
+              <line x1="45" y1="242" x2="285" y2="28" stroke="#fbbf24" stroke-width="3.5"/>
+              <circle cx="70" cy="220" r="6" fill="#fbbf24"/>
+              <text x="35" y="242" fill="#f8fafc" font-size="14" font-weight="bold">A(3, -2)</text>
+              <circle cx="260" cy="50" r="6" fill="#fbbf24"/>
+              <text x="268" y="52" fill="#f8fafc" font-size="14" font-weight="bold">B(9, 7)</text>
+              <text x="125" y="240" fill="#4ade80" font-size="13" font-weight="bold">Run = 9 &minus; 3 = 6</text>
+              <text x="266" y="140" fill="#38bdf8" font-size="13" font-weight="bold">Rise = 9</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Chapter 4 Concept & Sign-Flip Check -->
+      <div class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="slide-title">2. Equation of a Line: Point-Slope Form</div>
+          <div class="slide-tag">Chapter 4</div>
+        </div>
+        <div class="slide-content">
+          <div class="grid-3col" style="margin-bottom: 0.9rem;">
+            <div class="roadmap-card">
+              <div>
+                <div style="color: #94a3b8; font-weight: 800; font-size: 0.85rem; text-transform: uppercase;">Form 1 &bull; Completed</div>
+                <h3 style="font-size: 1.3rem; color: #f8fafc; margin-top: 0.2rem;">Gradient-Intercept</h3>
+                <div class="formula-pill" style="border-color: #64748b; color: #e2e8f0;">y = mx + c</div>
+                <p style="font-size: 0.98rem; color: #94a3b8;">Requires gradient <span class="math-expr">m</span> and the <span class="math-expr">y</span>-intercept <span class="math-expr">c</span>.</p>
+              </div>
+            </div>
+
+            <div class="roadmap-card highlight">
+              <div>
+                <div style="color: #38bdf8; font-weight: 800; font-size: 0.85rem; text-transform: uppercase;">Form 2 &bull; Today's Focus</div>
+                <h3 style="font-size: 1.3rem; color: #f8fafc; margin-top: 0.2rem;">Point-Slope (Point-Gradient)</h3>
+                <div class="formula-pill">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</div>
+                <p style="font-size: 0.98rem; color: #cbd5e1;">Works with <strong>gradient <span class="math-expr">m</span></strong> and <strong>any known point (<span class="math-expr">x<sub>1</sub>, y<sub>1</sub></span>)</strong>—essential for <strong>Voronoi diagrams</strong>!</p>
+              </div>
+            </div>
+
+            <div class="roadmap-card">
+              <div>
+                <div style="color: #94a3b8; font-weight: 800; font-size: 0.85rem; text-transform: uppercase;">Form 3 &bull; Coming Next</div>
+                <h3 style="font-size: 1.3rem; color: #f8fafc; margin-top: 0.2rem;">Standard (General) Form</h3>
+                <div class="formula-pill" style="border-color: #64748b; color: #e2e8f0;">ax + by + d = 0</div>
+                <p style="font-size: 0.98rem; color: #94a3b8;">All coefficients <span class="math-expr">a, b, d</span> written as integers.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="flex-direction: row; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+            <div style="flex: 1.2; min-width: 280px;">
+              <strong style="color: #fbbf24; font-size: 1.1rem;">Watch the Signs!</strong>
+              <p style="font-size: 1.02rem; margin-top: 0.25rem;">
+                Because the formula has minus signs <span class="math-expr">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</span>, substituting a <strong>negative coordinate</strong> flips the sign to a plus!
+              </p>
+              <p style="font-size: 0.98rem; color: #38bdf8; margin-top: 0.35rem;">
+                <strong>Quick Check:</strong> Write the point-slope equation for gradient <span class="math-expr">m = &minus;2</span> passing through <strong>(&minus;3, 4)</strong>:
+              </p>
+            </div>
+            <div style="flex: 1; min-width: 280px;">
+              <div class="input-row" style="margin-top: 0;">
+                <label for="s2_eq">Equation:</label>
+                <input type="text" id="s2_eq" class="input-box" style="width: 210px;" placeholder="e.g. y-4=-2(x+3)">
+              </div>
+              <button class="submit-btn" onclick="checkSlide2()">Check Sign Flip</button>
+              <div id="fb2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Example 1 (Matches Handout Example 1: A(1,7), B(1,3), C(2,5)) -->
+      <div class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="slide-title">3. Example 1: Writing Point-Slope Equations</div>
+          <div class="slide-tag">
+            <a href="./01%20Point%20slope%20form%20Handout%202026%20-%20Complete-v2.docx" class="handout-link" download>Handout</a> &bull; Example 1
+          </div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <p style="margin-bottom: 0.45rem; font-size: 1.08rem;">Find the equation of the following lines in <strong>point-slope form</strong>:</p>
+              <div style="background-color: #1e293b; padding: 0.7rem 0.9rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 1.05rem; line-height: 1.6;">
+                <strong>(a)</strong> that has a gradient <strong>3</strong> and passes through point <strong>A(1, 7)</strong><br>
+                <strong>(b)</strong> that passes through the points <strong>B(1, 3)</strong> and <strong>C(2, 5)</strong>
+              </div>
+
+              <div class="sketchpad-box" id="pad-ex1" data-tall="true"></div>
+              <button class="reopen-pad-btn" id="reopen-ex1" onclick="showPad('ex1')">Show Working Pad</button>
+            </div>
+
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'ex1')">
+              <span class="reveal-header">Reveal Solutions: Example 1 (a) &amp; (b)</span>
+              <div class="reveal-content">
+                <strong>(a)</strong> Substitute <span class="math-expr">m = 3</span> and A(1, 7):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="math-expr" style="color:#f87171;">y &minus; 7 = 3(x &minus; 1)</span></strong> &nbsp;(Red line: <span class="math-expr">y = 3x + 4</span>)<br>
+                <strong>(b)</strong> Find gradient first: <span class="math-expr">m</span> = <span class="frac"><span class="num">5 &minus; 3</span><span class="den">2 &minus; 1</span></span> = <strong>2</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="math-expr" style="color:#38bdf8;">y &minus; 3 = 2(x &minus; 1)</span></strong> or <strong><span class="math-expr" style="color:#38bdf8;">y &minus; 5 = 2(x &minus; 2)</span></strong> &nbsp;(Blue line: <span class="math-expr">y = 2x + 1</span>)
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <svg viewBox="0 0 330 300" style="max-height: 100%; width: auto;">
+              <g stroke="#334155" stroke-width="0.8">
+                <line x1="40" y1="15" x2="40" y2="280"/><line x1="75" y1="15" x2="75" y2="280"/>
+                <line x1="110" y1="15" x2="110" y2="280"/><line x1="145" y1="15" x2="145" y2="280"/>
+                <line x1="180" y1="15" x2="180" y2="280"/><line x1="215" y1="15" x2="215" y2="280"/>
+                <line x1="250" y1="15" x2="250" y2="280"/>
+                <line x1="30" y1="37" x2="270" y2="37"/><line x1="30" y1="59" x2="270" y2="59"/>
+                <line x1="30" y1="81" x2="270" y2="81"/><line x1="30" y1="103" x2="270" y2="103"/>
+                <line x1="30" y1="125" x2="270" y2="125"/><line x1="30" y1="147" x2="270" y2="147"/>
+                <line x1="30" y1="169" x2="270" y2="169"/><line x1="30" y1="191" x2="270" y2="191"/>
+                <line x1="30" y1="213" x2="270" y2="213"/><line x1="30" y1="235" x2="270" y2="235"/>
+                <line x1="30" y1="257" x2="270" y2="257"/>
+              </g>
+              <line x1="25" y1="235" x2="280" y2="235" stroke="#f8fafc" stroke-width="2"/>
+              <line x1="110" y1="12" x2="110" y2="285" stroke="#f8fafc" stroke-width="2"/>
+              <text x="97" y="217" fill="#94a3b8" font-size="11">1</text>
+              <text x="97" y="173" fill="#94a3b8" font-size="11">3</text>
+              <text x="97" y="129" fill="#94a3b8" font-size="11">5</text>
+              <text x="97" y="85" fill="#94a3b8" font-size="11">7</text>
+              <text x="142" y="250" fill="#94a3b8" font-size="11">1</text>
+              <text x="177" y="250" fill="#94a3b8" font-size="11">2</text>
+              <text x="212" y="250" fill="#94a3b8" font-size="11">3</text>
+
+              <line x1="40" y1="279" x2="170" y2="35" stroke="#ef4444" stroke-width="3.2"/>
+              <line x1="58" y1="279" x2="250" y2="37" stroke="#38bdf8" stroke-width="3.2"/>
+
+              <circle cx="145" cy="81" r="6" fill="#4ade80" stroke="#0f172a" stroke-width="1.5"/>
+              <text x="122" y="75" fill="#4ade80" font-size="13" font-weight="bold">A(1, 7)</text>
+
+              <circle cx="145" cy="169" r="6" fill="#c084fc" stroke="#0f172a" stroke-width="1.5"/>
+              <text x="154" y="174" fill="#c084fc" font-size="13" font-weight="bold">B(1, 3)</text>
+
+              <circle cx="180" cy="125" r="6" fill="#fbbf24" stroke="#0f172a" stroke-width="1.5"/>
+              <text x="189" y="130" fill="#fbbf24" font-size="13" font-weight="bold">C(2, 5)</text>
+
+              <circle cx="110" cy="213" r="4.5" fill="#38bdf8"/>
+              <text x="117" y="211" fill="#38bdf8" font-size="11" font-weight="bold">(0, 1)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Example 2 (Matches Handout Example 2) -->
+      <div class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="slide-title">4. Example 2: Boundary Line Application</div>
+          <div class="slide-tag">Handout &bull; Example 2</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <p style="margin-bottom: 0.4rem; font-size: 1.05rem;">
+                Points <strong>A</strong> and <strong>B</strong> lie on the straight-line boundary between two plots of land as shown in the diagram.
+              </p>
+              <ul style="margin-left: 1.3rem; margin-bottom: 0.45rem; font-size: 1.02rem; line-height: 1.5;">
+                <li><strong>(a)</strong> Write the equation of the line passing through A and B in <strong>point-slope form</strong>.</li>
+                <li><strong>(b)</strong> A tree is located at point <strong>C(25, 30)</strong>. Determine whether the tree is on the boundary line.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-ex2" data-tall="true"></div>
+              <button class="reopen-pad-btn" id="reopen-ex2" onclick="showPad('ex2')">Show Working Pad</button>
+            </div>
+
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'ex2')">
+              <span class="reveal-header">Reveal Full Solution: Example 2</span>
+              <div class="reveal-content">
+                <strong>(a)</strong> Read coordinates from graph: <strong>A(6, 8)</strong> and <strong>B(12, 10)</strong>.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Gradient: <span class="math-expr">m</span> = <span class="frac"><span class="num">10 &minus; 8</span><span class="den">12 &minus; 6</span></span> = <span class="frac"><span class="num">2</span><span class="den">6</span></span> = <strong><span class="frac"><span class="num">1</span><span class="den">3</span></span></strong> &rArr; <strong><span class="math-expr" style="color:#4ade80;">y &minus; 8 = <span class="frac"><span class="num">1</span><span class="den">3</span></span>(x &minus; 6)</span></strong> (or <span class="math-expr">y &minus; 10 = <span class="frac"><span class="num">1</span><span class="den">3</span></span>(x &minus; 12)</span>)<br>
+                <strong>(b)</strong> Substitute C(25, 30): LHS = <span class="math-expr">30 &minus; 8 = 22</span>; RHS = <span class="frac"><span class="num">1</span><span class="den">3</span></span>(25 &minus; 6) = <span class="frac"><span class="num">19</span><span class="den">3</span></span> &approx; 6.33.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Since 22 &ne; 6.33, <strong>the tree is NOT on the boundary line</strong>.
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <svg viewBox="0 0 340 280" style="max-height: 100%; width: auto;">
+              <g stroke="#334155" stroke-width="0.8">
+                <line x1="35" y1="20" x2="35" y2="250"/><line x1="75" y1="20" x2="75" y2="250"/>
+                <line x1="115" y1="20" x2="115" y2="250"/><line x1="155" y1="20" x2="155" y2="250"/>
+                <line x1="195" y1="20" x2="195" y2="250"/><line x1="235" y1="20" x2="235" y2="250"/>
+                <line x1="275" y1="20" x2="275" y2="250"/><line x1="315" y1="20" x2="315" y2="250"/>
+                <line x1="25" y1="250" x2="320" y2="250"/><line x1="25" y1="206" x2="320" y2="206"/>
+                <line x1="25" y1="162" x2="320" y2="162"/><line x1="25" y1="118" x2="320" y2="118"/>
+                <line x1="25" y1="74" x2="320" y2="74"/><line x1="25" y1="30" x2="320" y2="30"/>
+              </g>
+              <line x1="25" y1="250" x2="325" y2="250" stroke="#f8fafc" stroke-width="2"/>
+              <line x1="35" y1="18" x2="35" y2="260" stroke="#f8fafc" stroke-width="2"/>
+              <text x="22" y="264" fill="#94a3b8" font-size="11">0</text>
+              <text x="72" y="264" fill="#94a3b8" font-size="11">2</text>
+              <text x="112" y="264" fill="#94a3b8" font-size="11">4</text>
+              <text x="152" y="264" fill="#94a3b8" font-size="11">6</text>
+              <text x="192" y="264" fill="#94a3b8" font-size="11">8</text>
+              <text x="230" y="264" fill="#94a3b8" font-size="11">10</text>
+              <text x="270" y="264" fill="#94a3b8" font-size="11">12</text>
+              <text x="20" y="210" fill="#94a3b8" font-size="11">2</text>
+              <text x="20" y="166" fill="#94a3b8" font-size="11">4</text>
+              <text x="20" y="122" fill="#94a3b8" font-size="11">6</text>
+              <text x="20" y="78" fill="#94a3b8" font-size="11">8</text>
+              <text x="15" y="34" fill="#94a3b8" font-size="11">10</text>
+              <line x1="25" y1="125" x2="320" y2="13" stroke="#f87171" stroke-width="3"/>
+              <circle cx="155" cy="74" r="6" fill="#38bdf8"/>
+              <text x="148" y="96" fill="#38bdf8" font-size="13" font-weight="bold">A</text>
+              <circle cx="275" cy="30" r="6" fill="#4ade80"/>
+              <text x="275" y="20" fill="#4ade80" font-size="13" font-weight="bold">B</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Example 3 (Applied Drone Survey + Intersection Challenge) -->
+      <div class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="slide-title">5. Example 3: Coastal Drone Flight Path</div>
+          <div class="slide-tag">Handout &bull; Example 3</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <p style="margin-bottom: 0.38rem; font-size: 1.02rem;">
+                A drone surveys a coastline along a straight flight path, passing over a lighthouse at <strong>P(4, 11)</strong> and a buoy at <strong>Q(10, 8)</strong> (coordinates in km).
+              </p>
+              <ul style="margin-left: 1.25rem; margin-bottom: 0.4rem; font-size: 0.98rem; line-height: 1.46;">
+                <li><strong>(a)</strong> Find the equation of the drone&rsquo;s flight path in <strong>point-slope form</strong>.</li>
+                <li><strong>(b)</strong> A rescue boat is anchored at <strong>R(18, 4)</strong>, and a second drone flies along <span class="math-expr">y = 2x &minus; 9</span>. Determine whether the rescue boat is on the first drone&rsquo;s path, and find where the two flight paths intersect.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-ex3" data-compact="true"></div>
+              <button class="reopen-pad-btn" id="reopen-ex3" onclick="showPad('ex3')">Show Working Pad</button>
+            </div>
+
+            <div>
+              <div class="input-row">
+                <label for="ex3_a">(a) Path (using P):</label>
+                <input type="text" id="ex3_a" class="input-box" placeholder="y-11=-1/2(x-4)">
+              </div>
+              <div class="input-row">
+                <label for="ex3_b_boat">(b) Boat R on path?</label>
+                <select id="ex3_b_boat" class="select-box">
+                  <option value="">-- Select --</option>
+                  <option value="yes">Yes (4 = 4)</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="input-row">
+                <label for="ex3_b_int">(b) Intersection <span class="math-expr">(x, y)</span>:</label>
+                <input type="text" id="ex3_b_int" class="input-box" placeholder="e.g. (8.8, 8.6)">
+              </div>
+              <button class="submit-btn" onclick="checkExample3()">Check Example 3</button>
+              <div id="fb_ex3"></div>
+
+              <div class="reveal-box" onclick="toggleRevealWithPad(this, 'ex3')">
+                <span class="reveal-header">Reveal Full Solution: Example 3</span>
+                <div class="reveal-content">
+                  <strong>(a)</strong> Gradient: <span class="math-expr">m</span> = <span class="frac"><span class="num">8 &minus; 11</span><span class="den">10 &minus; 4</span></span> = &minus;<span class="frac"><span class="num">3</span><span class="den">6</span></span> = <strong>&minus;<span class="frac"><span class="num">1</span><span class="den">2</span></span></strong> &rArr; <strong><span class="math-expr" style="color:#4ade80;">y &minus; 11 = &minus;<span class="frac"><span class="num">1</span><span class="den">2</span></span>(x &minus; 4)</span></strong> (or <span class="math-expr">y = &minus;0.5x + 13</span>)<br>
+                  <strong>(b)</strong> Test R(18, 4): <span class="math-expr">4 &minus; 11 = &minus;7</span> and <span class="math-expr">&minus;<span class="frac"><span class="num">1</span><span class="den">2</span></span>(18 &minus; 4) = &minus;7</span> &rArr; <strong>Yes, R lies on the path</strong>.<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;Intersection: <span class="math-expr">&minus;0.5x + 13 = 2x &minus; 9 &rArr; 2.5x = 22 &rArr; x = 8.8</span>, <span class="math-expr">y = 2(8.8) &minus; 9 = 8.6</span> &rArr; <strong>(8.8, 8.6)</strong>.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <svg viewBox="0 0 330 290" style="max-height: 100%; width: auto;">
+              <g stroke="#334155" stroke-width="0.8">
+                <line x1="35" y1="25" x2="35" y2="255"/><line x1="89" y1="25" x2="89" y2="255"/>
+                <line x1="143" y1="25" x2="143" y2="255"/><line x1="197" y1="25" x2="197" y2="255"/>
+                <line x1="251" y1="25" x2="251" y2="255"/><line x1="305" y1="25" x2="305" y2="255"/>
+                <line x1="35" y1="255" x2="310" y2="255"/><line x1="35" y1="210" x2="310" y2="210"/>
+                <line x1="35" y1="165" x2="310" y2="165"/><line x1="35" y1="120" x2="310" y2="120"/>
+                <line x1="35" y1="75" x2="310" y2="75"/><line x1="35" y1="30" x2="310" y2="30"/>
+              </g>
+              <line x1="25" y1="255" x2="315" y2="255" stroke="#f8fafc" stroke-width="2"/>
+              <line x1="35" y1="20" x2="35" y2="265" stroke="#f8fafc" stroke-width="2"/>
+              <text x="84" y="270" fill="#94a3b8" font-size="11">4</text>
+              <text x="138" y="270" fill="#94a3b8" font-size="11">8</text>
+              <text x="190" y="270" fill="#94a3b8" font-size="11">12</text>
+              <text x="244" y="270" fill="#94a3b8" font-size="11">16</text>
+              <text x="298" y="270" fill="#94a3b8" font-size="11">20</text>
+              <text x="18" y="214" fill="#94a3b8" font-size="11">3</text>
+              <text x="18" y="169" fill="#94a3b8" font-size="11">6</text>
+              <text x="18" y="124" fill="#94a3b8" font-size="11">9</text>
+              <text x="14" y="79" fill="#94a3b8" font-size="11">12</text>
+
+              <line x1="35" y1="60" x2="305" y2="210" stroke="#38bdf8" stroke-width="3.2"/>
+              <line x1="96" y1="255" x2="197" y2="30" stroke="#fbbf24" stroke-width="2.8" stroke-dasharray="6"/>
+              <text x="202" y="45" fill="#fbbf24" font-size="11" font-weight="bold">y = 2x - 9</text>
+
+              <circle cx="89" cy="90" r="5.5" fill="#38bdf8"/>
+              <text x="64" y="80" fill="#38bdf8" font-size="12" font-weight="bold">P(4, 11)</text>
+              <circle cx="170" cy="135" r="5.5" fill="#38bdf8"/>
+              <text x="176" y="131" fill="#38bdf8" font-size="12" font-weight="bold">Q(10, 8)</text>
+              <circle cx="278" cy="195" r="5.5" fill="#4ade80"/>
+              <text x="252" y="213" fill="#4ade80" font-size="12" font-weight="bold">R(18, 4)</text>
+              <circle cx="153.8" cy="126" r="5.5" fill="#f87171"/>
+              <text x="90" y="146" fill="#f87171" font-size="11" font-weight="bold">(8.8, 8.6)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Practice Questions 1 & 2 (Level 1 & Level 2) -->
+      <div class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="slide-title">6. Practice Set: Questions 1 &amp; 2</div>
+          <div class="slide-tag">Handout &bull; Levels 1 &amp; 2</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <div style="color: #4ade80; font-weight: 800; margin-bottom: 0.3rem;">Question 1 &bull; Warm-Up (Direct Substitution)</div>
+              <p style="font-size: 1.05rem; line-height: 1.55;">
+                Write the equation in <strong>point-slope form</strong> <span class="math-expr">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</span> of the straight line with gradient <strong><span class="math-expr">m</span> = 4</strong> that passes through the point <strong>(2, 9)</strong>.
+              </p>
+
+              <div class="sketchpad-box" id="pad-q1" data-tall="true"></div>
+              <button class="reopen-pad-btn" id="reopen-q1" onclick="showPad('q1')">Show Working Pad</button>
+            </div>
+
+            <div>
+              <div class="input-row">
+                <label for="pq_1">Equation:</label>
+                <input type="text" id="pq_1" class="input-box" style="width: 210px;" placeholder="e.g. y-9=4(x-2)">
+              </div>
+              <button class="submit-btn" onclick="checkQ1()">Check Question 1</button>
+              <div id="fb_q1"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.3rem;">Question 2 &bull; Negative Coordinates &amp; Fraction</div>
+              <p style="font-size: 1.05rem; line-height: 1.55;">
+                Write the equation in <strong>point-slope form</strong> of the straight line with gradient <strong><span class="math-expr">m</span> = &minus;<span class="frac"><span class="num">3</span><span class="den">2</span></span></strong> that passes through the point <strong>(&minus;4, &minus;5)</strong>.
+              </p>
+
+              <div class="sketchpad-box" id="pad-q2" data-tall="true"></div>
+              <button class="reopen-pad-btn" id="reopen-q2" onclick="showPad('q2')">Show Working Pad</button>
+            </div>
+
+            <div>
+              <div class="input-row">
+                <label for="pq_2">Equation:</label>
+                <input type="text" id="pq_2" class="input-box" style="width: 210px;" placeholder="e.g. y+5=-3/2(x+4)">
+              </div>
+              <button class="submit-btn" onclick="checkQ2()">Check Question 2</button>
+              <div id="fb_q2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Practice Question 3 ONLY (Level 3 - Two Points to Point-Slope Form) -->
+      <div class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="slide-title">7. Practice Set: Question 3</div>
+          <div class="slide-tag">Handout &bull; Level 3</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <!-- Left Card: Question & Large Working Pad -->
+          <div class="card">
+            <div>
+              <div style="color: #fbbf24; font-weight: 800; font-size: 1.12rem; margin-bottom: 0.35rem;">
+                Question 3 &bull; Two Points to Point-Slope Form
+              </div>
+              <p style="font-size: 1.1rem; margin-bottom: 0.4rem;">
+                A straight line passes through the points <strong>A(&minus;2, 7)</strong> and <strong>B(4, &minus;5)</strong>.
+              </p>
+              <ul style="margin-left: 1.3rem; font-size: 1.06rem; line-height: 1.55; margin-bottom: 0.5rem;">
+                <li><strong>(a)</strong> Calculate the gradient of the line AB.</li>
+                <li><strong>(b)</strong> Write the equation of the line in point-slope form using point A.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-q3" data-xlarge="true"></div>
+              <button class="reopen-pad-btn" id="reopen-q3" onclick="showPad('q3')">Show Working Pad</button>
+            </div>
+          </div>
+
+          <!-- Right Card: Step-by-Step Hint, Interactive Check & Reveal -->
+          <div class="card">
+            <div>
+              <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.35rem;">Strategy &amp; Answer Check</div>
+              <div style="background-color: #1e293b; border-left: 4px solid #fbbf24; padding: 0.75rem 0.95rem; border-radius: 8px; font-size: 1rem; line-height: 1.55; margin-bottom: 0.7rem;">
+                <strong>Step 1:</strong> Use <span class="math-expr">m</span> = <span class="frac"><span class="num">y<sub>2</sub> &minus; y<sub>1</sub></span><span class="den">x<sub>2</sub> &minus; x<sub>1</sub></span></span> carefully with negative signs.<br>
+                <strong>Step 2:</strong> Substitute <span class="math-expr">m</span> and <strong>A(&minus;2, 7)</strong> into <span class="math-expr">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</span>.
+              </div>
+
+              <div class="input-row">
+                <label for="pq_3a">(a) Gradient <span class="math-expr">m</span> =</label>
+                <input type="text" id="pq_3a" class="input-box" placeholder="e.g. -2">
+              </div>
+              <div class="input-row">
+                <label for="pq_3b">(b) Equation (using A):</label>
+                <input type="text" id="pq_3b" class="input-box" placeholder="y-7=-2(x+2)">
+              </div>
+              <button class="submit-btn" onclick="checkQ3()">Check Question 3</button>
+              <div id="fb_q3"></div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'q3')">
+              <span class="reveal-header">Reveal Full Solution: Question 3</span>
+              <div class="reveal-content">
+                <strong>(a)</strong> Gradient: <span class="math-expr">m</span> = <span class="frac"><span class="num">&minus;5 &minus; 7</span><span class="den">4 &minus; (&minus;2)</span></span> = <span class="frac"><span class="num">&minus;12</span><span class="den">6</span></span> = <strong>&minus;2</strong><br>
+                <strong>(b)</strong> Using A(&minus;2, 7): <span class="math-expr">y &minus; 7 = &minus;2(x &minus; (&minus;2))</span> &rArr; <strong><span class="math-expr" style="color:#4ade80;">y &minus; 7 = &minus;2(x + 2)</span></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: Practice Question 4 ONLY (Level 4 - Mountain Gondola Cable) -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="slide-title">8. Practice Set: Question 4</div>
+          <div class="slide-tag">Handout &bull; Level 4</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <!-- Left Card: Question & Large Working Pad -->
+          <div class="card">
+            <div>
+              <div style="color: #fb923c; font-weight: 800; font-size: 1.12rem; margin-bottom: 0.35rem;">
+                Question 4 &bull; Mountain Gondola Cable
+              </div>
+              <p style="font-size: 1.06rem; margin-bottom: 0.4rem; line-height: 1.5;">
+                A mountain gondola ascends along a straight cable passing through Base Station <strong>M(15, 120)</strong> and Mid-Station <strong>N(55, 200)</strong>, where <span class="math-expr">x</span> is horizontal distance (m) and <span class="math-expr">y</span> is elevation (m).
+              </p>
+              <ul style="margin-left: 1.3rem; font-size: 1.04rem; line-height: 1.52; margin-bottom: 0.5rem;">
+                <li><strong>(a)</strong> Write the equation of the cable in point-slope form (using M).</li>
+                <li><strong>(b)</strong> A support pylon is planned at <strong>P(95, 275)</strong>. Determine algebraically whether P lies directly on the cable line.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-q4" data-xlarge="true"></div>
+              <button class="reopen-pad-btn" id="reopen-q4" onclick="showPad('q4')">Show Working Pad</button>
+            </div>
+          </div>
+
+          <!-- Right Card: Strategy, Interactive Check & Reveal -->
+          <div class="card">
+            <div>
+              <div style="color: #38bdf8; font-weight: 800; margin-bottom: 0.35rem;">Strategy &amp; Answer Check</div>
+              <div style="background-color: #1e293b; border-left: 4px solid #fb923c; padding: 0.75rem 0.95rem; border-radius: 8px; font-size: 1rem; line-height: 1.55; margin-bottom: 0.7rem;">
+                <strong>Part (a):</strong> Find gradient <span class="math-expr">m</span> between M(15, 120) and N(55, 200), then substitute M.<br>
+                <strong>Part (b):</strong> Plug <span class="math-expr">x = 95</span> and <span class="math-expr">y = 275</span> into your equation and compare LHS with RHS.
+              </div>
+
+              <div class="input-row">
+                <label for="pq_4a">(a) Equation (using M):</label>
+                <input type="text" id="pq_4a" class="input-box" placeholder="y-120=2(x-15)">
+              </div>
+              <div class="input-row">
+                <label for="pq_4b">(b) Is P(95, 275) on cable?</label>
+                <select id="pq_4b" class="select-box">
+                  <option value="">-- Select --</option>
+                  <option value="no">No (275 &ne; 280)</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+              <button class="submit-btn" onclick="checkQ4()">Check Question 4</button>
+              <div id="fb_q4"></div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleRevealWithPad(this, 'q4')">
+              <span class="reveal-header">Reveal Full Solution: Question 4</span>
+              <div class="reveal-content">
+                <strong>(a)</strong> Gradient: <span class="math-expr">m</span> = <span class="frac"><span class="num">200 &minus; 120</span><span class="den">55 &minus; 15</span></span> = <span class="frac"><span class="num">80</span><span class="den">40</span></span> = <strong>2</strong> &rArr; <strong><span class="math-expr" style="color:#4ade80;">y &minus; 120 = 2(x &minus; 15)</span></strong><br>
+                <strong>(b)</strong> Substitute P(95, 275): LHS = <span class="math-expr">275 &minus; 120 = 155</span>; RHS = <span class="math-expr">2(95 &minus; 15) = 2(80) = 160</span> (cable height at <span class="math-expr">x = 95</span> is <strong>280 m</strong>).<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Since 155 &ne; 160, <strong>pylon P does NOT lie on the cable line</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: Practice Question 5 (IB Challenge - Voronoi Perpendicular Bisector) -->
+      <div class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="slide-title">9. Practice Set: Question 5 (IB Challenge)</div>
+          <div class="slide-tag">Handout &bull; Voronoi Preview</div>
+        </div>
+        <div class="slide-content grid-2col">
+          <div class="card">
+            <div>
+              <div style="color: #f87171; font-weight: 800; margin-bottom: 0.3rem;">Question 5 &bull; Cell Towers &amp; Voronoi Boundary Edge</div>
+              <p style="font-size: 1.03rem; margin-bottom: 0.35rem;">
+                Two cell towers are located at <strong>S(2, 1)</strong> and <strong>T(8, 5)</strong>. In a Voronoi diagram, the boundary separating their regions is the <strong>perpendicular bisector</strong> of segment ST.
+              </p>
+              <ul style="margin-left: 1.25rem; font-size: 1rem; line-height: 1.5;">
+                <li><strong>(a)</strong> Find the midpoint <strong>M</strong> of segment ST and the gradient of ST.</li>
+                <li><strong>(b)</strong> Hence, write the equation of the Voronoi boundary edge in <strong>point-slope form</strong>.</li>
+              </ul>
+
+              <div class="sketchpad-box" id="pad-q5" data-compact="true"></div>
+              <button class="reopen-pad-btn" id="reopen-q5" onclick="showPad('q5')">Show Working Pad</button>
+            </div>
+
+            <div>
+              <div class="input-row">
+                <label for="pq_5m">(a) Midpoint M <span class="math-expr">(x, y)</span>:</label>
+                <input type="text" id="pq_5m" class="input-box" placeholder="e.g. (5, 3)">
+              </div>
+              <div class="input-row">
+                <label for="pq_5eq">(b) Boundary equation:</label>
+                <input type="text" id="pq_5eq" class="input-box" placeholder="y-3=-3/2(x-5)">
+              </div>
+              <button class="submit-btn" onclick="checkQ5()">Check Question 5</button>
+              <div id="fb_q5"></div>
+
+              <div class="reveal-box" onclick="toggleRevealWithPad(this, 'q5')">
+                <span class="reveal-header">Reveal Full Solution (Question 5)</span>
+                <div class="reveal-content">
+                  <strong>(a)</strong> Midpoint M = (<span class="frac"><span class="num">2 + 8</span><span class="den">2</span></span>, <span class="frac"><span class="num">1 + 5</span><span class="den">2</span></span>) = <strong>(5, 3)</strong>; Gradient <span class="math-expr">m<sub>ST</sub></span> = <span class="frac"><span class="num">5 &minus; 1</span><span class="den">8 &minus; 2</span></span> = <span class="frac"><span class="num">4</span><span class="den">6</span></span> = <strong><span class="frac"><span class="num">2</span><span class="den">3</span></span></strong>.<br>
+                  <strong>(b)</strong> Perpendicular gradient: <span class="math-expr">m<sub>&perp;</sub></span> = <strong>&minus;<span class="frac"><span class="num">3</span><span class="den">2</span></span></strong> &rArr; <strong><span class="math-expr" style="color:#4ade80;">y &minus; 3 = &minus;<span class="frac"><span class="num">3</span><span class="den">2</span></span>(x &minus; 5)</span></strong>.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <svg viewBox="0 0 330 290" style="max-height: 100%; width: auto;">
+              <g stroke="#334155" stroke-width="0.8">
+                <line x1="25" y1="18" x2="25" y2="265"/><line x1="77" y1="18" x2="77" y2="265"/>
+                <line x1="129" y1="18" x2="129" y2="265"/><line x1="181" y1="18" x2="181" y2="265"/>
+                <line x1="233" y1="18" x2="233" y2="265"/><line x1="285" y1="18" x2="285" y2="265"/>
+                <line x1="20" y1="42" x2="305" y2="42"/><line x1="20" y1="90" x2="305" y2="90"/>
+                <line x1="20" y1="138" x2="305" y2="138"/><line x1="20" y1="186" x2="305" y2="186"/>
+                <line x1="20" y1="210" x2="305" y2="210"/><line x1="20" y1="258" x2="305" y2="258"/>
+              </g>
+              <line x1="20" y1="210" x2="310" y2="210" stroke="#f8fafc" stroke-width="2"/>
+              <line x1="25" y1="15" x2="25" y2="270" stroke="#f8fafc" stroke-width="2"/>
+              <line x1="77" y1="186" x2="233" y2="90" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6"/>
+              <line x1="90" y1="30" x2="220" y2="246" stroke="#fbbf24" stroke-width="3.5"/>
+              <text x="195" y="258" fill="#fbbf24" font-size="12" font-weight="bold">Voronoi Edge</text>
+
+              <circle cx="77" cy="186" r="6" fill="#38bdf8"/>
+              <text x="48" y="203" fill="#38bdf8" font-size="13" font-weight="bold">S(2, 1)</text>
+
+              <circle cx="233" cy="90" r="6" fill="#38bdf8"/>
+              <text x="240" y="92" fill="#38bdf8" font-size="13" font-weight="bold">T(8, 5)</text>
+
+              <circle cx="155" cy="138" r="6" fill="#4ade80"/>
+              <text x="163" y="135" fill="#4ade80" font-size="13" font-weight="bold">M(5, 3)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: Brief Wrap-Up (Homework & What's Coming Next) -->
+      <div class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="slide-title">10. Homework &amp; What&rsquo;s Coming Next</div>
+          <div class="slide-tag">Lesson Wrap-Up</div>
+        </div>
+        <div class="slide-content">
+          <div class="grid-2col" style="max-width: 1100px; margin: 0 auto; width: 100%; height: auto; align-items: stretch;">
+            <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #172554 100%); border: 2px solid #38bdf8; padding: 1.8rem;">
+              <div>
+                <div style="color: #fbbf24; font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em;">
+                  Homework
+                </div>
+                <h3 style="font-size: 1.7rem; color: #f8fafc; margin: 0.4rem 0 0.8rem 0;">
+                  Point-Slope Form Handout
+                </h3>
+                <p style="font-size: 1.15rem; color: #e2e8f0; line-height: 1.65;">
+                  Complete any remaining problems from <strong>Practice Questions 1 to 5</strong> on your handout.
+                </p>
+              </div>
+              <div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid #334155; font-size: 1rem; color: #38bdf8;">
+                Double-check sign flips when substituting negative coordinates into <span class="math-expr">y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>)</span>.
+              </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #14332a 100%); border: 2px solid #22c55e; padding: 1.8rem;">
+              <div>
+                <div style="color: #4ade80; font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em;">
+                  Coming Next
+                </div>
+                <h3 style="font-size: 1.7rem; color: #f8fafc; margin: 0.4rem 0 0.8rem 0;">
+                  Standard (General) Form
+                </h3>
+                <div class="formula-pill" style="border-color: #4ade80; color: #4ade80; font-size: 1.65rem;">
+                  ax + by + d = 0
+                </div>
+                <p style="font-size: 1.12rem; color: #cbd5e1; margin-top: 0.6rem; line-height: 1.6;">
+                  Next lesson, we will convert straight-line equations into integer-only <strong>Standard Form</strong> before moving on to <strong>Voronoi diagrams</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Dedicated High-Visibility Bottom Navigation Bar -->
+    <div class="bottom-nav-bar">
+      <div class="slide-counter">Slide <span id="currentSlide">1</span> of 10</div>
+      <div class="controls">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+        <button class="nav-btn next-primary" id="nextBtn" onclick="nextSlide()">Next Slide &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let current = 1;
+    const total = 10;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById(`slide-${n}`).classList.add('active');
+      document.getElementById('currentSlide').textContent = n;
+
+      document.getElementById('prevBtn').disabled = (n === 1);
+      document.getElementById('nextBtn').disabled = (n === total);
+
+      setTimeout(resizeAllPads, 50);
+    }
+
+    function nextSlide() {
+      if (current < total) {
+        current++;
+        showSlide(current);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 1) {
+        current--;
+        showSlide(current);
+      }
+    }
+
+    function hidePad(padKey) {
+      const box = document.getElementById(`pad-${padKey}`);
+      const reopenBtn = document.getElementById(`reopen-${padKey}`);
+      if (box) box.classList.add('hidden');
+      if (reopenBtn) reopenBtn.classList.add('visible');
+    }
+
+    function showPad(padKey) {
+      const box = document.getElementById(`pad-${padKey}`);
+      const reopenBtn = document.getElementById(`reopen-${padKey}`);
+      if (box) box.classList.remove('hidden');
+      if (reopenBtn) reopenBtn.classList.remove('visible');
+      setTimeout(() => {
+        if (pads[padKey]) pads[padKey].resize();
+      }, 20);
+    }
+
+    function toggleRevealWithPad(el, padKey) {
+      el.classList.toggle('revealed');
+      if (el.classList.contains('revealed')) {
+        hidePad(padKey);
+      } else {
+        showPad(padKey);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // --- Interactive Sketchpad Factory ---
+    const pads = {};
+
+    function createSketchpad(padKey) {
+      const container = document.getElementById(`pad-${padKey}`);
+      if (!container) return;
+
+      const isXLarge = container.dataset.xlarge === 'true';
+      const isTall = container.dataset.tall === 'true';
+      const isCompact = container.dataset.compact === 'true';
+      const sizeClass = isXLarge ? 'xlarge' : (isTall ? 'tall' : (isCompact ? 'compact' : ''));
+
+      container.innerHTML = `
+        <div class="sketchpad-toolbar">
+          <span class="sketchpad-label">Working Pad</span>
+          <div class="sketch-btns">
+            <button type="button" class="sp-btn active" data-tool="blue">
+              <span class="sp-dot" style="background:#38bdf8;"></span> Pen
+            </button>
+            <button type="button" class="sp-btn" data-tool="yellow">
+              <span class="sp-dot" style="background:#fbbf24;"></span> Yellow
+            </button>
+            <button type="button" class="sp-btn" data-tool="eraser">Eraser</button>
+            <button type="button" class="sp-btn" data-tool="undo">Undo</button>
+            <button type="button" class="sp-btn clear-btn" data-tool="clear">Clear</button>
+          </div>
+        </div>
+        <div class="sp-canvas-wrap ${sizeClass}">
+          <canvas></canvas>
+        </div>
+      `;
+
+      const wrap = container.querySelector('.sp-canvas-wrap');
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let drawing = false;
+      let color = '#38bdf8';
+      let lineWidth = 2.8;
+      let eraser = false;
+      let history = [];
+
+      function resize() {
+        const rect = wrap.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        const dpr = window.devicePixelRatio || 1;
+        const snapshot = canvas.width > 0 ? canvas.toDataURL() : null;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        if (snapshot) {
+          const img = new Image();
+          img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+          img.src = snapshot;
+        }
+      }
+
+      function saveHistory() {
+        history.push(canvas.toDataURL());
+        if (history.length > 20) history.shift();
+      }
+
+      function undo() {
+        if (!history.length) return;
+        const prev = history.pop();
+        const rect = wrap.getBoundingClientRect();
+        const img = new Image();
+        img.onload = () => {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.clearRect(0, 0, rect.width, rect.height);
+          ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = prev;
+      }
+
+      function clear() {
+        saveHistory();
+        const rect = wrap.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+      }
+
+      container.querySelectorAll('.sp-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const tool = btn.dataset.tool;
+          if (tool === 'undo') { undo(); return; }
+          if (tool === 'clear') { clear(); return; }
+
+          container.querySelectorAll('.sp-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          if (tool === 'blue') {
+            eraser = false; color = '#38bdf8'; lineWidth = 2.8;
+          } else if (tool === 'yellow') {
+            eraser = false; color = '#fbbf24'; lineWidth = 2.8;
+          } else if (tool === 'eraser') {
+            eraser = true; lineWidth = 20;
+          }
+        });
+      });
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+
+      canvas.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        canvas.setPointerCapture(e.pointerId);
+        saveHistory();
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!drawing) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        if (eraser) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.lineWidth = lineWidth;
+        } else {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.strokeStyle = color;
+          ctx.lineWidth = e.pressure && e.pressure !== 0.5 ? lineWidth * (0.65 + e.pressure) : lineWidth;
+        }
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      });
+
+      function stopDraw() {
+        if (!drawing) return;
+        drawing = false;
+        ctx.closePath();
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      canvas.addEventListener('pointerup', stopDraw);
+      canvas.addEventListener('pointercancel', stopDraw);
+
+      resize();
+      pads[padKey] = { resize, clear };
+    }
+
+    function resizeAllPads() {
+      Object.values(pads).forEach(p => p.resize());
+    }
+
+    window.addEventListener('resize', resizeAllPads);
+
+    ['s1', 'ex1', 'ex2', 'ex3', 'q1', 'q2', 'q3', 'q4', 'q5'].forEach(createSketchpad);
+
+    // --- Answer Checkers ---
+    function parseMathVal(str) {
+      if (!str) return NaN;
+      const clean = str.trim().replace('−', '-');
+      if (clean.includes('/')) {
+        const parts = clean.split('/');
+        if (parts.length === 2) {
+          return parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+      }
+      return parseFloat(clean);
+    }
+
+    function normalizeEq(str) {
+      return str.toLowerCase().replace(/\s+/g, '').replace(/−/g, '-').replace(/–/g, '-');
+    }
+
+    function checkSlide1() {
+      hidePad('s1');
+      const d = parseMathVal(document.getElementById('s1_d').value);
+      const m = parseMathVal(document.getElementById('s1_m').value);
+      const fb = document.getElementById('fb1');
+      const dOk = Math.abs(d - 10.82) < 0.05;
+      const mOk = Math.abs(m - 1.5) < 0.01;
+      if (dOk && mOk) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Spot on! d = √117 ≈ 10.82 and gradient m = 9/6 = 3/2 (1.5).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Check your steps: run = 9 − 3 = 6 and rise = 7 − (−2) = 9.';
+      }
+    }
+
+    function checkSlide2() {
+      const val = normalizeEq(document.getElementById('s2_eq').value);
+      const fb = document.getElementById('fb2');
+      if (val === 'y-4=-2(x+3)') {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Correct! x − (−3) becomes (x + 3) → y − 4 = −2(x + 3).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Remember: y − y₁ = m(x − x₁) with (−3, 4) becomes y − 4 = −2(x + 3).';
+      }
+    }
+
+    function checkExample3() {
+      hidePad('ex3');
+      const eq = normalizeEq(document.getElementById('ex3_a').value);
+      const boat = document.getElementById('ex3_b_boat').value;
+      const inter = normalizeEq(document.getElementById('ex3_b_int').value).replace(/[()]/g, '');
+      const fb = document.getElementById('fb_ex3');
+      const eqOk = (eq === 'y-11=-1/2(x-4)' || eq === 'y-11=-0.5(x-4)' || eq === 'y-8=-1/2(x-10)' || eq === 'y-8=-0.5(x-10)');
+      const intOk = (inter === '8.8,8.6' || inter === '44/5,43/5');
+      if (eqOk && boat === 'yes' && intOk) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Spot on! y − 11 = −1/2(x − 4), boat R(18, 4) is on the path, and paths meet at (8.8, 8.6).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Check: m = (8 − 11)/(10 − 4) = −1/2; set −0.5x + 13 = 2x − 9 for intersection.';
+      }
+    }
+
+    function checkQ1() {
+      hidePad('q1');
+      const val = normalizeEq(document.getElementById('pq_1').value);
+      const fb = document.getElementById('fb_q1');
+      if (val === 'y-9=4(x-2)') {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Spot on! y − 9 = 4(x − 2).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Substitute m = 4 and (x₁, y₁) = (2, 9) into y − y₁ = m(x − x₁).';
+      }
+    }
+
+    function checkQ2() {
+      hidePad('q2');
+      const val = normalizeEq(document.getElementById('pq_2').value);
+      const fb = document.getElementById('fb_q2');
+      if (val === 'y+5=-3/2(x+4)' || val === 'y+5=-1.5(x+4)') {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Correct! Both negative coordinates flip to pluses: y + 5 = −3/2(x + 4).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Watch double negatives: y − (−5) = y + 5 and x − (−4) = x + 4.';
+      }
+    }
+
+    function checkQ3() {
+      hidePad('q3');
+      const m = parseMathVal(document.getElementById('pq_3a').value);
+      const eq = normalizeEq(document.getElementById('pq_3b').value);
+      const fb = document.getElementById('fb_q3');
+      if (m === -2 && eq === 'y-7=-2(x+2)') {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Excellent! m = −2 and equation using A(−2, 7) is y − 7 = −2(x + 2).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Check m = (−5 − 7)/(4 − (−2)) = −12/6 = −2, then use A(−2, 7).';
+      }
+    }
+
+    function checkQ4() {
+      hidePad('q4');
+      const eq = normalizeEq(document.getElementById('pq_4a').value);
+      const ansB = document.getElementById('pq_4b').value;
+      const fb = document.getElementById('fb_q4');
+      if (eq === 'y-120=2(x-15)' && ansB === 'no') {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Nailed it! m = 2 → y − 120 = 2(x − 15); at x = 95, cable height is 280 m ≠ 275 m.';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Find m = (200 − 120)/(55 − 15) = 80/40 = 2, then test x = 95, y = 275.';
+      }
+    }
+
+    function checkQ5() {
+      hidePad('q5');
+      const mid = normalizeEq(document.getElementById('pq_5m').value).replace(/[()]/g, '');
+      const eq = normalizeEq(document.getElementById('pq_5eq').value);
+      const fb = document.getElementById('fb_q5');
+      const eqOk = (eq === 'y-3=-3/2(x-5)' || eq === 'y-3=-1.5(x-5)');
+      if (mid === '5,3' && eqOk) {
+        fb.className = 'feedback-msg success';
+        fb.textContent = 'Brilliant! Midpoint M(5, 3), m_ST = 2/3 → m_⊥ = −3/2 → y − 3 = −3/2(x − 5).';
+      } else {
+        fb.className = 'feedback-msg error';
+        fb.textContent = 'Find midpoint M(5, 3) first, then take negative reciprocal of m_ST = 2/3.';
+      }
+    }
+  </script>
+</body>
+</html>
